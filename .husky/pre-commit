@@ -1,0 +1,22 @@
+# Pre-commit: automatisch aufraeumen + pruefen, bevor committet wird.
+# Reihenfolge: formatieren -> Lint autofix -> Typecheck (Gate) -> Fixes restagen.
+# Bricht der Commit ab, gibt es echte Fehler, die kein Autofix loesen kann.
+
+echo "[pre-commit] Prettier formatiert..."
+npm run format || exit 1
+
+echo "[pre-commit] ESLint fixt (das laeuft auch auf Vercel)..."
+npm run lint:fix || {
+  echo "[pre-commit] ESLint-Fehler, die kein Autofix loest. Bitte beheben."
+  exit 1
+}
+
+echo "[pre-commit] TypeScript typecheck..."
+npm run typecheck || {
+  echo "[pre-commit] Typfehler. Commit abgebrochen."
+  exit 1
+}
+
+# Auto-Fixes (Formatierung/Lint) mit in den Commit nehmen.
+git add -A
+echo "[pre-commit] Alles sauber."
