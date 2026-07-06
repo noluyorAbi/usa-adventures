@@ -16,5 +16,14 @@ wichtigsten, unverhandelbaren Punkte:
 - Vor „fertig“: `npm run check` muss grün sein, `npm run build` muss laufen.
   Ein pre-commit Hook (Husky) formatiert + lintet + typecheckt automatisch.
 
+## Dokumentieren ist Pflicht (Selbstpflege)
+
+Bei **jeder** Änderung ein Doc in `docs/features/<name>.md` (Vorlage
+`docs/features/_TEMPLATE.md`) anlegen/aktualisieren, mit: **Warum** der Change,
+**Was** es tut, **Wie**, **Warum diese Entscheidung**, **Was in Zukunft besser**,
+Dateien, Fallstricke, Datum. Danach `docs/features/README.md` verlinken und bei
+Kernänderungen `AGENTS.md` + `CLAUDE.md` aktualisieren. Details:
+[`AGENTS.md`](../AGENTS.md) → Abschnitt „Änderungs-Protokoll“.
+
 Inhalte ändern (neue Orte/Trips) passiert **nur** in `data/` — siehe
 [`docs/DATEN-BEARBEITEN.md`](../docs/DATEN-BEARBEITEN.md).

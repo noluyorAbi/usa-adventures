@@ -5,6 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MapPin, Search, X, Loader2, Crosshair } from "lucide-react";
 import { CATEGORIES, STATUSES, CREW } from "@/lib/config";
 import { useApp } from "@/lib/store";
+import { PROMPT_ADD_PLACE } from "@/lib/agentPrompts";
+import CopyForAgent from "./CopyForAgent";
 import type { Category, Status } from "@/lib/types";
 
 interface GeoHit {
@@ -355,6 +357,15 @@ export default function AddPlaceSheet() {
             >
               {draft ? "Zur Karte hinzufügen" : "Erst Ort wählen"}
             </button>
+
+            <div className="flex items-center justify-between gap-3 border-t border-[var(--border)] pt-4 text-sm text-[var(--text-muted)]">
+              <span>Lieber vom Agenten machen lassen?</span>
+              <CopyForAgent
+                text={PROMPT_ADD_PLACE}
+                label="Prompt kopieren"
+                variant="compact"
+              />
+            </div>
           </motion.aside>
         </>
       )}

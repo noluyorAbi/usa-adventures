@@ -22,18 +22,24 @@ Wenn eine Versionsnummer erscheint (z. B. `v20...`), passt alles.
 
 ---
 
-## 2. Das Projekt holen
+## 2. Das Projekt klonen (mit git, nicht als ZIP)
 
-**Einfachste Variante (ohne git):**
+Wir arbeiten mit **git** — dann kannst du Änderungen sauber committen und pushen
+(und Vercel deployed automatisch). ZIP-Download bitte nicht, damit nichts vom Repo
+abkoppelt.
 
-- Öffne das Repo auf GitHub.
-- Grüner Button **„Code“** → **„Download ZIP“**.
-- ZIP entpacken, z. B. auf den Schreibtisch.
+Prüfen, ob git da ist:
 
-**Oder mit git** (falls installiert):
+```bash
+git --version
+```
+
+Kommt ein Fehler, git installieren: **https://git-scm.com/downloads** (oder deinen
+KI-Agenten fragen, siehe Landing → „Copy für Agent"). Dann klonen:
 
 ```bash
 git clone https://github.com/noluyorAbi/usa-adventures.git
+cd usa-adventures
 ```
 
 ---

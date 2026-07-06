@@ -1,4 +1,5 @@
 import type { Category, Place, Status } from "./types";
+import { distanceFromBase, isWeekendReachable } from "./geo";
 
 export interface Filters {
   q: string;
@@ -6,6 +7,7 @@ export interface Filters {
   statuses: Status[];
   person: string | null;
   tripId: string | null;
+  weekendOnly: boolean;
 }
 
 export const EMPTY_FILTERS: Filters = {
@@ -14,6 +16,7 @@ export const EMPTY_FILTERS: Filters = {
   statuses: [],
   person: null,
   tripId: null,
+  weekendOnly: false,
 };
 
 export function filterCount(f: Filters): number {
@@ -22,7 +25,8 @@ export function filterCount(f: Filters): number {
     f.cats.length +
     f.statuses.length +
     (f.person ? 1 : 0) +
-    (f.tripId ? 1 : 0)
+    (f.tripId ? 1 : 0) +
+    (f.weekendOnly ? 1 : 0)
   );
 }
 
@@ -33,6 +37,8 @@ export function applyFilters(places: Place[], f: Filters): Place[] {
     if (f.cats.length && !f.cats.includes(p.category)) return false;
     if (f.statuses.length && !f.statuses.includes(p.status)) return false;
     if (f.person && p.addedBy !== f.person) return false;
+    if (f.weekendOnly && !isWeekendReachable(distanceFromBase(p.lat, p.lng)))
+      return false;
     if (q && !`${p.name} ${p.note}`.toLowerCase().includes(q)) return false;
     return true;
   });

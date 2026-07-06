@@ -128,6 +128,18 @@ export default function FilterBar({
                 ))}
               </Group>
 
+              <Group label="Reichweite">
+                <Chip
+                  on={filters.weekendOnly}
+                  color="#0fa3c4"
+                  onClick={() =>
+                    setFilters({ ...filters, weekendOnly: !filters.weekendOnly })
+                  }
+                >
+                  Nur Wochenend-Trips (≈ 4 h ab Oxnard)
+                </Chip>
+              </Group>
+
               <div className="flex items-center justify-between border-t border-[var(--border)] pt-3 text-sm">
                 <span className="text-[var(--text-muted)]">{resultCount} Spots</span>
                 {active > 0 && (
@@ -139,6 +151,7 @@ export default function FilterBar({
                         cats: [],
                         statuses: [],
                         person: null,
+                        weekendOnly: false,
                       })
                     }
                     className="text-[var(--sky)] hover:underline"

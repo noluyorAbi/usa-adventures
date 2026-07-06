@@ -1,129 +1,205 @@
-# AGENTS.md — Regeln für KI-Agenten (Copilot, Claude, Cursor, …)
+# AGENTS.md
 
-Wir entwickeln dieses Projekt **gemeinsam per Vibe-Coding** weiter: einer mit
-Informatik-Background, einer, der über KI-Agenten einsteigt. Damit beide sauber
-beitragen können, nichts kaputtgeht und alles konsistent bleibt, hält sich **jeder
-Agent an diese Regeln**. Lies sie komplett, bevor du Code änderst.
+**Die eine, verbindliche Anleitung für jede KI, die an diesem Repo arbeitet**
+(GitHub Copilot, Claude, Cursor, …). Das ist die _Single Source of Truth_.
+`CLAUDE.md` und `.github/copilot-instructions.md` verweisen nur hierher — Regeln
+stehen ausschließlich hier, damit nichts auseinanderläuft.
+
+Lies dieses Dokument komplett, bevor du Code änderst.
 
 ---
 
-## Das Projekt in einem Satz
+## TL;DR (30 Sekunden)
 
-Eine lokale, deploybare Reise-Web-App (USA + Hawaii) mit interaktiver Karte,
-Trips, Plan-Board und Erinnerungs-Timeline. Kein Backend, kein Login, keine
-Datenbank — alle Daten liegen als Dateien **im Projekt**.
+- Lokale Reise-App (Next.js). **Kein Backend, keine Secrets.** Daten in `data/*.ts`
+  - localStorage.
+- **Nur `lucide-react`-Icons, niemals Emojis.**
+- **TypeScript strict.** Globaler Zustand nur über `useApp()` (`lib/store.tsx`).
+- Styling nur mit Tailwind + CSS-Variablen aus `app/globals.css`.
+- **Vor „fertig": `npm run check` grün + jede Änderung in `docs/features/`
+  dokumentiert** (siehe Änderungs-Protokoll).
+- UI-Text deutsch, Code englisch.
+
+Wer arbeitet hier: wir entwickeln gemeinsam per Vibe-Coding weiter — einer mit
+Informatik-Background, einer steigt per KI-Agent ein. Deshalb zählen Disziplin und
+lückenlose Doku.
+
+---
+
+## North Star
+
+Eine schöne, mobile, **komplett lokale** App, mit der zwei Freunde ihr
+sechsmonatiges USA-Praktikum planen: interaktive Karte (USA + Hawaii), Trips,
+Plan-Board, Erinnerungen. Sie soll sich **selbst weiterpflegen können** — jede
+Änderung hinterlässt genug Doku, dass die nächste KI nahtlos weitermacht.
 
 ---
 
 ## HARTE REGELN (nicht verhandelbar)
 
-1. **KEINE Emojis. Niemals. Nirgends.** Nicht im UI, nicht im Code, nicht in
-   Commits, nicht in Doku. Stattdessen **immer Icons aus `lucide-react`**. Das
-   ist eine bewusste Design-Entscheidung des Projekts.
-2. **Kein Backend, keine externen Dienste, keine Credentials.** Kein Supabase,
-   Firebase, keine Datenbank, keine API-Keys, keine `.env`-Geheimnisse. Wenn ein
-   Feature „Speichern“ braucht: es lebt in `data/*.ts` (geteilt, via Git) oder im
-   `localStorage` des Browsers (siehe `lib/store.tsx`). Niemals Secrets committen.
-3. **TypeScript, strikt.** Kein `any` (Warnung). Typen kommen aus `lib/types.ts`.
-4. **Vor „fertig“: `npm run check` muss grün sein** (Typecheck + Lint + Prettier)
-   und `npm run build` muss durchlaufen.
-5. **Styling nur über Tailwind-Utilities + CSS-Variablen** aus `app/globals.css`
-   (z. B. `var(--sky)`, `var(--terra)`, `var(--text-muted)`). Farben für
-   Kategorien kommen aus `lib/config.ts` (`CATEGORIES`). Keine wahllosen Hex-Codes
-   verstreuen.
-6. **Icons: nur `lucide-react`.** Vorher prüfen, ob der Name existiert (manche
-   heißen anders, z. B. gibt es kein `Github`/`Palmtree` in dieser Version).
-   Import testen mit `npm run typecheck`.
-7. **State: genau ein Context** in `lib/store.tsx`, benutzt über `useApp()`. Keine
-   neuen State-Libraries (kein Redux, Zustand, Jotai …).
-8. **Animationen: `framer-motion`**, Standard-Easing `cubic-bezier(0.16,1,0.3,1)`.
-9. **Sprache:** UI-Texte auf **Deutsch**. Code (Variablen, Funktionen, Dateinamen)
-   auf **Englisch**. Kommentare dürfen deutsch sein (die Crew liest sie).
-10. **Client vs Server:** `"use client"` nur oben in Dateien, die Hooks/State/
-    Interaktivität brauchen. Sonst Server Component lassen.
+1. **KEINE Emojis. Nirgends** (UI, Code, Commits, Doku). Immer `lucide-react`.
+   Bewusste Design-Entscheidung. Icon-Namen vorher prüfen (`npm run typecheck`) —
+   manche existieren nicht (`Github`, `Palmtree`).
+2. **Kein Backend, keine externen Dienste, keine Credentials.** Kein Supabase/
+   Firebase/DB/API-Key/`.env`-Secret. „Speichern" heißt: `data/*.ts` (geteilt via
+   Git) oder `localStorage` (`lib/store.tsx`).
+3. **TypeScript strict, kein `any`.** Typen aus `lib/types.ts`.
+4. **Ein globaler Zustand:** `useApp()` aus `lib/store.tsx`. Keine neue
+   State-Library (kein Redux/Zustand/Jotai).
+5. **Styling nur Tailwind-Utilities + CSS-Variablen** aus `app/globals.css`
+   (`var(--sky)`, `var(--terra)`, `var(--text-muted)` …). Kategorie-Farben aus
+   `lib/config.ts` (`CATEGORIES`). Keine wahllosen Hex-Codes.
+6. **Animationen:** `framer-motion`, Standard-Easing `cubic-bezier(0.16,1,0.3,1)`.
+7. **Sprache:** UI-Texte **deutsch**, Code (Bezeichner/Dateinamen) **englisch**.
+   Kommentare dürfen deutsch sein.
+8. **Client vs Server:** `"use client"` nur, wenn Hooks/State/Interaktivität nötig.
+   Sonst Server Component.
+9. **Keine Component-Library** (kein shadcn/MUI). Bausteine sind handgeschrieben in
+   `components/` — neue im gleichen Stil.
+10. **Nichts Ungenutztes** committen (ESLint-Fehler). Zufall/Zeit nur im App-Code,
+    **nie in `remotion/`** (dort gesperrt).
+11. **Dokumentieren ist Pflicht.** Jede Änderung nach dem Änderungs-Protokoll.
+    Undokumentiert = unfertig.
 
 ---
 
-## Tech-Stack (was wir benutzen)
+## Änderungs-Protokoll (das Repo pflegt sich selbst)
 
-| Bereich      | Wahl                           | Notiz                                 |
-| ------------ | ------------------------------ | ------------------------------------- |
-| Framework    | **Next.js 16** (App Router)    | Routes = Ordner in `app/`             |
-| Sprache      | **TypeScript** (strict)        | Typen in `lib/types.ts`               |
-| UI-Lib       | **React 19**                   | Functional Components + Hooks         |
-| Styling      | **Tailwind CSS v4**            | Tokens/Variablen in `app/globals.css` |
-| Icons        | **lucide-react**               | Einzige Icon-Quelle. Keine Emojis.    |
-| Animation    | **framer-motion**              | Easing `cubic-bezier(0.16,1,0.3,1)`   |
-| Karte        | **react-leaflet + leaflet**    | Esri-Satellit + Labels (kein Key)     |
-| Datum        | **date-fns**                   | Countdown, Formatierung               |
-| Fonts        | **next/font** (Fraunces+Geist) | Fraunces = Display, Geist = Text      |
-| Formatierung | **Prettier**                   | `.prettierrc`, `npm run format`       |
-| Linting      | **ESLint** (flat config)       | `eslint.config.mjs`, `npm run lint`   |
-| Deploy       | **Vercel**                     | Zero-Config, keine Env-Variablen      |
+Bei **jeder** Änderung (Feature, Fix, Refactor):
 
-Keine Component-Library (kein shadcn/MUI). Komponenten sind handgeschrieben in
-`components/`. Wenn du eine brauchst, baue sie im gleichen Stil.
+1. **Doc** in `docs/features/<name>.md` anlegen/aktualisieren (Vorlage
+   `docs/features/_TEMPLATE.md`). Immer enthalten:
+   - **Warum** der Change (Motivation)
+   - **Was** es tut (Erklärung)
+   - **Wie** es umgesetzt ist
+   - **Warum diese Entscheidung** (Alternativen & Trade-offs)
+   - **Was in Zukunft besser** machbar wäre
+   - Dateien, Fallstricke/Annahmen, Regeln-Check, Datum
+2. **`docs/features/README.md`** Tabelle aktualisieren (verlinken).
+3. Bei neuem Kernkonzept: **`AGENTS.md` + `CLAUDE.md`** aktualisieren.
+4. **`README.md`** aktualisieren, wenn nutzersichtbar.
+5. `npm run check` grün → committen (pre-commit Hook prüft mit).
+
+Faustregel: erst verstehen, dann bauen, dann so dokumentieren, dass Stand **und**
+Begründung ohne Rückfragen aus den Docs hervorgehen.
+
+---
+
+## Definition of Done (Checkliste vor jedem Commit)
+
+- [ ] Keine Emojis (nur lucide-Icons).
+- [ ] Keine Secrets/Keys/externen Dienste.
+- [ ] `npm run check` grün, `npm run build` läuft.
+- [ ] UI-Text deutsch, Code englisch.
+- [ ] Neue Farben/Icons aus bestehenden Tokens/Configs.
+- [ ] Feature-Doc in `docs/features/` geschrieben/aktualisiert + verlinkt.
+- [ ] Bei nutzersichtbarer/Kern-Änderung: README/AGENTS/CLAUDE aktualisiert.
+
+---
+
+## Architektur & Datenfluss
+
+```
+data/places.ts + data/trips.ts   (Quelle der Wahrheit, im Repo)
+        │  (Import beim Start)
+        ▼
+lib/store.tsx  AppProvider ──►  useApp()  ◄── alle Client-Komponenten
+        │  (hydratisiert aus localStorage, schreibt bei Änderung zurück)
+        ▼
+app/(routen)   map / plans / trips / memories   +  components/*
+```
+
+- **`lib/store.tsx`** ist das Herz: hält `places`, `trips`, UI-Zustand (Auswahl,
+  Filter, Add-Sheet) und die Aktionen (`add/update/remove/love/advance`). Startet
+  mit `data/*`, hydratisiert danach aus `localStorage`, persistiert automatisch.
+- **`lib/filter.ts`** ist reine Logik (gut testbar): `applyFilters(places, f)`.
+- Reine Präsentations-Komponenten bekommen Props; globalen Zustand holt man über
+  `useApp()`.
+
+---
+
+## Tech-Stack
+
+| Bereich      | Wahl                        | Notiz                                      |
+| ------------ | --------------------------- | ------------------------------------------ |
+| Framework    | **Next.js 16** (App Router) | Routes = Ordner in `app/`                  |
+| Sprache      | **TypeScript** (strict)     | Typen in `lib/types.ts`                    |
+| UI           | **React 19**                | Functional Components + Hooks              |
+| Styling      | **Tailwind CSS v4**         | Tokens in `app/globals.css`                |
+| Icons        | **lucide-react**            | Einzige Icon-Quelle. Keine Emojis.         |
+| Animation    | **framer-motion**           | Easing `cubic-bezier(0.16,1,0.3,1)`        |
+| Karte        | **react-leaflet + leaflet** | Esri-Satellit + Labels (kein Key)          |
+| Datum        | **date-fns**                | Countdown, Formatierung                    |
+| Video/OG     | **Remotion**                | `remotion/` → `public/og.png`, `promo.mp4` |
+| Formatierung | **Prettier**                | `.prettierrc`                              |
+| Linting      | **ESLint** (flat)           | `eslint.config.mjs`                        |
+| Hooks        | **Husky** pre-commit        | format + lint + typecheck                  |
+| Deploy       | **Vercel**                  | Zero-Config, keine Env                     |
 
 ---
 
 ## Ordnerstruktur
 
 ```
-app/                 Routes (Next.js App Router)
-  layout.tsx         Root: Fonts + AppProvider + AppChrome
-  page.tsx           Landing-Page (/)
-  globals.css        Design-Tokens (Farben, Schatten) + Basis-Styles
-  map/page.tsx       /map      -> Karte
-  plans/page.tsx     /plans    -> Plan-Board
-  trips/page.tsx     /trips    -> Trip-Übersicht
-  memories/page.tsx  /memories -> Timeline
-components/          Wiederverwendbare UI-Bausteine
+app/                 Routes (App Router)
+  page.tsx           Landing (/)
+  map/ plans/ trips/ memories/   die vier App-Seiten
+  globals.css        Design-Tokens + Basis-Styles
+  robots.ts sitemap.ts  SEO
+  icon.svg           Favicon (Marke)
+components/          UI-Bausteine (handgeschrieben)
 lib/
   types.ts           Datentypen (Place, Trip, Category, Status)
   config.ts          Reisedaten, Kategorien, Crew, Kartenzentrum
-  store.tsx          Der EINE Context (useApp) — lokal, localStorage
-  filter.ts          Filter-Logik (rein, testbar)
-data/                >>> HIER LIEGEN DIE INHALTE <<<
-  places.ts          Alle Orte/Spots
-  trips.ts           Alle Trips/Regionen
-docs/                Anleitungen für Menschen
+  store.tsx          Der EINE Context: useApp() (lokal, localStorage)
+  filter.ts          Filter-Logik (rein)
+  geo.ts             Distanz/Wochenend-Radius
+  ics.ts             Kalender-Export (.ics)
+  agentPrompts.ts    Fertige Prompts für "Copy für Agent"
+data/                >>> INHALTE: places.ts + trips.ts <<<
+remotion/            Compositions für OG-Image + Promo-Video
+docs/
+  DATEN-BEARBEITEN.md  LOKAL-BEARBEITEN.md
+  features/          Ein Doc pro Feature (Pflicht) + _TEMPLATE.md + README.md
 ```
 
-**Wenn jemand nur Inhalte ändern will (neue Orte, Trips), passiert das
-ausschließlich in `data/`.** Kein anderer Code muss angefasst werden.
+Nur Inhalte ändern (Orte/Trips) → **ausschließlich `data/`**.
 
 ---
 
 ## Datenmodell (`lib/types.ts`)
 
-- `Place`: ein Punkt auf der Karte. Felder: `id, name, category, lat, lng,
-status, note, addedBy, tripId?, plannedDate?, visitedDate?, loves, createdAt`.
-- `Trip`: eine Region/Reise. Felder: `id, name, color, region, startDate?,
-endDate?, createdAt`.
+- `Place`: `id, name, category, lat, lng, status, note, addedBy, tripId?,
+plannedDate?, visitedDate?, loves, createdAt`.
+- `Trip`: `id, name, color, region, startDate?, endDate?, createdAt`.
 - `Category`: `roadtrip | surf | hike | food | city | park | other`.
 - `Status`: `wishlist | planned | visited`.
 
-Orte werden über `tripId` einem Trip zugeordnet.
+---
+
+## Rezepte (häufige Aufgaben)
+
+- **Neuer Ort** → nur `data/places.ts` (Zeile kopieren). Siehe
+  `docs/DATEN-BEARBEITEN.md`.
+- **Neuer Trip** → nur `data/trips.ts`.
+- **Neue Kategorie** → `lib/types.ts` (`Category`) **und** `lib/config.ts`
+  (`CATEGORIES`, Farbe + lucide-Icon).
+- **Neue Route/Seite** → Ordner unter `app/`, `"use client"` + `useApp()`, in
+  `components/AppChrome.tsx` (`NAV`) verlinken.
+- **Neues Feature** → bauen, dann Doc nach Änderungs-Protokoll.
 
 ---
 
-## Häufige Aufgaben (Rezepte)
+## Anti-Patterns (bitte NICHT)
 
-**Neuen Ort hinzufügen** -> nur `data/places.ts`, eine Zeile kopieren, Werte
-ändern. Details: `docs/DATEN-BEARBEITEN.md`.
-
-**Neuen Trip hinzufügen** -> nur `data/trips.ts`.
-
-**Neue Kategorie** -> `lib/types.ts` (`Category` erweitern) **und** `lib/config.ts`
-(`CATEGORIES` erweitern, mit Farbe + `lucide-react`-Icon).
-
-**Neue Route/Seite** -> Ordner unter `app/` anlegen (z. B. `app/budget/page.tsx`),
-`"use client"` + `useApp()` benutzen, in `components/AppChrome.tsx` in `NAV`
-verlinken.
-
-**Neue Komponente** -> in `components/`, gleicher Stil (Tailwind-Tokens, Icons,
-framer-motion). Reine Präsentation nimmt Props; globaler Zustand kommt aus
-`useApp()`.
+- Emoji „nur diesmal". Nein.
+- Ein Backend/eine API „nur für dieses eine Feature". Nein — local-first.
+- Farbe direkt als Hex im JSX. Nutze Tokens/`CATEGORIES`.
+- Zustand in einer neuen Lib oder per Prop-Drilling durchs halbe Baumwerk. Nutze
+  `useApp()`.
+- Gerade Anführungszeichen als deutsche Schlusszeichen **in JS-Strings** — das
+  beendet den String (nutze `data/` schlicht ohne Quotes oder echte „…").
+- Feature bauen, Doc „später". Später = nie.
 
 ---
 
@@ -131,26 +207,20 @@ framer-motion). Reine Präsentation nimmt Props; globaler Zustand kommt aus
 
 ```bash
 npm install        # einmalig
-npm run dev        # lokal starten (http://localhost:3000)
-npm run check      # Typecheck + Lint + Prettier-Check (VOR dem Commit)
-npm run format     # Code automatisch formatieren
-npm run build      # Produktions-Build (muss durchlaufen)
+npm run dev        # lokal (http://localhost:3000)
+npm run check      # typecheck + lint + prettier-check (vor Commit)
+npm run format     # automatisch formatieren
+npm run build      # Produktions-Build (muss laufen)
 ```
 
----
+## Deploy
 
-## Deploy (Vercel)
+Push auf `main` → Vercel deployed automatisch. **Keine Env-Variablen.**
 
-Repo mit Vercel verbinden, „Deploy“ klicken. **Keine Environment-Variablen
-nötig.** Framework wird als Next.js erkannt. Fertig.
+## Wenn du feststeckst
 
----
-
-## Checkliste vor jedem „done“
-
-- [ ] Keine Emojis eingebaut (nur `lucide-react`-Icons).
-- [ ] Keine Secrets/Keys/externen Dienste hinzugefügt.
-- [ ] `npm run check` ist grün.
-- [ ] `npm run build` läuft durch.
-- [ ] UI-Text deutsch, Code englisch.
-- [ ] Neue Farben/Icons aus den bestehenden Tokens/Configs.
+1. `docs/features/README.md` — gibt es das Feature schon? Wie hängt es zusammen?
+2. `lib/store.tsx` — wie fließt der Zustand?
+3. `app/globals.css` — welche Farb-/Design-Tokens gibt es?
+4. Immer noch unklar → im Doc offene Fragen notieren, klein anfangen, `npm run
+check` als Sicherheitsnetz.

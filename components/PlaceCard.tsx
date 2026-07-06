@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, Trash2, ArrowRight, MapPin } from "lucide-react";
+import { Heart, Trash2, ArrowRight, MapPin, Navigation } from "lucide-react";
 import { CATEGORIES, STATUSES } from "@/lib/config";
+import { distanceFromBase, isWeekendReachable, fmtKm } from "@/lib/geo";
 import type { Place, Status } from "@/lib/types";
 
 const NEXT: Record<Status, Status | null> = {
@@ -28,6 +29,8 @@ export default function PlaceCard({
   const CatIcon = cat.Icon;
   const next = NEXT[place.status];
   const date = place.visitedDate || place.plannedDate;
+  const km = distanceFromBase(place.lat, place.lng);
+  const weekend = isWeekendReachable(km);
 
   return (
     <motion.article
@@ -81,15 +84,26 @@ export default function PlaceCard({
       )}
 
       <div className="mt-3 flex items-center justify-between">
-        <span
-          className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium"
-          style={{
-            color: STATUSES[place.status].color,
-            background: `color-mix(in srgb, ${STATUSES[place.status].color} 15%, transparent)`,
-          }}
-        >
-          {STATUSES[place.status].label}
-        </span>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium"
+            style={{
+              color: STATUSES[place.status].color,
+              background: `color-mix(in srgb, ${STATUSES[place.status].color} 15%, transparent)`,
+            }}
+          >
+            {STATUSES[place.status].label}
+          </span>
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] text-[var(--text-dim)]"
+            style={{ background: "rgba(28,55,90,0.05)" }}
+            title={`Luftlinie ab Oxnard${weekend ? " · Wochenend-tauglich" : " · großer Trip"}`}
+          >
+            <Navigation size={10} />
+            {fmtKm(km)}
+            {weekend ? " · Wochenende" : ""}
+          </span>
+        </div>
 
         <div className="flex items-center gap-1 opacity-0 transition group-hover:opacity-100 focus-within:opacity-100">
           <button

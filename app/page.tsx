@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import { motion } from "framer-motion";
 import {
@@ -21,68 +20,24 @@ import {
   FolderOpen,
   Pencil,
   Rocket,
-  Copy,
-  Check,
 } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { ARRIVAL, DEPARTURE, CREW } from "@/lib/config";
+import { AGENT_STEPS, PROMPT_ALL, type AgentStep } from "@/lib/agentPrompts";
+import CopyForAgent from "@/components/CopyForAgent";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 const REPO = "https://github.com/noluyorAbi/usa-adventures";
 
-const AGENT_CONTEXT =
-  'Kontext: Projekt "USA Adventures" (Next.js 16, TypeScript, Tailwind), Repo https://github.com/noluyorAbi/usa-adventures. Es ist eine lokale Reise-App, komplett ohne Backend; Inhalte liegen in data/places.ts und data/trips.ts. Verbindliche Regeln stehen in AGENTS.md (u.a.: nur lucide-react-Icons statt Emojis, keine Secrets/kein Backend, npm run check muss grün sein). Ich bin Einsteiger und will vibe-coden.';
-
-const STEPS = [
-  {
-    Icon: Download,
-    title: "Node.js installieren",
-    desc: "Einmalig von nodejs.org die LTS-Version laden und installieren. Das ist die Basis, damit alles läuft.",
-    agent:
-      AGENT_CONTEXT +
-      "\n\nAufgabe: Hilf mir, Node.js (LTS) zu installieren. Frag mich zuerst, ob ich Windows oder macOS habe. Erkläre dann Schritt für Schritt in einfacher Sprache, was ich klicken/eingeben muss. Prüfe am Ende mit `node -v` und `npm -v`, ob es geklappt hat. Stell Rückfragen, wenn etwas unklar ist.",
-  },
-  {
-    Icon: Code2,
-    title: "Repo holen",
-    desc: "Auf GitHub oben rechts auf „Code“ → „Download ZIP“, entpacken. (Oder mit git klonen, wenn du magst.)",
-    agent:
-      AGENT_CONTEXT +
-      "\n\nAufgabe: Hilf mir, das Repo auf meinen Rechner zu holen. Frag mich, ob ich `git` installiert habe. Falls nein: erkläre den ZIP-Download von der GitHub-Seite und wohin ich entpacke. Falls ja: gib mir den `git clone`-Befehl. Danach: wie ich den Ordner im Terminal öffne.",
-  },
-  {
-    Icon: Terminal,
-    title: "Starten",
-    desc: "Ordner im Terminal öffnen, einmal „npm install“, dann „npm run dev“. Browser auf localhost:3000.",
-    agent:
-      AGENT_CONTEXT +
-      "\n\nAufgabe: Bring das Projekt lokal zum Laufen. Führe mich durch: Terminal im Projektordner öffnen, `npm install`, dann `npm run dev`, danach http://localhost:3000 im Browser. Erkläre jeden Befehl in einem Satz. Wenn eine Fehlermeldung kommt, frag mich nach dem genauen Text und hilf mir, sie zu lösen.",
-  },
-  {
-    Icon: FolderOpen,
-    title: "Inhalte finden",
-    desc: "Alles Editierbare liegt im Ordner „data/“: places.ts (Orte) und trips.ts (Reisen). Nur die anfassen.",
-    agent:
-      AGENT_CONTEXT +
-      "\n\nAufgabe: Erkläre mir die Projektstruktur in einfachen Worten, mit Fokus auf den Ordner `data/`. Sag mir klar: welche Datei bearbeite ich für Orte (places.ts) und welche für Trips (trips.ts), und welche Dateien ich besser NICHT anfasse. Lies vorher docs/DATEN-BEARBEITEN.md und AGENTS.md.",
-  },
-  {
-    Icon: Pencil,
-    title: "Ändern & speichern",
-    desc: "Eine Zeile kopieren, Werte anpassen, speichern. Der Browser aktualisiert sich selbst. Fertig.",
-    agent:
-      AGENT_CONTEXT +
-      "\n\nAufgabe: Füge einen neuen Ort hinzu. Frag mich nach Name und ungefährem Ort (du besorgst die Koordinaten lat/lng), Kategorie (roadtrip|surf|hike|food|city|park|other), Status (wishlist|planned|visited) und zu welchem Trip er gehört. Trag ihn dann sauber in data/places.ts ein, im gleichen Format wie die bestehenden Einträge, und halte dich an AGENTS.md. Zeig mir am Ende die eingefügte Zeile.",
-  },
-  {
-    Icon: Rocket,
-    title: "Online stellen",
-    desc: "Änderung committen und pushen — Vercel deployed automatisch. Nach ein paar Sekunden ist es live.",
-    agent:
-      AGENT_CONTEXT +
-      '\n\nAufgabe: Hilf mir, meine Änderung online zu stellen. Falls ich `git` nutze: führe mich durch `git add -A`, `git commit -m "..."`, `git push` (ein pre-commit Hook formatiert/prüft automatisch). Falls nicht: erkläre den Upload direkt über die GitHub-Weboberfläche. Erkläre, dass Vercel danach automatisch deployed und die Seite nach kurzer Zeit unter usa-adventures.vercel.app aktualisiert ist. Hilf bei Fehlermeldungen.',
-  },
-];
+// Icon je Schritt (Prompts + Texte kommen aus lib/agentPrompts.ts)
+const STEP_ICONS: Record<string, typeof Download> = {
+  node: Download,
+  clone: Code2,
+  start: Terminal,
+  find: FolderOpen,
+  edit: Pencil,
+  deploy: Rocket,
+};
 
 const FEATURES = [
   {
@@ -334,16 +289,32 @@ export default function Landing() {
           <p className="max-w-2xl text-[var(--text-muted)]">
             Du musst kein Programmierer sein. Orte und Trips ändert man in zwei Dateien
             im Ordner <code className="rounded bg-black/[0.05] px-1">data/</code>. Und
-            wenn du nicht weiterweißt: bei jedem Schritt auf{" "}
+            wenn du nicht weiterweißt: auf{" "}
             <span className="font-medium text-[var(--sky)]">Copy für Agent</span>{" "}
             klicken und den Text in deinen KI-Agenten (z.&nbsp;B. Copilot) einfügen —
             der macht den Rest.
           </p>
         </div>
 
+        {/* Master: kompletter Onboarding-Prompt */}
+        <div className="card flex flex-col gap-3 rounded-2xl p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-display text-lg">Alles auf einmal an den Agenten</p>
+            <p className="text-sm text-[var(--text-muted)]">
+              Ein Prompt, der deinen Agenten durch alle 6 Schritte führt — von Node bis
+              live.
+            </p>
+          </div>
+          <CopyForAgent
+            text={PROMPT_ALL}
+            label="Kompletten Setup-Prompt kopieren"
+            variant="primary"
+          />
+        </div>
+
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {STEPS.map((step, i) => (
-            <StepCard key={step.title} step={step} index={i} />
+          {AGENT_STEPS.map((step, i) => (
+            <StepCard key={step.key} step={step} index={i} />
           ))}
         </div>
 
@@ -389,48 +360,8 @@ export default function Landing() {
   );
 }
 
-function CopyForAgent({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(text);
-    } catch {
-      // Fallback for older browsers / insecure contexts
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-    }
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 1800);
-  }
-
-  return (
-    <button
-      onClick={copy}
-      className="flex items-center justify-center gap-2 rounded-xl border border-[var(--border)] bg-black/[0.02] py-2 text-sm font-medium transition hover:border-[var(--sky)]"
-      style={copied ? { borderColor: "var(--teal)", color: "var(--teal)" } : undefined}
-    >
-      {copied ? (
-        <>
-          <Check size={15} /> Kopiert
-        </>
-      ) : (
-        <>
-          <Copy size={15} /> Copy für Agent
-        </>
-      )}
-    </button>
-  );
-}
-
-function StepCard({ step, index }: { step: (typeof STEPS)[number]; index: number }) {
-  const { Icon, title, desc, agent } = step;
+function StepCard({ step, index }: { step: AgentStep; index: number }) {
+  const Icon = STEP_ICONS[step.key] ?? Pencil;
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -447,11 +378,11 @@ function StepCard({ step, index }: { step: (typeof STEPS)[number]; index: number
           <Icon size={17} strokeWidth={2.2} />
         </span>
         <span className="font-display text-lg">
-          <span className="text-[var(--text-dim)]">{index + 1}.</span> {title}
+          <span className="text-[var(--text-dim)]">{index + 1}.</span> {step.title}
         </span>
       </div>
-      <p className="flex-1 text-sm text-[var(--text-muted)]">{desc}</p>
-      <CopyForAgent text={agent} />
+      <p className="flex-1 text-sm text-[var(--text-muted)]">{step.desc}</p>
+      <CopyForAgent text={step.prompt} />
     </motion.div>
   );
 }
