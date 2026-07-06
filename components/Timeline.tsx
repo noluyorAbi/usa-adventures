@@ -34,13 +34,13 @@ export default function Timeline({
         </motion.span>
         <p className="font-display text-xl">Noch keine Erinnerungen</p>
         <p className="max-w-xs text-sm text-[var(--text-muted)]">
-          Setzt einen Spot auf <span className="text-[var(--teal)]">Erlebt</span>, dann
-          taucht er hier in eurer Timeline auf.
+          Sobald wir einen Spot auf <span className="text-[var(--teal)]">Erlebt</span>{" "}
+          setzen, taucht er hier in unserer Timeline auf.
         </p>
         <button
           onClick={onAdd}
           className="mt-2 rounded-full px-5 py-2 text-sm font-medium text-white"
-          style={{ background: "var(--sunset)" }}
+          style={{ background: "var(--sun-grad)" }}
         >
           Ersten Spot hinzufügen
         </button>

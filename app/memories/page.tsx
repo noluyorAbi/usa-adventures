@@ -20,7 +20,7 @@ export default function MemoriesPage() {
       <div className="flex flex-col gap-1">
         <h1 className="font-display text-3xl">Erinnerungen</h1>
         <p className="text-sm text-[var(--text-muted)]">
-          Alles was ihr schon erlebt habt, chronologisch.
+          Alles was wir schon erlebt haben, chronologisch.
         </p>
       </div>
 

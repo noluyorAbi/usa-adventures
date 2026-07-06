@@ -1,9 +1,9 @@
 # AGENTS.md — Regeln für KI-Agenten (Copilot, Claude, Cursor, …)
 
-Dieses Projekt wird **im Vibe-Coding** weiterentwickelt: zwei Leute, teils ohne
-Coding-Erfahrung, arbeiten mit KI-Agenten daran. Damit nichts kaputtgeht und
-alles konsistent bleibt, hält sich **jeder Agent an diese Regeln**. Lies sie
-komplett, bevor du Code änderst.
+Wir entwickeln dieses Projekt **gemeinsam per Vibe-Coding** weiter: einer mit
+Informatik-Background, einer, der über KI-Agenten einsteigt. Damit beide sauber
+beitragen können, nichts kaputtgeht und alles konsistent bleibt, hält sich **jeder
+Agent an diese Regeln**. Lies sie komplett, bevor du Code änderst.
 
 ---
 

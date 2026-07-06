@@ -86,7 +86,7 @@ export default function Dashboard({ places }: { places: Place[] }) {
             <div className="h-2 w-full overflow-hidden rounded-full bg-white/8">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: "var(--sunset)" }}
+                style={{ background: "var(--sun-grad)" }}
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
                 transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}

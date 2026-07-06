@@ -2,7 +2,7 @@
 
 <h1>USA / Adventures</h1>
 
-<p><b>Sechs Monate quer durch die USA.</b> Eine lokale Reise-Web-App mit interaktiver Karte, Trips, Plan-Board und Erinnerungs-Timeline. Kein Login, keine Datenbank, keine Cloud &mdash; alle Daten leben im Projekt.</p>
+<p><b>Sechs Monate quer durch die USA.</b> Unsere lokale Reise-Web-App mit interaktiver Karte, Trips, Plan-Board und Erinnerungs-Timeline. Kein Login, keine Datenbank, keine Cloud &mdash; alle unsere Daten leben im Projekt.</p>
 
 <p>
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-000?logo=nextdotjs&logoColor=white" />
@@ -22,12 +22,13 @@
 
 ## Was ist das?
 
-Alperen &amp; Justus machen ein halbes Jahr Praktikum in Kalifornien. Diese App ist
-ihr **geteiltes Reisegehirn**: Wo wollen wir hin, was ist geplant, was haben wir
-schon erlebt &mdash; alles an einem Ort, hübsch und mobil.
+Wir &mdash; **Alperen &amp; Justus** &mdash; machen ein halbes Jahr Praktikum in
+Kalifornien. Diese App ist unser **geteiltes Reisegehirn**: Wo wollen wir hin, was
+haben wir geplant, was haben wir schon erlebt &mdash; alles an einem Ort, hübsch
+und mobil.
 
-Gebaut, um **gemeinsam per Vibe-Coding** weiterzuwachsen: klare Struktur, alle
-Inhalte in zwei Dateien, und feste Regeln für KI-Agenten (Copilot &amp; Co).
+Wir bauen sie **gemeinsam per Vibe-Coding** weiter: klare Struktur, alle Inhalte in
+zwei Dateien, und feste Regeln für unsere KI-Agenten (Copilot &amp; Co).
 
 <table>
 <tr>

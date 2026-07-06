@@ -95,7 +95,7 @@ const FEATURES = [
     href: "/plans",
     Icon: ListChecks,
     title: "Plan-Board",
-    desc: "Von der Idee über geplant bis erlebt. Herzchen-Voting, damit ihr priorisiert.",
+    desc: "Von der Idee über geplant bis erlebt. Herzchen-Voting, damit wir priorisieren.",
   },
   {
     href: "/trips",
@@ -107,7 +107,7 @@ const FEATURES = [
     href: "/memories",
     Icon: Clock,
     title: "Erinnerungen",
-    desc: "Was ihr erlebt habt, als Timeline. Wird mit jedem Spot voller.",
+    desc: "Was wir erlebt haben, als Timeline. Wird mit jedem Spot voller.",
   },
 ] as const;
 

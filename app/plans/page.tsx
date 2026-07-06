@@ -34,7 +34,7 @@ export default function PlansPage() {
       <div className="flex flex-col gap-1">
         <h1 className="font-display text-3xl">Pläne</h1>
         <p className="text-sm text-[var(--text-muted)]">
-          Von der Idee zum erlebten Moment. Zieht Spots durch die Phasen.
+          Von der Idee zum erlebten Moment. Wir ziehen Spots durch die Phasen.
         </p>
       </div>
 
