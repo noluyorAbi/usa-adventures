@@ -14,11 +14,51 @@ import {
   Compass,
   ExternalLink,
   WifiOff,
+  Code2,
+  Download,
+  Terminal,
+  FolderOpen,
+  Pencil,
+  Rocket,
 } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { ARRIVAL, DEPARTURE, CREW } from "@/lib/config";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const REPO = "https://github.com/noluyorAbi/usa-adventures";
+
+const STEPS = [
+  {
+    Icon: Download,
+    title: "Node.js installieren",
+    desc: "Einmalig von nodejs.org die LTS-Version laden und installieren. Das ist die Basis, damit alles läuft.",
+  },
+  {
+    Icon: Code2,
+    title: "Repo holen",
+    desc: "Auf GitHub oben rechts auf „Code“ → „Download ZIP“, entpacken. (Oder mit git klonen, wenn du magst.)",
+  },
+  {
+    Icon: Terminal,
+    title: "Starten",
+    desc: "Ordner im Terminal öffnen, einmal „npm install“, dann „npm run dev“. Browser auf localhost:3000.",
+  },
+  {
+    Icon: FolderOpen,
+    title: "Inhalte finden",
+    desc: "Alles Editierbare liegt im Ordner „data/“: places.ts (Orte) und trips.ts (Reisen). Nur die anfassen.",
+  },
+  {
+    Icon: Pencil,
+    title: "Ändern & speichern",
+    desc: "Eine Zeile kopieren, Werte anpassen, speichern. Der Browser aktualisiert sich selbst. Fertig.",
+  },
+  {
+    Icon: Rocket,
+    title: "Online stellen",
+    desc: "Änderung committen und pushen — Vercel deployed automatisch. Nach ein paar Sekunden ist es live.",
+  },
+];
 
 const FEATURES = [
   {
@@ -150,6 +190,14 @@ export default function Landing() {
           >
             <Compass size={17} /> Trips ansehen
           </Link>
+          <a
+            href={REPO}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-6 py-3 font-medium backdrop-blur transition hover:border-[var(--ink)]"
+          >
+            <Code2 size={17} /> Code auf GitHub
+          </a>
         </motion.div>
 
         {/* live stats */}
@@ -165,6 +213,27 @@ export default function Landing() {
           <Stat value={visited} label="Erlebt" accent="var(--teal)" />
         </motion.div>
       </section>
+
+      {/* Promo video */}
+      <motion.section
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.5, ease: EASE }}
+        className="pb-6"
+      >
+        <div className="overflow-hidden rounded-3xl border border-[var(--border)] shadow-[var(--shadow-float)]">
+          <video
+            className="aspect-video w-full"
+            src="/promo.mp4"
+            poster="/promo-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        </div>
+      </motion.section>
 
       {/* Features */}
       <section className="grid gap-4 py-8 sm:grid-cols-2">
@@ -231,6 +300,67 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* Mitmachen / Tutorial für Laien */}
+      <section className="flex flex-col gap-6 py-8">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs tracking-[0.2em] text-[var(--text-dim)] uppercase">
+            Für alle, auch ohne Coding
+          </span>
+          <h2 className="font-display text-3xl">Selbst bearbeiten in 6 Schritten</h2>
+          <p className="max-w-2xl text-[var(--text-muted)]">
+            Du musst kein Programmierer sein. Orte und Trips ändert man in zwei Dateien
+            im Ordner <code className="rounded bg-black/[0.05] px-1">data/</code>. So
+            gehst du vor:
+          </p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {STEPS.map(({ Icon, title, desc }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.4, ease: EASE, delay: i * 0.04 }}
+              className="card flex flex-col gap-3 rounded-2xl p-5"
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="grid h-9 w-9 place-items-center rounded-xl text-white"
+                  style={{ background: "var(--sky-grad)" }}
+                >
+                  <Icon size={17} strokeWidth={2.2} />
+                </span>
+                <span className="font-display text-lg">
+                  <span className="text-[var(--text-dim)]">{i + 1}.</span> {title}
+                </span>
+              </div>
+              <p className="text-sm text-[var(--text-muted)]">{desc}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={REPO}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white"
+            style={{ background: "var(--sky-grad)" }}
+          >
+            <Code2 size={16} /> Repo auf GitHub
+          </a>
+          <a
+            href={`${REPO}/blob/main/docs/LOKAL-BEARBEITEN.md`}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 rounded-full border border-[var(--border)] bg-white/70 px-5 py-2.5 text-sm font-medium backdrop-blur transition hover:border-[var(--sky)]"
+          >
+            <FolderOpen size={16} /> Komplette Anleitung
+          </a>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="mt-8 flex flex-col gap-4 border-t border-[var(--border)] py-8 text-sm text-[var(--text-muted)] sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
@@ -240,7 +370,9 @@ export default function Landing() {
           <span>Crew: {CREW.join(" & ")}</span>
         </div>
         <a
-          href="https://github.com/noluyorAbi"
+          href={REPO}
+          target="_blank"
+          rel="noreferrer"
           className="flex items-center gap-1.5 transition hover:text-[var(--text)]"
         >
           <ExternalLink size={15} /> Repo &amp; Docs
