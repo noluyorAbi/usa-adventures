@@ -1,0 +1,33 @@
+# USA Adventures
+
+> Lokale Reise-Web-App (Next.js) für Alperen & Justus: interaktive geografische Karte (USA + Hawaii), Trips/Regionen, Plan-Board und Erinnerungs-Timeline. Kein Backend, kein Login — alle Daten liegen als Dateien im Projekt. Deployed auf Vercel.
+
+## Über das Projekt
+
+- Zweck: gemeinsames "Reisegehirn" für ein sechsmonatiges Praktikum in Oxnard, Kalifornien (Sept 2026 – März 2027). Orte planen, abhaken, Erinnerungen sammeln.
+- Architektur: komplett clientseitig/lokal. Quelle der Wahrheit sind `data/places.ts` (Orte) und `data/trips.ts` (Trips). Zusätzlich localStorage für Browser-Änderungen. Keine Datenbank, keine API-Keys.
+- Wird bewusst per Vibe-Coding mit KI-Agenten (z. B. GitHub Copilot) weiterentwickelt.
+
+## Tech-Stack
+
+Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS v4, lucide-react (Icons), framer-motion, react-leaflet + Leaflet (Esri-Satellitenkarte), date-fns. Prettier + ESLint + Husky pre-commit Hook. Remotion für OG-Image und Promo-Video.
+
+## Wichtige Dateien für Agenten
+
+- /AGENTS.md: verbindliche Regeln (nur Icons/keine Emojis, kein Backend/keine Secrets, TypeScript strict, ein Context via useApp(), `npm run check` muss grün sein).
+- /.github/copilot-instructions.md: Kurzfassung der Regeln für Copilot.
+- /docs/DATEN-BEARBEITEN.md: wie man Orte und Trips ändert.
+- /docs/LOKAL-BEARBEITEN.md: Einsteiger-Anleitung zum lokalen Setup.
+
+## Routen
+
+- / (Landing: Überblick, Video, Tutorial)
+- /map (interaktive Karte)
+- /plans (Plan-Board)
+- /trips (Trip-Übersicht)
+- /memories (Erinnerungs-Timeline)
+
+## Links
+
+- Repo: https://github.com/noluyorAbi/usa-adventures
+- Live: https://usa-adventures.vercel.app
