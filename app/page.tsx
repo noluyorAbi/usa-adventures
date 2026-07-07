@@ -23,7 +23,12 @@ import {
 } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { ARRIVAL, DEPARTURE, CREW } from "@/lib/config";
-import { AGENT_STEPS, PROMPT_ALL, type AgentStep } from "@/lib/agentPrompts";
+import {
+  AGENT_STEPS,
+  PROMPT_ALL,
+  FEATURE_EDITS,
+  type AgentStep,
+} from "@/lib/agentPrompts";
 import CopyForAgent from "@/components/CopyForAgent";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -336,6 +341,56 @@ export default function Landing() {
           >
             <FolderOpen size={16} /> Komplette Anleitung
           </a>
+        </div>
+      </section>
+
+      {/* Feature bearbeiten — pro Feature ein Agent-Prompt */}
+      <section className="flex flex-col gap-6 py-8">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs tracking-[0.2em] text-[var(--text-dim)] uppercase">
+            Feature bearbeiten
+          </span>
+          <h2 className="font-display text-3xl">Was willst du ändern?</h2>
+          <p className="max-w-2xl text-[var(--text-muted)]">
+            Such dir ein Feature aus, klick auf{" "}
+            <span className="font-medium text-[var(--sky)]">Code für Agent</span> und
+            gib den Prompt deinem KI-Agenten — er kennt dann Dateien, Doku und Regeln
+            und fragt dich, was genau du ändern willst.
+          </p>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURE_EDITS.map((f, i) => (
+            <motion.div
+              key={f.key}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.35, ease: EASE, delay: (i % 3) * 0.04 }}
+              className="card flex flex-col gap-2 rounded-2xl p-4"
+            >
+              <div className="flex items-center gap-2">
+                <span
+                  className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-white"
+                  style={{ background: "var(--sky-grad)" }}
+                >
+                  <Code2 size={15} strokeWidth={2.2} />
+                </span>
+                <span className="leading-tight font-medium">{f.title}</span>
+              </div>
+              <p className="text-xs text-[var(--text-muted)]">{f.desc}</p>
+              <code className="truncate rounded bg-black/[0.04] px-1.5 py-1 text-[11px] text-[var(--text-dim)]">
+                {f.files}
+              </code>
+              <div className="mt-auto pt-1">
+                <CopyForAgent
+                  text={f.prompt}
+                  label="Code für Agent"
+                  variant="compact"
+                />
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 

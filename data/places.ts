@@ -121,7 +121,9 @@ export const PLACES: Place[] = [
     about:
       "Entspannter Longboard-Spot direkt am historischen Pier, oft glassy zum Sonnenuntergang. Unser Hausstrand.",
     bestTime: "Sept–Nov (warm, sanfter Swell)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Aerial_view_of_the_pier%2C_Ventura%2C_California_LCCN2013631292.tiff/lossy-page1-1280px-Aerial_view_of_the_pier%2C_Ventura%2C_California_LCCN2013631292.tiff.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-socal",
     plannedDate: "2026-09-27",
@@ -140,7 +142,9 @@ export const PLACES: Place[] = [
     about:
       "American Riviera: spanische Architektur, Weinberge und palmengesäumte Strände. Nur 30 Min die Küste hoch.",
     bestTime: "Frühjahr & Herbst",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Santa_Barbara_Downtown_%28may_2012%29_%282%29_%28cropped%29.jpg/1280px-Santa_Barbara_Downtown_%28may_2012%29_%282%29_%28cropped%29.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-socal",
     plannedDate: null,
@@ -159,7 +163,9 @@ export const PLACES: Place[] = [
     about:
       "Der Inbegriff SoCal-Beach: breiter Sand, Promis, gute Anfängerwellen. Perfekter Strandtag.",
     bestTime: "Mai–Okt",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/ZumaBeachCountyPark.jpg/1280px-ZumaBeachCountyPark.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-socal",
     plannedDate: null,
@@ -178,7 +184,9 @@ export const PLACES: Place[] = [
     about:
       "Beste Aussicht auf die LA-Skyline und das Hollywood-Sign, dazu eine kostenlose Sternwarte. Magisch zur blauen Stunde.",
     bestTime: "klare Abende, Herbst/Winter",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Griffith_observatory_2006.jpg/1280px-Griffith_observatory_2006.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-socal",
     plannedDate: null,
@@ -197,7 +205,9 @@ export const PLACES: Place[] = [
     about:
       "Das Ende der Route 66: Riesenrad überm Pazifik, Pier-Feeling, breiter Strand. Purer SoCal-Postkarten-Vibe.",
     bestTime: "Sommerabende",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Santa_monica_pier_entrance_evening.jpg/1280px-Santa_monica_pier_entrance_evening.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-socal",
     plannedDate: null,
@@ -216,7 +226,9 @@ export const PLACES: Place[] = [
     about:
       "Kaum besuchter Nationalpark direkt vor unserer Haustür — Kajak durch Seehöhlen, Robben, endemische Tiere. Die 'Galápagos Nordamerikas'.",
     bestTime: "Frühling–Herbst",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Channel_Islands_National_Park_by_Sentinel-2.jpg/1280px-Channel_Islands_National_Park_by_Sentinel-2.jpg",
+    ],
     addedBy: "Crew",
     tripId: "trip-socal",
     plannedDate: null,
@@ -237,7 +249,9 @@ export const PLACES: Place[] = [
     about:
       "Die ikonische Küstenbrücke, wo Highway 1, Steilküste und Nebel verschmelzen — das Postkartenmotiv der PCH.",
     bestTime: "Sept–Okt (weniger Nebel)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Bixby_Creek_Bridge%2C_California%2C_USA_-_May_2013.jpg/1280px-Bixby_Creek_Bridge%2C_California%2C_USA_-_May_2013.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-pch",
     plannedDate: null,
@@ -256,7 +270,9 @@ export const PLACES: Place[] = [
     about:
       "Golden Gate, Nebel, steile Hügel, Cable Cars — die dichtesten, europäischsten Stadt-Vibes der Westküste.",
     bestTime: "Sept–Okt (wärmster, klarster Monat)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Golden_Gate_Bridge_as_seen_from_Battery_East.jpg/1280px-Golden_Gate_Bridge_as_seen_from_Battery_East.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-pch",
     plannedDate: null,
@@ -275,7 +291,9 @@ export const PLACES: Place[] = [
     about:
       "Grüne Regenstadt: Kaffee-Kultur, Pike Place Market, Wasser und Berge ringsum. Tor zum Pazifischen Nordwesten.",
     bestTime: "Jul–Sept (trocken)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Seattle_Center_as_night_falls.jpg/1280px-Seattle_Center_as_night_falls.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-pch",
     plannedDate: null,
@@ -296,7 +314,9 @@ export const PLACES: Place[] = [
     about:
       "Surreale Wüste aus Josuabäumen und Felsblöcken, einer der besten Sternenhimmel der USA. Kletter- und Fotografen-Traum.",
     bestTime: "Okt–April (nicht zu heiß)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Joshua_Tree_-_Cyclops_%2B_Potato_Head_-_Sunrise.jpg/1280px-Joshua_Tree_-_Cyclops_%2B_Potato_Head_-_Sunrise.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -315,7 +335,9 @@ export const PLACES: Place[] = [
     about:
       "Neon, Shows, Buffets, Casinos — absurd und over-the-top, aber einmal muss man. Guter Ausgangspunkt für die Canyons.",
     bestTime: "Frühjahr/Herbst (mild)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Las_Vegas_Strip_09_2017_4897.jpg/1280px-Las_Vegas_Strip_09_2017_4897.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -334,7 +356,9 @@ export const PLACES: Place[] = [
     about:
       "Extremste Landschaft der USA: Salzpfannen, Sanddünen, der tiefste Punkt Nordamerikas. Ausserirdisch schön.",
     bestTime: "Nov–März (sonst tödlich heiß)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/9/98/Death_Valley_from_space.JPG",
+    ],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -353,7 +377,9 @@ export const PLACES: Place[] = [
     about:
       "Die grössten Bäume der Erde — General Sherman ist der Volumen-Rekordhalter. Man fühlt sich winzig.",
     bestTime: "Mai–Okt (Strassen offen)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/General_Sherman_Tree_in_Sequoia_National_Park_-_June_2022.jpg/1280px-General_Sherman_Tree_in_Sequoia_National_Park_-_June_2022.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -372,7 +398,9 @@ export const PLACES: Place[] = [
     about:
       "Granitkathedrale: El Capitan, Half Dome, donnernde Wasserfälle. Einer der schönsten Nationalparks der Welt.",
     bestTime: "Mai–Jun (Wasserfälle) & Sept–Okt",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Half_Dome_with_Eastern_Yosemite_Valley_%2850MP%29.jpg/1280px-Half_Dome_with_Eastern_Yosemite_Valley_%2850MP%29.jpg",
+    ],
     addedBy: "Crew",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -391,7 +419,9 @@ export const PLACES: Place[] = [
     about:
       "Schiere, kaum fassbare Weite — eine der grossartigsten Naturkulissen der Welt. Sonnenaufgang am South Rim ist unvergesslich.",
     bestTime: "März–Mai & Sept–Nov",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Canyon_River_Tree_%28165872763%29.jpeg/1280px-Canyon_River_Tree_%28165872763%29.jpeg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -410,7 +440,9 @@ export const PLACES: Place[] = [
     about:
       "Rote Sandstein-Schluchten, der Narrows-Hike durch den Fluss, Angels Landing für Schwindelfreie. Puren Adrenalin-Natur.",
     bestTime: "April–Mai & Sept–Okt",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/1/10/Zion_angels_landing_view.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -429,7 +461,9 @@ export const PLACES: Place[] = [
     about:
       "Slot-Canyon mit surrealen Lichtstrahlen und der berühmte Horseshoe-Bend-Flussbogen. Ein Foto-Jackpot.",
     bestTime: "März–Okt (Lichtstrahlen mittags im Sommer)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Grand_Canyon_Horseshoe_Bend.jpg/1280px-Grand_Canyon_Horseshoe_Bend.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -450,7 +484,9 @@ export const PLACES: Place[] = [
     about:
       "Wo das Surfen zur Welt kam — sanfte, lange Wellen, Waikiki-Skyline und Diamond Head im Rücken.",
     bestTime: "April–Okt (trocken)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/City_of_Waikiki_view.jpg/1280px-City_of_Waikiki_view.jpg",
+    ],
     addedBy: "Crew",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -469,7 +505,9 @@ export const PLACES: Place[] = [
     about:
       "600 Kurven, 54 Brücken, Wasserfälle und Dschungel — hier ist die Fahrt selbst das Ziel.",
     bestTime: "ganzjährig (früh starten)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Hana_Highway_Millennium_Trail_Monument_and_Hana_Highway_Zero-Mile_Marker.jpg/1280px-Hana_Highway_Millennium_Trail_Monument_and_Hana_Highway_Zero-Mile_Marker.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -488,7 +526,9 @@ export const PLACES: Place[] = [
     about:
       "Aktive Vulkane, glühende Krater, junge Lavafelder — hier entsteht die Erde vor deinen Augen.",
     bestTime: "ganzjährig; Kraterglühen nachts",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/P%C4%81hoehoe_and_Aa_flows_at_Hawaii.jpg/1280px-P%C4%81hoehoe_and_Aa_flows_at_Hawaii.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -507,7 +547,9 @@ export const PLACES: Place[] = [
     about:
       "Kathedralen-Steilküste von Kauai, nur zu Fuss oder per Boot erreichbar — die Jurassic-Park-Kulisse in echt.",
     bestTime: "Mai–Sept (Trail begehbar)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/NaPali_overlook_Kalalau_Valley.jpg/1280px-NaPali_overlook_Kalalau_Valley.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -528,7 +570,9 @@ export const PLACES: Place[] = [
     about:
       "Die Stadt schlechthin — Skyline, Museen, Broadway, Energie rund um die Uhr. Unser Cross-Country-Ziel.",
     bestTime: "Sept–Okt & Dez (Weihnachten)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/1280px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-eastcoast",
     plannedDate: null,
@@ -547,7 +591,9 @@ export const PLACES: Place[] = [
     about:
       "Monumente, die gratis Smithsonian-Museen, gebündelte US-Geschichte auf der National Mall.",
     bestTime: "Frühling (Kirschblüte) & Herbst",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/12-07-13-washington-by-RalfR-08.jpg/1280px-12-07-13-washington-by-RalfR-08.jpg",
+    ],
     addedBy: "Justus",
     tripId: "trip-eastcoast",
     plannedDate: null,
@@ -566,7 +612,9 @@ export const PLACES: Place[] = [
     about:
       "Art-déco-Fassaden, warmes Wasser, kubanisches Essen und Nachtleben. Karibik-Feeling in den USA.",
     bestTime: "Nov–April (trocken, mild)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Ocean_drive_day_2009j.JPG/1280px-Ocean_drive_day_2009j.JPG",
+    ],
     addedBy: "Justus",
     tripId: "trip-eastcoast",
     plannedDate: null,
@@ -587,7 +635,9 @@ export const PLACES: Place[] = [
     about:
       "Der erste Nationalpark der Welt: Geysire, die Grand Prismatic Spring, Bisons und Bären. Purer Wow-Faktor.",
     bestTime: "Jun–Sept (alles offen)",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/7/73/Grand_Canyon_of_yellowstone.jpg",
+    ],
     addedBy: "Crew",
     tripId: "trip-rockies",
     plannedDate: null,
@@ -606,7 +656,9 @@ export const PLACES: Place[] = [
     about:
       "Die dramatischste Bergkette der Rockies, direkt neben Yellowstone — Alpenpanorama über spiegelnden Seen.",
     bestTime: "Jun–Sept",
-    images: [],
+    images: [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Barns_grand_tetons.jpg/1280px-Barns_grand_tetons.jpg",
+    ],
     addedBy: "Alperen",
     tripId: "trip-rockies",
     plannedDate: null,

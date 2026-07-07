@@ -18,6 +18,9 @@ die Einstiegshürde massiv.
   **„Kompletten Setup-Prompt kopieren"** (alle 6 Schritte am Stück).
 - App: kontextuelle Buttons an den passenden Funktionen — im Add-Sheet („Ort per
   Agent") und auf `/trips` („Trip per Agent").
+- Landing-Sektion **„Feature bearbeiten"**: pro Feature ein „Code für Agent"-Button
+  (`FEATURE_EDITS`), damit der Kollege das Feature aussucht, das er ändern will, und
+  seinem Agenten den passenden Prompt (Dateien + Doc + Regeln) gibt.
 
 ## 3. Wie es umgesetzt ist
 

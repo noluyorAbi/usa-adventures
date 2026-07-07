@@ -82,3 +82,138 @@ export const PROMPT_ALL =
   "\n\nBitte begleite mich komplett beim Aufsetzen und ersten Bearbeiten dieses Projekts. Gehe die folgenden Schritte der Reihe nach mit mir durch, jeweils in einfacher Sprache, mit Rückfragen wo nötig, und warte nach jedem Schritt auf mein OK:\n\n" +
   AGENT_STEPS.map((s, i) => `${i + 1}. ${s.title}: ${s.desc}`).join("\n") +
   "\n\nWichtig: git clone statt ZIP-Download. Am Ende bin ich in der Lage, selbst Orte/Trips zu ändern und online zu stellen.";
+
+/**
+ * Pro Feature ein fertiger Prompt: der Kollege sucht im Frontend das Feature aus,
+ * das er ändern will, kopiert den Prompt und gibt ihn seinem Agenten.
+ */
+export interface FeatureEdit {
+  key: string;
+  title: string;
+  desc: string;
+  files: string;
+  doc: string;
+  prompt: string;
+}
+
+function featurePrompt(title: string, desc: string, files: string, doc: string) {
+  return (
+    AGENT_CONTEXT +
+    `\n\nIch möchte das Feature „${title}" bearbeiten. Was es tut: ${desc}. ` +
+    `Zugehörige Dateien: ${files}. Feature-Doc: ${doc}. ` +
+    "Lies zuerst das Feature-Doc und AGENTS.md (besonders das Änderungs-Protokoll). " +
+    "Frag mich dann, was genau ich ändern will, setz es sauber um (nur lucide-Icons, kein Backend, npm run check muss grün sein) " +
+    "und aktualisiere danach das Feature-Doc sowie docs/features/README.md wie im Protokoll beschrieben."
+  );
+}
+
+export const FEATURE_EDITS: FeatureEdit[] = [
+  {
+    key: "landing",
+    title: "Landing-Page",
+    desc: "Startseite mit Hero, Video, Feature-Karten und Tutorial",
+    files: "app/page.tsx, app/globals.css",
+    doc: "—",
+  },
+  {
+    key: "map",
+    title: "Interaktive Karte",
+    desc: "Satelliten-Karte mit Pins, Klick-zum-Pinnen, FlyTo",
+    files: "components/MapCanvas.tsx, app/map/page.tsx",
+    doc: "docs/features/",
+  },
+  {
+    key: "trips",
+    title: "Trips & Regionen",
+    desc: "Trip-Gruppierung, Schnellfilter, Trip-Übersicht",
+    files: "components/TripChips.tsx, components/TripsTab.tsx, data/trips.ts",
+    doc: "docs/features/",
+  },
+  {
+    key: "plans",
+    title: "Plan-Board",
+    desc: "Kanban Wishlist → Geplant → Erlebt",
+    files: "components/PlanBoard.tsx, app/plans/page.tsx",
+    doc: "docs/features/",
+  },
+  {
+    key: "memories",
+    title: "Erinnerungen (Timeline)",
+    desc: "Chronologische Timeline erlebter Spots",
+    files: "components/Timeline.tsx, app/memories/page.tsx",
+    doc: "docs/features/",
+  },
+  {
+    key: "filter",
+    title: "Filter & Suche",
+    desc: "Suche + Kategorie/Status/Person/Wochenend-Filter",
+    files: "components/FilterBar.tsx, lib/filter.ts",
+    doc: "docs/features/",
+  },
+  {
+    key: "modal",
+    title: "Spot-Detail-Modal",
+    desc: "Bildergalerie, Warum-hin, beste Reisezeit, Aktionen",
+    files: "components/SpotModal.tsx, components/PlaceCard.tsx",
+    doc: "docs/features/spot-modal.md",
+  },
+  {
+    key: "distance",
+    title: "Distanz & Wochenend-Radius",
+    desc: "Luftlinie ab Oxnard + Wochenend-Tauglichkeit",
+    files: "lib/geo.ts, components/FilterBar.tsx",
+    doc: "docs/features/distance-and-weekend.md",
+  },
+  {
+    key: "surprise",
+    title: "Überrasch uns",
+    desc: "Zufälliger Wishlist-Spot auf der Karte",
+    files: "app/map/page.tsx",
+    doc: "docs/features/surprise-me.md",
+  },
+  {
+    key: "share",
+    title: "Spot teilen (Deep-Link)",
+    desc: "Teilbarer Link /map?spot=<id>",
+    files: "app/map/page.tsx",
+    doc: "docs/features/share-deeplink.md",
+  },
+  {
+    key: "ics",
+    title: "Kalender-Export (.ics)",
+    desc: "Geplante Spots als Kalenderdatei",
+    files: "lib/ics.ts, app/plans/page.tsx",
+    doc: "docs/features/calendar-export.md",
+  },
+  {
+    key: "home",
+    title: "Home-Marker",
+    desc: "Zuhause-Kategorie (Basecamp, BMW, Camarillo)",
+    files: "lib/config.ts, lib/types.ts, data/places.ts",
+    doc: "docs/features/home-markers.md",
+  },
+  {
+    key: "agentcopy",
+    title: "Copy-für-Agent-Prompts",
+    desc: "Alle Prompts + Buttons für Agenten",
+    files: "lib/agentPrompts.ts, components/CopyForAgent.tsx",
+    doc: "docs/features/agent-copy-prompts.md",
+  },
+  {
+    key: "media",
+    title: "OG-Image & Promo-Video",
+    desc: "Teiler-Bild + Video (Remotion)",
+    files: "remotion/, app/layout.tsx",
+    doc: "docs/features/",
+  },
+  {
+    key: "data",
+    title: "Inhalte (Orte & Trips)",
+    desc: "Die eigentlichen Reisedaten",
+    files: "data/places.ts, data/trips.ts",
+    doc: "docs/DATEN-BEARBEITEN.md",
+  },
+].map((f) => ({
+  ...f,
+  prompt: featurePrompt(f.title, f.desc, f.files, f.doc),
+}));

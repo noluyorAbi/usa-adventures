@@ -39,8 +39,11 @@ Notiz, Loves. Aktionen: Auf Karte zeigen, Status weiterschalten, Teilen (Deep-Li
 - **Bilder als URLs im Datenmodell**, nicht als Upload: bleibt **local-first**
   (kein Storage/Backend). Empfehlung: Dateien in `public/images/spots/` committen
   und lokal referenzieren — dann sind auch die Fotos Teil des Repos.
-- Bewusst **keine externen Foto-URLs vorbefüllt**: die würden brechen und einen
-  externen Dienst voraussetzen. Stattdessen ein sauberer Leer-Zustand + Anleitung.
+- **Bilder als externe URLs vorbefüllt**: pro Landmark-Spot ein echtes Foto von
+  `upload.wikimedia.org` (via Wikipedia PageImages-API keyless geholt, dann als
+  feste CDN-URL in `data/places.ts` hinterlegt). Kein API-Key zur Laufzeit, nur
+  ein `<img src>`. Lokale Fotos (`public/images/spots/`) gehen genauso — beides
+  ist erlaubt. Leer-Zustand bleibt für Spots ohne Bild.
 - Für `<img>` externer/lokaler Quellen: gezielt `@next/next/no-img-element` je
   Zeile deaktiviert (kein `next/image`, weil URLs beliebig/lokal sein können und
   wir keine `remotePatterns` pflegen wollen).
