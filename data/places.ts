@@ -5,26 +5,31 @@ import type { Place } from "@/lib/types";
  *  DIE ORTE / SPOTS  —  hier lebt fast alles
  * ═══════════════════════════════════════════════════════════════════
  *
- * WIE FÜGE ICH EINEN ORT HINZU? (auch ohne Coding-Erfahrung machbar)
- *   1. Kopiere eine ganze Zeile { ... } unten.
- *   2. Füge sie darunter ein und ändere die Werte.
- *   3. Speichern. Fertig — die App zeigt ihn.
+ * WIE FÜGE ICH EINEN ORT HINZU? (auch ohne Coding-Erfahrung)
+ *   1. Kopiere einen ganzen Block { ... } unten.
+ *   2. Füge ihn darunter ein und ändere die Werte.
+ *   3. Speichern. Die App zeigt ihn.
  *
  * FELDER:
- *   id           eindeutig, klein, mit Bindestrich   z.B. "spot-santa-cruz"
+ *   id           eindeutig, klein, mit Bindestrich   "spot-santa-cruz"
  *   name         Anzeigename                          "Santa Cruz"
- *   category     eine von: roadtrip surf hike food city park other
- *   lat, lng     Koordinaten (Google Maps: Rechtsklick auf Ort -> Zahlen kopieren)
+ *   category     home|roadtrip|surf|hike|food|city|park|other
+ *   lat, lng     Koordinaten (Google Maps: Rechtsklick -> Zahlen kopieren)
  *   status       wishlist | planned | visited
- *   note         kurzer Satz
+ *   note         kurze eigene Notiz
  *   addedBy      "Alperen" | "Justus" | "Crew" | eigener Name
  *   tripId       welche Reise? id aus data/trips.ts, oder null
  *   plannedDate  "2026-11-05" oder null
  *   visitedDate  "2026-11-05" oder null
  *   loves        Zahl (Herzchen)
- *   createdAt    Zeitstempel (einfach kopieren + Datum ändern)
+ *   createdAt    Zeitstempel (kopieren + Datum ändern)
  *
- * Tipp: Reihenfolge egal, die App sortiert selbst.
+ * OPTIONAL (erscheint im Detail-Modal, siehe docs/features/spot-modal.md):
+ *   about        1-2 Sätze: was den Ort einzigartig macht + warum hin
+ *   bestTime     idealer Reisezeitraum, z.B. "Sept–Okt" oder "Frühjahr"
+ *   images       Liste von Bild-URLs. Empfehlung lokal: lege Dateien in
+ *                public/images/spots/ und referenziere ["/images/spots/x.jpg"].
+ *                Externe URLs ["https://…"] gehen auch.
  */
 export const PLACES: Place[] = [
   // Unser Zuhause / Basis (home)
@@ -36,6 +41,10 @@ export const PLACES: Place[] = [
     lng: -119.1771,
     status: "visited",
     note: "Unsere Basis für 6 Monate. Strand 10 Min entfernt.",
+    about:
+      "Unser Zuhause auf Zeit: Strände, Erdbeerfelder, entspannter als LA — die perfekte ruhige Basis für alles andere.",
+    bestTime: "das ganze Halbjahr",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-socal",
     plannedDate: null,
@@ -51,6 +60,10 @@ export const PLACES: Place[] = [
     lng: -119.1713,
     status: "visited",
     note: "Unser Praktikum — E-Systems & Total Vehicle Validation. BMW Engineering & Emissions Test Center, 5900 Arcturus Ave, Oxnard, CA 93033.",
+    about:
+      "Wo die Arbeit passiert: E-Systems & Total Vehicle Validation. Preproduction-Fahrzeuge (BMW, M, MINI, RR) hautnah.",
+    bestTime: "Mo–Fr",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-socal",
     plannedDate: null,
@@ -66,6 +79,10 @@ export const PLACES: Place[] = [
     lng: -119.0376,
     status: "visited",
     note: "Wo wir wohnen — ~15 Min von Oxnard.",
+    about:
+      "Outlets, gutes Wetter, kurze Wege — unser Alltag zwischen Arbeit und Küste.",
+    bestTime: "immer",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-socal",
     plannedDate: null,
@@ -73,6 +90,8 @@ export const PLACES: Place[] = [
     loves: 2,
     createdAt: "2026-09-21T00:20:00Z",
   },
+
+  // SoCal
   {
     id: "seed-innout",
     name: "In-N-Out Oxnard",
@@ -81,6 +100,9 @@ export const PLACES: Place[] = [
     lng: -119.1618,
     status: "planned",
     note: "Animal style, day one ritual.",
+    about: "Kalifornisches Fast-Food-Ritual. Frische Burger, Animal Style ist Pflicht.",
+    bestTime: "Tag 1",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-socal",
     plannedDate: "2026-09-21",
@@ -96,6 +118,10 @@ export const PLACES: Place[] = [
     lng: -119.29,
     status: "planned",
     note: "Sunset surf check, closest good break.",
+    about:
+      "Entspannter Longboard-Spot direkt am historischen Pier, oft glassy zum Sonnenuntergang. Unser Hausstrand.",
+    bestTime: "Sept–Nov (warm, sanfter Swell)",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-socal",
     plannedDate: "2026-09-27",
@@ -111,6 +137,10 @@ export const PLACES: Place[] = [
     lng: -119.6982,
     status: "wishlist",
     note: "State Street, wine, red-tile roofs.",
+    about:
+      "American Riviera: spanische Architektur, Weinberge und palmengesäumte Strände. Nur 30 Min die Küste hoch.",
+    bestTime: "Frühjahr & Herbst",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-socal",
     plannedDate: null,
@@ -126,6 +156,10 @@ export const PLACES: Place[] = [
     lng: -118.8221,
     status: "wishlist",
     note: "Classic Malibu beach day.",
+    about:
+      "Der Inbegriff SoCal-Beach: breiter Sand, Promis, gute Anfängerwellen. Perfekter Strandtag.",
+    bestTime: "Mai–Okt",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-socal",
     plannedDate: null,
@@ -141,6 +175,10 @@ export const PLACES: Place[] = [
     lng: -118.3004,
     status: "wishlist",
     note: "Skyline + Hollywood sign at dusk.",
+    about:
+      "Beste Aussicht auf die LA-Skyline und das Hollywood-Sign, dazu eine kostenlose Sternwarte. Magisch zur blauen Stunde.",
+    bestTime: "klare Abende, Herbst/Winter",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-socal",
     plannedDate: null,
@@ -156,6 +194,10 @@ export const PLACES: Place[] = [
     lng: -118.4973,
     status: "wishlist",
     note: "End of Route 66. Ferris wheel over the ocean.",
+    about:
+      "Das Ende der Route 66: Riesenrad überm Pazifik, Pier-Feeling, breiter Strand. Purer SoCal-Postkarten-Vibe.",
+    bestTime: "Sommerabende",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-socal",
     plannedDate: null,
@@ -171,6 +213,10 @@ export const PLACES: Place[] = [
     lng: -119.7785,
     status: "wishlist",
     note: "Ferry from Ventura. Kayak sea caves.",
+    about:
+      "Kaum besuchter Nationalpark direkt vor unserer Haustür — Kajak durch Seehöhlen, Robben, endemische Tiere. Die 'Galápagos Nordamerikas'.",
+    bestTime: "Frühling–Herbst",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-socal",
     plannedDate: null,
@@ -188,6 +234,10 @@ export const PLACES: Place[] = [
     lng: -121.9026,
     status: "wishlist",
     note: "PCH Highway 1 north. The iconic photo.",
+    about:
+      "Die ikonische Küstenbrücke, wo Highway 1, Steilküste und Nebel verschmelzen — das Postkartenmotiv der PCH.",
+    bestTime: "Sept–Okt (weniger Nebel)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-pch",
     plannedDate: null,
@@ -203,6 +253,10 @@ export const PLACES: Place[] = [
     lng: -122.475,
     status: "wishlist",
     note: "Golden Gate, the whole Bay.",
+    about:
+      "Golden Gate, Nebel, steile Hügel, Cable Cars — die dichtesten, europäischsten Stadt-Vibes der Westküste.",
+    bestTime: "Sept–Okt (wärmster, klarster Monat)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-pch",
     plannedDate: null,
@@ -218,6 +272,10 @@ export const PLACES: Place[] = [
     lng: -122.3321,
     status: "wishlist",
     note: "Pacific NW. Coffee, Pike Place, rain.",
+    about:
+      "Grüne Regenstadt: Kaffee-Kultur, Pike Place Market, Wasser und Berge ringsum. Tor zum Pazifischen Nordwesten.",
+    bestTime: "Jul–Sept (trocken)",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-pch",
     plannedDate: null,
@@ -235,6 +293,10 @@ export const PLACES: Place[] = [
     lng: -115.901,
     status: "wishlist",
     note: "Desert stars, boulder scrambling.",
+    about:
+      "Surreale Wüste aus Josuabäumen und Felsblöcken, einer der besten Sternenhimmel der USA. Kletter- und Fotografen-Traum.",
+    bestTime: "Okt–April (nicht zu heiß)",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -250,6 +312,10 @@ export const PLACES: Place[] = [
     lng: -115.1398,
     status: "wishlist",
     note: "4h drive. Long weekend detour.",
+    about:
+      "Neon, Shows, Buffets, Casinos — absurd und over-the-top, aber einmal muss man. Guter Ausgangspunkt für die Canyons.",
+    bestTime: "Frühjahr/Herbst (mild)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -265,6 +331,10 @@ export const PLACES: Place[] = [
     lng: -117.0794,
     status: "wishlist",
     note: "Hottest place on earth. Go in winter.",
+    about:
+      "Extremste Landschaft der USA: Salzpfannen, Sanddünen, der tiefste Punkt Nordamerikas. Ausserirdisch schön.",
+    bestTime: "Nov–März (sonst tödlich heiß)",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -280,6 +350,10 @@ export const PLACES: Place[] = [
     lng: -118.5658,
     status: "wishlist",
     note: "General Sherman, the giant trees.",
+    about:
+      "Die grössten Bäume der Erde — General Sherman ist der Volumen-Rekordhalter. Man fühlt sich winzig.",
+    bestTime: "Mai–Okt (Strassen offen)",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -295,6 +369,10 @@ export const PLACES: Place[] = [
     lng: -119.5383,
     status: "wishlist",
     note: "Tunnel View, Half Dome. Big weekend.",
+    about:
+      "Granitkathedrale: El Capitan, Half Dome, donnernde Wasserfälle. Einer der schönsten Nationalparks der Welt.",
+    bestTime: "Mai–Jun (Wasserfälle) & Sept–Okt",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -310,6 +388,10 @@ export const PLACES: Place[] = [
     lng: -112.1129,
     status: "wishlist",
     note: "South Rim at sunrise. Bucket-list.",
+    about:
+      "Schiere, kaum fassbare Weite — eine der grossartigsten Naturkulissen der Welt. Sonnenaufgang am South Rim ist unvergesslich.",
+    bestTime: "März–Mai & Sept–Nov",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -325,6 +407,10 @@ export const PLACES: Place[] = [
     lng: -113.0263,
     status: "wishlist",
     note: "Angels Landing, The Narrows.",
+    about:
+      "Rote Sandstein-Schluchten, der Narrows-Hike durch den Fluss, Angels Landing für Schwindelfreie. Puren Adrenalin-Natur.",
+    bestTime: "April–Mai & Sept–Okt",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -340,6 +426,10 @@ export const PLACES: Place[] = [
     lng: -111.3743,
     status: "wishlist",
     note: "Slot canyon light beams + the river bend.",
+    about:
+      "Slot-Canyon mit surrealen Lichtstrahlen und der berühmte Horseshoe-Bend-Flussbogen. Ein Foto-Jackpot.",
+    bestTime: "März–Okt (Lichtstrahlen mittags im Sommer)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-southwest",
     plannedDate: null,
@@ -357,6 +447,10 @@ export const PLACES: Place[] = [
     lng: -157.8266,
     status: "wishlist",
     note: "Learn to surf where surfing was born.",
+    about:
+      "Wo das Surfen zur Welt kam — sanfte, lange Wellen, Waikiki-Skyline und Diamond Head im Rücken.",
+    bestTime: "April–Okt (trocken)",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -372,6 +466,10 @@ export const PLACES: Place[] = [
     lng: -156.0018,
     status: "wishlist",
     note: "600 curves, 54 bridges, waterfalls.",
+    about:
+      "600 Kurven, 54 Brücken, Wasserfälle und Dschungel — hier ist die Fahrt selbst das Ziel.",
+    bestTime: "ganzjährig (früh starten)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -387,6 +485,10 @@ export const PLACES: Place[] = [
     lng: -155.2885,
     status: "wishlist",
     note: "Active lava, Kilauea crater glow.",
+    about:
+      "Aktive Vulkane, glühende Krater, junge Lavafelder — hier entsteht die Erde vor deinen Augen.",
+    bestTime: "ganzjährig; Kraterglühen nachts",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -402,6 +504,10 @@ export const PLACES: Place[] = [
     lng: -159.6215,
     status: "wishlist",
     note: "Kalalau Trail cliffs. Jurassic Park scenery.",
+    about:
+      "Kathedralen-Steilküste von Kauai, nur zu Fuss oder per Boot erreichbar — die Jurassic-Park-Kulisse in echt.",
+    bestTime: "Mai–Sept (Trail begehbar)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-hawaii",
     plannedDate: null,
@@ -419,6 +525,10 @@ export const PLACES: Place[] = [
     lng: -74.006,
     status: "wishlist",
     note: "The whole thing. Cross-country goal.",
+    about:
+      "Die Stadt schlechthin — Skyline, Museen, Broadway, Energie rund um die Uhr. Unser Cross-Country-Ziel.",
+    bestTime: "Sept–Okt & Dez (Weihnachten)",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-eastcoast",
     plannedDate: null,
@@ -434,6 +544,10 @@ export const PLACES: Place[] = [
     lng: -77.0369,
     status: "wishlist",
     note: "Monuments, Smithsonian (free).",
+    about:
+      "Monumente, die gratis Smithsonian-Museen, gebündelte US-Geschichte auf der National Mall.",
+    bestTime: "Frühling (Kirschblüte) & Herbst",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-eastcoast",
     plannedDate: null,
@@ -449,6 +563,10 @@ export const PLACES: Place[] = [
     lng: -80.13,
     status: "wishlist",
     note: "Art deco, warm water, Cuban food.",
+    about:
+      "Art-déco-Fassaden, warmes Wasser, kubanisches Essen und Nachtleben. Karibik-Feeling in den USA.",
+    bestTime: "Nov–April (trocken, mild)",
+    images: [],
     addedBy: "Justus",
     tripId: "trip-eastcoast",
     plannedDate: null,
@@ -466,6 +584,10 @@ export const PLACES: Place[] = [
     lng: -110.5885,
     status: "wishlist",
     note: "Geysers, bison, Grand Prismatic.",
+    about:
+      "Der erste Nationalpark der Welt: Geysire, die Grand Prismatic Spring, Bisons und Bären. Purer Wow-Faktor.",
+    bestTime: "Jun–Sept (alles offen)",
+    images: [],
     addedBy: "Crew",
     tripId: "trip-rockies",
     plannedDate: null,
@@ -481,6 +603,10 @@ export const PLACES: Place[] = [
     lng: -110.6818,
     status: "wishlist",
     note: "The dramatic peaks next door to Yellowstone.",
+    about:
+      "Die dramatischste Bergkette der Rockies, direkt neben Yellowstone — Alpenpanorama über spiegelnden Seen.",
+    bestTime: "Jun–Sept",
+    images: [],
     addedBy: "Alperen",
     tripId: "trip-rockies",
     plannedDate: null,

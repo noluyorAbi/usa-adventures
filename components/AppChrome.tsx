@@ -7,6 +7,7 @@ import { Map, ListChecks, Route, Clock, Plus, Mountain } from "lucide-react";
 import { useApp } from "@/lib/store";
 import AddPlaceSheet from "./AddPlaceSheet";
 import Celebration from "./Celebration";
+import SpotModal from "./SpotModal";
 
 const NAV = [
   { href: "/map", label: "Karte", Icon: Map },
@@ -27,6 +28,7 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
         {children}
         <AddPlaceSheet />
         <Celebration />
+        <SpotModal />
       </>
     );
   }
@@ -117,6 +119,7 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
 
       <AddPlaceSheet />
       <Celebration />
+      <SpotModal />
     </div>
   );
 }

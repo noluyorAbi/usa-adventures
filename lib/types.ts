@@ -18,6 +18,11 @@ export interface Place {
   visitedDate?: string | null; // ISO date
   loves: number;
   createdAt: string; // ISO
+
+  // Reichere Details (optional, werden im Spot-Modal gezeigt)
+  images?: string[]; // Bild-URLs (extern) oder Pfade wie /images/spot.jpg
+  about?: string; // was den Ort einzigartig macht + warum hin
+  bestTime?: string; // idealer Reisezeitraum, z.B. "Okt–Nov" oder "Frühjahr"
 }
 
 export type NewPlace = Omit<Place, "id" | "loves" | "createdAt">;

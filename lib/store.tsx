@@ -24,7 +24,7 @@ import { TRIPS } from "@/data/trips";
 import { EMPTY_FILTERS, applyFilters, type Filters } from "@/lib/filter";
 import type { NewPlace, Place, Status, Trip } from "@/lib/types";
 
-const LS_KEY = "oxnard.places.v3";
+const LS_KEY = "oxnard.places.v4";
 
 function makeId() {
   return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
@@ -82,6 +82,11 @@ interface AppState {
 
   // ui: celebration
   celebrate: boolean;
+
+  // ui: spot detail modal
+  modalId: string | null;
+  openModal: (id: string) => void;
+  closeModal: () => void;
 }
 
 const Ctx = createContext<AppState | null>(null);
@@ -175,6 +180,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
   const closeSheet = useCallback(() => setSheetOpen(false), []);
 
+  const [modalId, setModalId] = useState<string | null>(null);
+  const openModal = useCallback((id: string) => setModalId(id), []);
+  const closeModal = useCallback(() => setModalId(null), []);
+
   const combinedFilters = useMemo<Filters>(
     () => ({ ...filters, tripId: tripFilter }),
     [filters, tripFilter],
@@ -210,6 +219,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     draft,
     setDraft,
     celebrate,
+    modalId,
+    openModal,
+    closeModal,
   };
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

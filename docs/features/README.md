@@ -13,6 +13,7 @@ sofort verstehen, was es tut, welche Dateien dazugehören und wie man es erweite
 | Kalender-Export (.ics)               | [calendar-export.md](calendar-export.md)           |
 | Copy-für-Agent-Prompts               | [agent-copy-prompts.md](agent-copy-prompts.md)     |
 | Home-Marker (Zuhause-Kategorie)      | [home-markers.md](home-markers.md)                 |
+| Spot-Detail-Modal (Bilder + Infos)   | [spot-modal.md](spot-modal.md)                     |
 
 ## Neues Feature hinzufügen (Pflicht-Ablauf für Agenten)
 

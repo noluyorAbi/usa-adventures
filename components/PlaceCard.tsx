@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, Trash2, ArrowRight, MapPin, Navigation } from "lucide-react";
+import { Heart, Trash2, ArrowRight, MapPin, Navigation, Maximize2 } from "lucide-react";
 import { CATEGORIES, STATUSES } from "@/lib/config";
 import { distanceFromBase, isWeekendReachable, fmtKm } from "@/lib/geo";
+import { useApp } from "@/lib/store";
 import type { Place, Status } from "@/lib/types";
 
 const NEXT: Record<Status, Status | null> = {
@@ -25,6 +26,7 @@ export default function PlaceCard({
   onDelete: (id: string) => void;
   onFocus: (id: string) => void;
 }) {
+  const { openModal } = useApp();
   const cat = CATEGORIES[place.category];
   const CatIcon = cat.Icon;
   const next = NEXT[place.status];
@@ -44,8 +46,9 @@ export default function PlaceCard({
     >
       <div className="flex items-start justify-between gap-3">
         <button
-          onClick={() => onFocus(place.id)}
+          onClick={() => openModal(place.id)}
           className="flex min-w-0 items-start gap-2 text-left"
+          title="Details öffnen"
         >
           <span
             className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg"
@@ -106,6 +109,13 @@ export default function PlaceCard({
         </div>
 
         <div className="flex items-center gap-1 opacity-0 transition group-hover:opacity-100 focus-within:opacity-100">
+          <button
+            onClick={() => openModal(place.id)}
+            className="grid h-7 w-7 place-items-center rounded-md text-[var(--text-dim)] transition hover:bg-black/[0.04] hover:text-[var(--text)]"
+            aria-label="Details öffnen"
+          >
+            <Maximize2 size={14} />
+          </button>
           <button
             onClick={() => onFocus(place.id)}
             className="grid h-7 w-7 place-items-center rounded-md text-[var(--text-dim)] transition hover:bg-black/[0.04] hover:text-[var(--text)]"
