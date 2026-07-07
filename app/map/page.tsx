@@ -1,15 +1,15 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Shuffle, Share2, Check } from "lucide-react";
+import { Shuffle } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { CATEGORIES, CREW } from "@/lib/config";
 import type { Category } from "@/lib/types";
 import TripChips from "@/components/TripChips";
 import FilterBar from "@/components/FilterBar";
-import PlaceCard from "@/components/PlaceCard";
+import MapFlyout from "@/components/MapFlyout";
 
 const MapCanvas = dynamic(() => import("@/components/MapCanvas"), {
   ssr: false,
@@ -33,9 +33,6 @@ export default function MapPage() {
     setTripFilter,
     selectedId,
     select,
-    love,
-    advance,
-    remove,
     addMode,
     setAddMode,
     draft,
@@ -44,7 +41,6 @@ export default function MapPage() {
     openSheet,
   } = useApp();
 
-  const [shared, setShared] = useState(false);
   const deepLinkApplied = useRef(false);
 
   const selected = places.find((p) => p.id === selectedId) ?? null;
@@ -67,18 +63,6 @@ export default function MapPage() {
     const list = pool.length ? pool : filtered;
     if (!list.length) return;
     select(list[Math.floor(Math.random() * list.length)].id);
-  }
-
-  async function share() {
-    if (!selected) return;
-    const url = `${window.location.origin}/map?spot=${selected.id}`;
-    try {
-      await navigator.clipboard.writeText(url);
-    } catch {
-      /* clipboard nicht verfügbar */
-    }
-    setShared(true);
-    window.setTimeout(() => setShared(false), 1800);
   }
 
   return (
@@ -140,41 +124,9 @@ export default function MapPage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
               transition={{ duration: 0.35, ease: EASE }}
-              className="absolute inset-x-3 bottom-3 z-[500] sm:inset-x-auto sm:right-3 sm:w-80"
+              className="absolute inset-x-3 bottom-3 z-[500] sm:inset-x-auto sm:right-3 sm:w-[21rem]"
             >
-              <div className="relative">
-                <div className="absolute -top-2 -right-2 z-10 flex gap-1">
-                  <button
-                    onClick={share}
-                    className="glass grid h-7 w-7 place-items-center rounded-full text-[var(--text-muted)]"
-                    title="Link zu diesem Spot kopieren"
-                    aria-label="Teilen"
-                  >
-                    {shared ? (
-                      <Check size={14} className="text-[var(--teal)]" />
-                    ) : (
-                      <Share2 size={14} />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => select(null)}
-                    className="glass grid h-7 w-7 place-items-center rounded-full text-[var(--text-muted)]"
-                    aria-label="Schließen"
-                  >
-                    <X size={14} />
-                  </button>
-                </div>
-                <PlaceCard
-                  place={selected}
-                  onLove={love}
-                  onAdvance={advance}
-                  onDelete={(id) => {
-                    remove(id);
-                    select(null);
-                  }}
-                  onFocus={() => {}}
-                />
-              </div>
+              <MapFlyout place={selected} />
             </motion.div>
           )}
         </AnimatePresence>

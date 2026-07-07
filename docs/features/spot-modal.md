@@ -85,3 +85,40 @@ Notiz, Loves. Aktionen: Auf Karte zeigen, Status weiterschalten, Teilen (Deep-Li
 - [x] Kein Backend/keine Secrets (Bilder sind nur `<img src>`)
 - [x] `npm run check` grün
 - [x] docs/features/README.md-Tabelle aktualisiert
+
+---
+
+## Update 2026-07-07 — v2 (mehr Fotos & Details)
+
+**Was neu ist**
+
+- **Foto-Galerie mit Lightbox:** Bilder im Modal sind jetzt tippbar und öffnen ein
+  Vollbild-Overlay mit Vor/Zurück und Zähler. Badge "N Fotos · tippen zum
+  Vergrößern" bei Mehrfachbildern.
+- **Neue optionale Detail-Felder** an `Place` (`lib/types.ts`), alle im Modal
+  gerendert: `highlights: string[]` (Stichpunkt-Liste), `tips: string`
+  (Insider-Tipp, amber-Box), `address` + `website` (klickbare Chips → Google Maps
+  bzw. externe Seite), `priceLevel` (Chip in den Quick-Facts).
+- **Zwei neue Kategorien** (`lib/config.ts` + `lib/types.ts`): `bar`
+  („Bars & Clubs", Martini-Icon) und `activity` („Aktivität", Ticket-Icon).
+  Filter-Chips, Add-Formular und Karten-Pins ziehen sich das automatisch aus
+  `CATEGORIES`.
+- **Copy-für-Agent im Modal:** Fußzeile + Leer-Zustand zeigen einen
+  `CopyForAgent`-Button mit `PROMPT_MAINTAIN_SPOT` (`lib/agentPrompts.ts`) — der
+  Kollege kopiert den Prompt und lässt seinen Agenten Fotos/Details ergänzen.
+- **Inhalte:** ~18 echte Orte in `data/places.ts` (Trip `trip-local` „Vor der
+  Haustür"): Food (Kalaveras, Cabo, Yolanda's, Moqueca, Otani, Cafe Amri), Bars &
+  Clubs (El Chilito, Casa Agria, Topa Topa, Levity Live, Test Pilot, Good Lion),
+  Aktivitäten (Whale Watching, Sea-Cave-Kayak, Channel Islands Harbor, Ventura
+  Harbor Village, Camarillo Outlets).
+- `lib/store.tsx`: `LS_KEY` v5 → v6, damit die neuen Felder/Orte bei allen ankommen.
+
+**Bilder-Quelle:** Fotos sind stabile Wikimedia-Commons-URLs, per Wikipedia-
+PageImages/REST-API (keyless) geholt und vor dem Eintragen auf HTTP 200 geprüft.
+Restaurant-/Gericht-Fotos sind **illustrativ** (repräsentatives Gericht, nicht das
+konkrete Lokal). Echte Crew-Fotos später lokal in `public/images/spots/` ablegen
+und die URLs ersetzen.
+
+**Fallstrick:** Wikimedia liefert bei On-Demand-Breiten teils HTTP 400 (angeforderte
+Breite > Original). Immer die von der API zurückgegebene Thumbnail-URL nehmen oder
+Breite ≤ Original — und jede URL vor dem Commit einmal laden.

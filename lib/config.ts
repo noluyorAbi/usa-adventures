@@ -7,6 +7,8 @@ import {
   Mountain,
   MapPin,
   House,
+  Martini,
+  Ticket,
   type LucideIcon,
 } from "lucide-react";
 import type { Category, Status } from "./types";
@@ -33,6 +35,8 @@ export const CATEGORIES: Record<
   surf: { label: "Surf & Beach", color: "#0fa3c4", Icon: Waves },
   hike: { label: "Hike", color: "#5aa06a", Icon: Footprints },
   food: { label: "Food", color: "#eaa41f", Icon: UtensilsCrossed },
+  bar: { label: "Bars & Clubs", color: "#b5468a", Icon: Martini },
+  activity: { label: "Aktivität", color: "#1f9e8f", Icon: Ticket },
   city: { label: "City", color: "#6a68d4", Icon: Building2 },
   park: { label: "Nationalpark", color: "#2f9e73", Icon: Mountain },
   other: { label: "Sonstiges", color: "#7d8a99", Icon: MapPin },

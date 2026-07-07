@@ -1,5 +1,14 @@
 export type Category =
-  "home" | "roadtrip" | "surf" | "hike" | "food" | "city" | "park" | "other";
+  | "home"
+  | "roadtrip"
+  | "surf"
+  | "hike"
+  | "food"
+  | "bar"
+  | "activity"
+  | "city"
+  | "park"
+  | "other";
 
 export type Status = "wishlist" | "planned" | "visited";
 
@@ -23,6 +32,11 @@ export interface Place {
   images?: string[]; // Bild-URLs (extern) oder Pfade wie /images/spot.jpg
   about?: string; // was den Ort einzigartig macht + warum hin
   bestTime?: string; // idealer Reisezeitraum, z.B. "Okt–Nov" oder "Frühjahr"
+  highlights?: string[]; // 2-4 Stichpunkte: was man hier macht / bestellt
+  tips?: string; // ein Insider-Tipp (1 Satz)
+  address?: string; // Straße + Stadt, z.B. "1041 S Oxnard Blvd, Oxnard"
+  website?: string; // volle URL, z.B. "https://…"
+  priceLevel?: string; // "$" | "$$" | "$$$" oder "gratis" / "ab 45 $"
 }
 
 export type NewPlace = Omit<Place, "id" | "loves" | "createdAt">;

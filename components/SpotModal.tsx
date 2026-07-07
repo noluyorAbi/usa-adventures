@@ -13,12 +13,20 @@ import {
   Share2,
   Check,
   MapPinned,
+  Tag,
+  MapPin,
+  Globe,
+  Lightbulb,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
 import { useApp } from "@/lib/store";
 import { CATEGORIES, STATUSES } from "@/lib/config";
 import { distanceFromBase, isWeekendReachable, driveHours, fmtKm } from "@/lib/geo";
 import type { Status } from "@/lib/types";
+import CopyForAgent from "@/components/CopyForAgent";
+import { PROMPT_MAINTAIN_SPOT } from "@/lib/agentPrompts";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -32,8 +40,15 @@ export default function SpotModal() {
   const router = useRouter();
   const { places, trips, modalId, closeModal, love, advance, select } = useApp();
   const [shared, setShared] = useState(false);
+  const [lightbox, setLightbox] = useState<number | null>(null);
 
   const place = places.find((p) => p.id === modalId) ?? null;
+  const galleryImages = place?.images ?? [];
+
+  function dismiss() {
+    setLightbox(null);
+    closeModal();
+  }
 
   async function share() {
     if (!place) return;
@@ -64,7 +79,7 @@ export default function SpotModal() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={closeModal}
+            onClick={dismiss}
           />
           <motion.div
             className="fixed inset-0 z-[1400] flex items-end justify-center p-0 sm:items-center sm:p-6"
@@ -97,30 +112,43 @@ export default function SpotModal() {
                       {images.length > 0 ? (
                         <div className="flex snap-x gap-2 overflow-x-auto">
                           {images.map((src, i) => (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
+                            <button
                               key={i}
-                              src={src}
-                              alt={`${place.name} ${i + 1}`}
-                              loading="lazy"
-                              className="h-56 w-full flex-shrink-0 snap-center object-cover sm:h-72"
-                              style={{
-                                width: images.length > 1 ? "88%" : "100%",
-                              }}
-                            />
+                              onClick={() => setLightbox(i)}
+                              className="group/img relative h-56 flex-shrink-0 snap-center overflow-hidden sm:h-72"
+                              style={{ width: images.length > 1 ? "88%" : "100%" }}
+                              aria-label={`Foto ${i + 1} groß ansehen`}
+                            >
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={src}
+                                alt={`${place.name} ${i + 1}`}
+                                loading="lazy"
+                                className="h-full w-full object-cover transition duration-500 group-hover/img:scale-[1.03]"
+                              />
+                            </button>
                           ))}
                         </div>
                       ) : (
-                        <div className="flex h-40 flex-col items-center justify-center gap-2 bg-[color-mix(in_srgb,var(--sky)_10%,transparent)] text-[var(--text-dim)]">
-                          <ImageOff size={30} strokeWidth={1.6} />
+                        <div className="flex flex-col items-center justify-center gap-2 bg-[color-mix(in_srgb,var(--sky)_10%,transparent)] px-6 py-8 text-center text-[var(--text-dim)]">
+                          <ImageOff size={28} strokeWidth={1.6} />
                           <span className="text-xs">
-                            Noch keine Fotos — in data/places.ts unter
-                            <code className="mx-1">images</code>ergänzen
+                            Noch keine Fotos für diesen Ort.
                           </span>
+                          <CopyForAgent
+                            text={PROMPT_MAINTAIN_SPOT}
+                            label="Fotos & Details ergänzen — Copy für Agent"
+                            variant="compact"
+                          />
                         </div>
                       )}
+                      {images.length > 1 && (
+                        <span className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/55 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
+                          {images.length} Fotos · tippen zum Vergrößern
+                        </span>
+                      )}
                       <button
-                        onClick={closeModal}
+                        onClick={dismiss}
                         className="absolute top-3 right-3 grid h-9 w-9 place-items-center rounded-full bg-white/85 text-[var(--text)] backdrop-blur transition hover:bg-white"
                         aria-label="Schließen"
                       >
@@ -186,6 +214,11 @@ export default function SpotModal() {
                             <CalendarClock size={12} /> Beste Zeit: {place.bestTime}
                           </span>
                         )}
+                        {place.priceLevel && (
+                          <span className="inline-flex items-center gap-1 rounded-full bg-[color-mix(in_srgb,var(--teal)_14%,transparent)] px-2.5 py-1 text-[var(--teal)]">
+                            <Tag size={12} /> {place.priceLevel}
+                          </span>
+                        )}
                       </div>
 
                       {/* About */}
@@ -197,6 +230,77 @@ export default function SpotModal() {
                           <p className="text-[15px] leading-relaxed text-[var(--text)]">
                             {place.about}
                           </p>
+                        </div>
+                      )}
+
+                      {/* Highlights */}
+                      {place.highlights && place.highlights.length > 0 && (
+                        <div className="flex flex-col gap-2">
+                          <span className="text-xs tracking-wider text-[var(--text-dim)] uppercase">
+                            Highlights
+                          </span>
+                          <ul className="flex flex-col gap-1.5">
+                            {place.highlights.map((h, i) => (
+                              <li
+                                key={i}
+                                className="flex items-start gap-2 text-[15px] leading-snug text-[var(--text)]"
+                              >
+                                <span
+                                  className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+                                  style={{ background: cat.color }}
+                                />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Insider tip */}
+                      {place.tips && (
+                        <div
+                          className="flex items-start gap-2.5 rounded-2xl p-3.5"
+                          style={{
+                            background:
+                              "color-mix(in srgb, var(--amber) 12%, transparent)",
+                          }}
+                        >
+                          <Lightbulb
+                            size={17}
+                            className="mt-0.5 shrink-0 text-[var(--amber)]"
+                          />
+                          <p className="text-sm leading-relaxed text-[var(--text)]">
+                            <span className="font-medium">Insider-Tipp: </span>
+                            {place.tips}
+                          </p>
+                        </div>
+                      )}
+
+                      {/* Address + website */}
+                      {(place.address || place.website) && (
+                        <div className="flex flex-wrap gap-2 text-sm">
+                          {place.address && (
+                            <a
+                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                `${place.name} ${place.address}`,
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3 py-1.5 text-[var(--text-muted)] transition hover:border-[var(--sky)] hover:text-[var(--text)]"
+                            >
+                              <MapPin size={13} /> {place.address}
+                            </a>
+                          )}
+                          {place.website && (
+                            <a
+                              href={place.website}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] px-3 py-1.5 text-[var(--sky)] transition hover:border-[var(--sky)]"
+                            >
+                              <Globe size={13} /> Website
+                            </a>
+                          )}
                         </div>
                       )}
 
@@ -244,12 +348,84 @@ export default function SpotModal() {
                           )}
                         </button>
                       </div>
+
+                      {/* Für den Kollegen: diesen Ort selbst pflegen */}
+                      <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[var(--text-dim)]">
+                        <span>Fotos oder Details ergänzen?</span>
+                        <CopyForAgent
+                          text={PROMPT_MAINTAIN_SPOT}
+                          label="Copy für Agent"
+                          variant="compact"
+                        />
+                      </div>
                     </div>
                   </>
                 );
               })()}
             </motion.div>
           </motion.div>
+
+          {/* Lightbox — Vollbild-Foto */}
+          <AnimatePresence>
+            {lightbox !== null && galleryImages[lightbox] && (
+              <motion.div
+                className="fixed inset-0 z-[1600] flex items-center justify-center bg-black/90 p-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setLightbox(null)}
+              >
+                <button
+                  onClick={() => setLightbox(null)}
+                  className="absolute top-4 right-4 grid h-10 w-10 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition hover:bg-white/25"
+                  aria-label="Schließen"
+                >
+                  <X size={20} />
+                </button>
+                {galleryImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightbox(
+                          (lightbox - 1 + galleryImages.length) % galleryImages.length,
+                        );
+                      }}
+                      className="absolute left-3 grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition hover:bg-white/25"
+                      aria-label="Vorheriges Foto"
+                    >
+                      <ChevronLeft size={22} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setLightbox((lightbox + 1) % galleryImages.length);
+                      }}
+                      className="absolute right-3 grid h-11 w-11 place-items-center rounded-full bg-white/15 text-white backdrop-blur transition hover:bg-white/25"
+                      aria-label="Nächstes Foto"
+                    >
+                      <ChevronRight size={22} />
+                    </button>
+                  </>
+                )}
+                <motion.img
+                  key={lightbox}
+                  src={galleryImages[lightbox]}
+                  alt={`${place.name} groß`}
+                  className="max-h-[88vh] max-w-[92vw] rounded-lg object-contain shadow-2xl"
+                  initial={{ scale: 0.96, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.25, ease: EASE }}
+                  onClick={(e) => e.stopPropagation()}
+                />
+                {galleryImages.length > 1 && (
+                  <span className="absolute bottom-5 rounded-full bg-white/15 px-3 py-1 text-sm text-white backdrop-blur">
+                    {lightbox + 1} / {galleryImages.length}
+                  </span>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </>
       )}
     </AnimatePresence>

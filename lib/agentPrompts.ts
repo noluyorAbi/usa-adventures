@@ -71,6 +71,28 @@ export const PROMPT_ADD_PLACE =
   AGENT_CONTEXT +
   "\n\nAufgabe: Füge einen neuen Ort in data/places.ts hinzu. Frag mich nach Name, ungefährem Ort (du besorgst lat/lng), Kategorie (roadtrip|surf|hike|food|city|park|other), Status (wishlist|planned|visited) und Trip-Zugehörigkeit (id aus data/trips.ts oder null). Nutze exakt das Format der bestehenden Einträge und halte dich an AGENTS.md. Danach: Doc-Pflicht prüfen (nur nötig bei neuem Feature, nicht bei reinen Daten).";
 
+/**
+ * Spot-Detail pflegen — Fotos & reiche Details ergänzen.
+ * Genau der Prompt, den der Kollege seinem Agenten gibt, um dieses Feature
+ * (das Detail-Modal) selbst weiterzupflegen.
+ */
+export const PROMPT_MAINTAIN_SPOT =
+  AGENT_CONTEXT +
+  "\n\nAufgabe: Ich will bei einem Ort in data/places.ts mehr FOTOS und mehr DETAILS ergänzen, die im Detail-Modal erscheinen. Lies zuerst docs/features/spot-modal.md und AGENTS.md.\n\n" +
+  "So gehst du vor:\n" +
+  "1. Frag mich, um welchen Ort es geht (name oder id), und was ich ergänzen will.\n" +
+  "2. Ergänze am Eintrag in data/places.ts nur diese optionalen Felder (alle optional, weglassen ist ok):\n" +
+  "   • images: string[]  — 1-3 Foto-URLs. Bevorzugt lokale Dateien in public/images/spots/ (dann committen), sonst stabile Wikimedia-Commons-URLs (upload.wikimedia.org). KEINE willkürlichen Hotlinks, die brechen.\n" +
+  "   • about: string      — 1-2 Sätze, warum hin.\n" +
+  "   • bestTime: string   — beste Reisezeit.\n" +
+  "   • highlights: string[] — 2-4 kurze Stichpunkte (was machen/bestellen).\n" +
+  "   • tips: string       — ein Insider-Tipp.\n" +
+  "   • address / website / priceLevel — Kontaktinfos.\n" +
+  "3. Prüfe, dass jede Bild-URL wirklich lädt (HTTP 200), bevor du sie einträgst.\n" +
+  "4. Halte dich exakt an das Format bestehender Einträge, nur lucide-Icons, kein Backend/keine Secrets.\n" +
+  "5. Führe `npm run check` aus (muss grün sein) und aktualisiere danach docs/features/spot-modal.md wie im Änderungs-Protokoll.\n\n" +
+  "Reine Datenpflege (Fotos/Texte an bestehenden Feldern) braucht keine neue Feature-Doc. Neue Felder oder UI-Änderungen am Modal schon.";
+
 /** Ein neuer Trip — direkt aus der App heraus. */
 export const PROMPT_ADD_TRIP =
   AGENT_CONTEXT +

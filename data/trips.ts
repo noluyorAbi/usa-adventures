@@ -31,6 +31,15 @@ export const TRIPS: Trip[] = [
     createdAt: "2026-09-20T00:00:00Z",
   },
   {
+    id: "trip-local",
+    name: "Vor der Haustür",
+    color: "#b5468a",
+    region: "Oxnard · Ventura · Camarillo — Food, Bars & Aktivitäten",
+    startDate: "2026-09-21",
+    endDate: "2027-03-19",
+    createdAt: "2026-09-20T00:00:30Z",
+  },
+  {
     id: "trip-pch",
     name: "Pacific Coast Highway",
     color: "#f2683f",
