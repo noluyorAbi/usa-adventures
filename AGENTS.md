@@ -26,6 +26,41 @@ lückenlose Doku.
 
 ---
 
+## Projekt-Metadaten (für schnelle Orientierung)
+
+| Feld               | Wert                                                             |
+| ------------------ | ---------------------------------------------------------------- |
+| Name               | USA Adventures                                                   |
+| Repo               | https://github.com/noluyorAbi/usa-adventures                     |
+| Live               | https://usa-adventures.vercel.app                                |
+| Status             | aktiv, privat/Hobby, produktiv deployed                          |
+| Crew               | Alperen (Informatik) & Justus (Vibe-Coding-Einstieg)             |
+| Zweck              | 6-Monate-USA-Praktikum planen: Karte, Trips, Pläne, Erinnerungen |
+| Reisezeitraum      | 21.09.2026 – 19.03.2027 (`lib/config.ts`: `ARRIVAL`/`DEPARTURE`) |
+| Basis              | Oxnard, Kalifornien (`BASECAMP`)                                 |
+| Persistenz         | `data/*.ts` (Repo) + `localStorage` (Browser). **Kein Backend.** |
+| Env-Variablen      | keine                                                            |
+| Auth/Login         | keiner                                                           |
+| Sprache            | UI **deutsch**, Code **englisch**                                |
+| Node               | >= 20 (Next 16)                                                  |
+| Paketmanager       | npm                                                              |
+| CI / Guardrails    | Husky pre-commit (prettier + eslint --fix + tsc)                 |
+| Hosting/Deploy     | Vercel, Git-Integration (Push auf `main` = Deploy)               |
+| Analytics/Tracking | keins                                                            |
+| Barrierefreiheit   | `aria-label` an Icon-Buttons, Fokus-Ringe via `:focus-visible`   |
+
+## Maschinenlesbar: llms.txt
+
+Für LLM-Crawler/Agenten gibt es eine kompakte, maschinenlesbare Übersicht unter
+**`/llms.txt`** (Quelle: `public/llms.txt`), nach der
+[llmstxt.org](https://llmstxt.org)-Konvention: Kurzbeschreibung, Stack, wichtige
+Dateien (inkl. dieser `AGENTS.md`, `.github/copilot-instructions.md`, `docs/`),
+Routen und Links. **Reihenfolge zum Einlesen:** `/llms.txt` (Überblick) →
+`AGENTS.md` (Regeln + Metadaten, dieses Dokument) → `docs/features/README.md`
+(Feature-Details).
+
+---
+
 ## North Star
 
 Eine schöne, mobile, **komplett lokale** App, mit der zwei Freunde ihr
@@ -174,6 +209,91 @@ plannedDate?, visitedDate?, loves, createdAt`.
 - `Trip`: `id, name, color, region, startDate?, endDate?, createdAt`.
 - `Category`: `roadtrip | surf | hike | food | city | park | other`.
 - `Status`: `wishlist | planned | visited`.
+
+---
+
+## API-Oberfläche (was Agenten tatsächlich aufrufen)
+
+### `useApp()` — `lib/store.tsx` (der einzige globale Zustand)
+
+Rückgabe (Auszug, alles typisiert):
+
+- **Daten:** `places: Place[]`, `trips: Trip[]`, `loading: boolean`
+- **Daten-Aktionen:** `add(input: NewPlace)`, `update(id, patch)`, `remove(id)`,
+  `love(id)`, `advance(id, status)`, `resetToProjectData()`
+- **Auswahl:** `selectedId`, `select(id | null)`
+- **Filter:** `filters`, `setFilters(f)`, `tripFilter`, `setTripFilter(id | null)`,
+  `filtered: Place[]` — **bereits gefiltert; immer diese Liste rendern, nie
+  `places` selbst filtern.**
+- **Add-Sheet:** `sheetOpen`, `sheetTrip`, `openSheet(tripId?)`, `closeSheet()`,
+  `addMode`, `setAddMode`, `draft`, `setDraft`
+- **Feier-Effekt:** `celebrate: boolean` (wird bei „visited" ausgelöst)
+
+### `lib/filter.ts`
+
+`applyFilters(places, filters): Place[]` · `filterCount(filters): number` ·
+`EMPTY_FILTERS` · Typ `Filters` = `{ q, cats, statuses, person, tripId, weekendOnly }`.
+
+### `lib/geo.ts`
+
+`distanceFromBase(lat, lng)` · `haversineKm(aLat,aLng,bLat,bLng)` · `driveHours(km)`
+· `isWeekendReachable(km)` (< ~4 h) · `fmtKm(km)`.
+
+### `lib/ics.ts`
+
+`buildIcs(places): string` · `downloadIcs(places, filename?)`.
+
+### `lib/agentPrompts.ts`
+
+`AGENT_CONTEXT` · `AGENT_STEPS` · `PROMPT_ADD_PLACE` · `PROMPT_ADD_TRIP` ·
+`PROMPT_ALL`. In UI immer via `<CopyForAgent text={…} />`.
+
+---
+
+## Config-Stellschrauben (`lib/config.ts`)
+
+| Export       | Bedeutung                                   |
+| ------------ | ------------------------------------------- |
+| `ARRIVAL`    | Startdatum (Countdown)                      |
+| `DEPARTURE`  | Enddatum (Countdown/Fortschritt)            |
+| `BASECAMP`   | Oxnard-Koordinaten (Referenz für Distanzen) |
+| `US_VIEW`    | Karten-Startzentrum + Zoom                  |
+| `CREW`       | Namen (Alperen, Justus)                     |
+| `CATEGORIES` | Kategorie → `{ label, color, Icon }`        |
+| `STATUSES`   | Status → `{ label, short, color }`          |
+
+Orte/Trips stehen **nicht** hier, sondern in `data/`.
+
+---
+
+## Datei-für-Datei (Komponenten)
+
+| Komponente           | Aufgabe                                                                                            |
+| -------------------- | -------------------------------------------------------------------------------------------------- |
+| `AppChrome.tsx`      | Header-Nav (Desktop) + Bottom-Nav (Mobile) + FAB, mountet Sheet + Celebration; Landing bleibt bare |
+| `MapCanvas.tsx`      | Leaflet-Karte (Esri-Satellit), Pins als lucide-SVG, `FlyTo`, Klick-zum-Pinnen                      |
+| `Dashboard.tsx`      | Countdown + Fortschritt + Stat-Zahlen                                                              |
+| `PlanBoard.tsx`      | Kanban Wishlist → Geplant → Erlebt                                                                 |
+| `PlaceCard.tsx`      | Spot-Karte (Loves, Status, Distanz-Chip, Aktionen)                                                 |
+| `Timeline.tsx`       | Erinnerungs-Timeline (visited)                                                                     |
+| `TripsTab.tsx`       | Trip-Übersichtskarten                                                                              |
+| `TripChips.tsx`      | Trip-Schnellfilter (horizontal)                                                                    |
+| `FilterBar.tsx`      | Suche + Kategorie/Status/Person/Wochenend-Filter                                                   |
+| `AddPlaceSheet.tsx`  | Tray zum Ort-Anlegen (Nominatim-Suche/Karten-Tap)                                                  |
+| `Celebration.tsx`    | Icon-Konfetti bei „Erlebt"                                                                         |
+| `AnimatedNumber.tsx` | Zählende Zahlen                                                                                    |
+| `CopyForAgent.tsx`   | Wiederverwendbarer „Copy für Agent"-Button                                                         |
+
+---
+
+## Glossar (Domänenbegriffe)
+
+- **Spot** = ein Ort (`Place`), Pin auf der Karte.
+- **Trip** = Region/Reise, gruppiert Spots über `tripId`.
+- **Status** = `wishlist` (Idee) → `planned` (geplant) → `visited` (erlebt).
+- **Basecamp** = Oxnard, unsere Basis (`BASECAMP`).
+- **Crew** = Alperen & Justus.
+- **Wochenend-tauglich** = grob < 4 h Autofahrt ab Basecamp.
 
 ---
 

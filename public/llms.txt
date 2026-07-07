@@ -1,23 +1,55 @@
 # USA Adventures
 
-> Lokale Reise-Web-App (Next.js) für Alperen & Justus: interaktive geografische Karte (USA + Hawaii), Trips/Regionen, Plan-Board und Erinnerungs-Timeline. Kein Backend, kein Login — alle Daten liegen als Dateien im Projekt. Deployed auf Vercel.
+> Lokale Reise-Web-App (Next.js) von Alperen & Justus: interaktive geografische Karte (USA + Hawaii), Trips/Regionen, Plan-Board und Erinnerungs-Timeline. Kein Backend, kein Login, keine Cloud — alle Daten liegen als Dateien im Projekt. Deployed auf Vercel.
 
-## Über das Projekt
+## Metadaten
 
-- Zweck: gemeinsames "Reisegehirn" für ein sechsmonatiges Praktikum in Oxnard, Kalifornien (Sept 2026 – März 2027). Orte planen, abhaken, Erinnerungen sammeln.
-- Architektur: komplett clientseitig/lokal. Quelle der Wahrheit sind `data/places.ts` (Orte) und `data/trips.ts` (Trips). Zusätzlich localStorage für Browser-Änderungen. Keine Datenbank, keine API-Keys.
-- Wird bewusst per Vibe-Coding mit KI-Agenten (z. B. GitHub Copilot) weiterentwickelt.
+- Repo: https://github.com/noluyorAbi/usa-adventures
+- Live: https://usa-adventures.vercel.app
+- Status: aktiv, privat/Hobby, produktiv deployed
+- Crew: Alperen (Informatik-Background) & Justus (Vibe-Coding-Einstieg)
+- Reisezeitraum: 21.09.2026 – 19.03.2027 (Basis: Oxnard, Kalifornien)
+- Persistenz: data/*.ts (im Repo) + localStorage (Browser). Kein Backend, keine Env-Variablen, kein Login.
+- Sprache: UI deutsch, Code englisch.
+- Deploy: Vercel, Git-Integration (Push auf main = automatischer Deploy).
+
+## Für Agenten — Lese-Reihenfolge
+
+1. Diese Datei (Überblick).
+2. AGENTS.md — verbindliche Regeln, Metadaten, API-Oberfläche, Architektur, Änderungs-Protokoll. Die Single Source of Truth.
+3. docs/features/README.md — Details je Feature.
+
+Wichtige Dateien:
+
+- /AGENTS.md: verbindliche Regeln + Projekt-Metadaten + API-Oberfläche.
+- /.github/copilot-instructions.md: Kurzfassung für GitHub Copilot / VS Code.
+- /CLAUDE.md: schlanker Pointer auf AGENTS.md (für Claude Code).
+- /docs/DATEN-BEARBEITEN.md, /docs/LOKAL-BEARBEITEN.md: Anleitungen für Einsteiger.
+- /docs/features/: ein Doc pro Feature (Pflicht bei jeder Änderung).
 
 ## Tech-Stack
 
-Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS v4, lucide-react (Icons), framer-motion, react-leaflet + Leaflet (Esri-Satellitenkarte), date-fns. Prettier + ESLint + Husky pre-commit Hook. Remotion für OG-Image und Promo-Video.
+Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS v4, lucide-react (Icons, keine Emojis), framer-motion, react-leaflet + Leaflet (Esri-Satellitenkarte), date-fns. Prettier + ESLint + Husky pre-commit Hook. Remotion für OG-Image und Promo-Video.
 
-## Wichtige Dateien für Agenten
+## Kernregeln (Kurzform)
 
-- /AGENTS.md: verbindliche Regeln (nur Icons/keine Emojis, kein Backend/keine Secrets, TypeScript strict, ein Context via useApp(), `npm run check` muss grün sein).
-- /.github/copilot-instructions.md: Kurzfassung der Regeln für Copilot.
-- /docs/DATEN-BEARBEITEN.md: wie man Orte und Trips ändert.
-- /docs/LOKAL-BEARBEITEN.md: Einsteiger-Anleitung zum lokalen Setup.
+- Nur lucide-react-Icons, niemals Emojis.
+- Kein Backend, keine Secrets/API-Keys.
+- TypeScript strict; globaler Zustand nur über useApp() (lib/store.tsx).
+- Styling nur über Tailwind + CSS-Variablen (app/globals.css).
+- Jede Änderung wird in docs/features/ dokumentiert (Warum/Was/Wie/Entscheidung/Zukunft).
+
+## Features
+
+- Interaktive Karte (USA + Hawaii, Esri-Satellit)
+- Trips/Regionen mit Filter
+- Plan-Board (Wishlist → Geplant → Erlebt)
+- Erinnerungs-Timeline
+- Distanz ab Oxnard + Wochenend-Radius
+- Überrasch uns (Zufalls-Spot)
+- Spot teilen per Deep-Link (?spot=)
+- Kalender-Export (.ics)
+- Copy-für-Agent-Prompts (Onboarding + kontextuell)
 
 ## Routen
 

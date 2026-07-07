@@ -24,7 +24,7 @@ import { TRIPS } from "@/data/trips";
 import { EMPTY_FILTERS, applyFilters, type Filters } from "@/lib/filter";
 import type { NewPlace, Place, Status, Trip } from "@/lib/types";
 
-const LS_KEY = "oxnard.places.v2";
+const LS_KEY = "oxnard.places.v3";
 
 function makeId() {
   return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;

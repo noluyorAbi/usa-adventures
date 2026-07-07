@@ -6,6 +6,7 @@ import {
   Building2,
   Mountain,
   MapPin,
+  House,
   type LucideIcon,
 } from "lucide-react";
 import type { Category, Status } from "./types";
@@ -27,6 +28,7 @@ export const CATEGORIES: Record<
   Category,
   { label: string; color: string; Icon: LucideIcon }
 > = {
+  home: { label: "Zuhause", color: "#e0567a", Icon: House },
   roadtrip: { label: "Roadtrip", color: "#f2683f", Icon: Car },
   surf: { label: "Surf & Beach", color: "#0fa3c4", Icon: Waves },
   hike: { label: "Hike", color: "#5aa06a", Icon: Footprints },

@@ -1,5 +1,5 @@
 export type Category =
-  "roadtrip" | "surf" | "hike" | "food" | "city" | "park" | "other";
+  "home" | "roadtrip" | "surf" | "hike" | "food" | "city" | "park" | "other";
 
 export type Status = "wishlist" | "planned" | "visited";
 
