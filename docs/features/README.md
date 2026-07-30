@@ -14,6 +14,8 @@ sofort verstehen, was es tut, welche Dateien dazugehören und wie man es erweite
 | Copy-für-Agent-Prompts               | [agent-copy-prompts.md](agent-copy-prompts.md)     |
 | Home-Marker (Zuhause-Kategorie)      | [home-markers.md](home-markers.md)                 |
 | Spot-Detail-Modal (Bilder + Infos)   | [spot-modal.md](spot-modal.md)                     |
+| Entdecken-Hub (Bogen, Roulette, …)   | [discover-hub.md](discover-hub.md)                 |
+| Plan-Seite: Als Nächstes + Spur      | [plan-page-nextup.md](plan-page-nextup.md)         |
 
 ## Neues Feature hinzufügen (Pflicht-Ablauf für Agenten)
 
@@ -28,13 +30,10 @@ sofort verstehen, was es tut, welche Dateien dazugehören und wie man es erweite
 
 Bewusst offen gelassen, passen aber gut und bleiben lokal machbar:
 
-- **US-Staaten-Sammlung** — pro Spot ein `state`-Feld; "X/50 Staaten besucht" als
-  gamifizierte Stat.
+- **Staaten-Sammlung 50/50** — `state` existiert; Counter und Badges ausbauen.
 - **Budget** — optionales `cost`-Feld je Spot; Summe pro Trip/gesamt.
-- **Fotos** — `photoUrl` je Spot als Link auf ein extern gehostetes Bild (kein
-  Upload, damit local-first bleibt).
-- **Best-Time-to-Visit** — `bestMonths` je Spot; Hinweis "jetzt gute Zeit".
 - **Print/Export als Markdown** — Trip als schöne Textliste exportieren.
 - **Command-Palette** — Cmd/Ctrl-K zum schnellen Springen/Filtern.
+- **Wochenend-Slots speichern** — Composer-Ergebnis als geplante Spots schreiben.
 
 Wer eines davon baut: Doc nicht vergessen.

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Map, ListChecks, Route, Clock, Plus, Mountain } from "lucide-react";
+import { Map, ListChecks, Route, Clock, Plus, Mountain, Compass } from "lucide-react";
 import { useApp } from "@/lib/store";
 import AddPlaceSheet from "./AddPlaceSheet";
 import Celebration from "./Celebration";
@@ -13,6 +13,7 @@ const NAV = [
   { href: "/map", label: "Karte", Icon: Map },
   { href: "/plans", label: "Pläne", Icon: ListChecks },
   { href: "/trips", label: "Trips", Icon: Route },
+  { href: "/discover", label: "Entdecken", Icon: Compass },
   { href: "/memories", label: "Erinnerungen", Icon: Clock },
 ] as const;
 
@@ -88,18 +89,24 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
 
       {/* Mobile bottom nav */}
       <nav className="fixed inset-x-0 bottom-0 z-[900] border-t border-[var(--border)] bg-white/85 backdrop-blur-lg sm:hidden">
-        <div className="mx-auto flex max-w-6xl items-center justify-around px-2 py-2">
+        <div className="mx-auto flex max-w-6xl items-center justify-around px-1 py-2">
           {NAV.map(({ href, label, Icon }) => {
             const active = pathname.startsWith(href);
+            const short =
+              label === "Erinnerungen"
+                ? "Memo"
+                : label === "Entdecken"
+                  ? "Ideen"
+                  : label;
             return (
               <Link
                 key={href}
                 href={href}
-                className="flex flex-1 flex-col items-center gap-0.5 py-1 text-[11px]"
+                className="flex flex-1 flex-col items-center gap-0.5 py-1 text-[10px]"
                 style={{ color: active ? "var(--sky)" : "var(--text-dim)" }}
               >
-                <Icon size={20} strokeWidth={active ? 2.4 : 2} />
-                {label}
+                <Icon size={18} strokeWidth={active ? 2.4 : 2} />
+                {short}
               </Link>
             );
           })}

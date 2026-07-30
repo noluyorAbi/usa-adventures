@@ -7,6 +7,10 @@
  * Zusätzlich speichert der Browser Änderungen in localStorage, damit nichts
  * verloren geht während man rumklickt. "Auf Projektdaten zurücksetzen" leert das.
  *
+ * Merge-Logik: neue Seed-Spots aus dem Repo erscheinen auch, wenn localStorage
+ * schon ältere Daten hat. User-Änderungen an bekannten IDs und neu angelegte
+ * Spots bleiben erhalten.
+ *
  * Alles läuft über einen React-Context: components rufen `useApp()`.
  */
 
@@ -24,18 +28,37 @@ import { TRIPS } from "@/data/trips";
 import { EMPTY_FILTERS, applyFilters, type Filters } from "@/lib/filter";
 import type { NewPlace, Place, Status, Trip } from "@/lib/types";
 
-const LS_KEY = "oxnard.places.v6";
+const LS_KEY = "oxnard.places.v7";
 
 function makeId() {
   return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+}
+
+/** Project seeds + local overrides + user-created spots. */
+function mergePlaces(project: Place[], local: Place[]): Place[] {
+  const localById = new Map(local.map((p) => [p.id, p]));
+  const projectIds = new Set(project.map((p) => p.id));
+  const merged = project.map((p) => localById.get(p.id) ?? p);
+  for (const p of local) {
+    if (!projectIds.has(p.id)) merged.push(p);
+  }
+  return merged;
 }
 
 function readLocal(): Place[] {
   if (typeof window === "undefined") return PLACES;
   try {
     const raw = window.localStorage.getItem(LS_KEY);
-    if (!raw) return PLACES;
-    return JSON.parse(raw) as Place[];
+    if (!raw) {
+      // migrate from previous key if present
+      const legacy = window.localStorage.getItem("oxnard.places.v6");
+      if (legacy) {
+        const old = JSON.parse(legacy) as Place[];
+        return mergePlaces(PLACES, old);
+      }
+      return PLACES;
+    }
+    return mergePlaces(PLACES, JSON.parse(raw) as Place[]);
   } catch {
     return PLACES;
   }
@@ -113,16 +136,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     celebrateTimer.current = setTimeout(() => setCelebrate(false), 1600);
   }, []);
 
-  // Hydrate once from localStorage on mount (SSR-safe: server renders PLACES,
-  // client swaps in saved data after mount).
   useEffect(() => {
-    const saved = readLocal();
-    if (saved !== PLACES) setPlaces(saved);
+    setPlaces(readLocal());
     hydrated.current = true;
     setLoading(false);
   }, []);
 
-  // Persist to localStorage whenever places change (after hydration).
   useEffect(() => {
     if (hydrated.current) writeLocal(places);
   }, [places]);
@@ -170,7 +189,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   );
 
   const resetToProjectData = useCallback(() => {
-    if (typeof window !== "undefined") window.localStorage.removeItem(LS_KEY);
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(LS_KEY);
+      window.localStorage.removeItem("oxnard.places.v6");
+    }
     setPlaces(PLACES);
   }, []);
 

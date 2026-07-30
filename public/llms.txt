@@ -50,13 +50,16 @@ Next.js 16 (App Router), React 19, TypeScript (strict), Tailwind CSS v4, lucide-
 - Spot teilen per Deep-Link (?spot=)
 - Kalender-Export (.ics)
 - Copy-für-Agent-Prompts (Onboarding + kontextuell)
+- Entdecken-Hub: Rotationsbogen, Saison-Band, Roulette, Wochenend-Komponist, Packliste, Crew-Duett
+- Reichere Trips (vibe, season, difficulty, estimatedDays) + grobe Routen-km
 
 ## Routen
 
 - / (Landing: Überblick, Video, Tutorial)
 - /map (interaktive Karte)
-- /plans (Plan-Board)
+- /plans (Plan-Board + Kalender-Spur)
 - /trips (Trip-Übersicht)
+- /discover (kreative Tools)
 - /memories (Erinnerungs-Timeline)
 
 ## Links

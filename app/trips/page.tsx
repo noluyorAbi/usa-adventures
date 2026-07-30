@@ -23,8 +23,8 @@ export default function TripsPage() {
         <div className="flex flex-col gap-1">
           <h1 className="font-display text-3xl">Trips & Regionen</h1>
           <p className="text-sm text-[var(--text-muted)]">
-            Sechs große Routen quer durch die USA. Tipp einen an, um die Spots auf der
-            Karte zu sehen.
+            {trips.length} Routen quer durch die USA: Vibe, Saison, Distanz und
+            Fortschritt pro Trip. Tipp einen an, um die Spots auf der Karte zu sehen.
           </p>
         </div>
         <CopyForAgent

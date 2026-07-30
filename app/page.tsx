@@ -20,6 +20,7 @@ import {
   FolderOpen,
   Pencil,
   Rocket,
+  Sparkles,
 } from "lucide-react";
 import { useApp } from "@/lib/store";
 import { ARRIVAL, DEPARTURE, CREW } from "@/lib/config";
@@ -46,28 +47,46 @@ const STEP_ICONS: Record<string, typeof Download> = {
 
 const FEATURES = [
   {
+    id: "map",
     href: "/map",
     Icon: Map,
     title: "Interaktive Karte",
     desc: "Jeder Spot als Pin über die ganzen USA + Hawaii. Kategorien, Status, Klick für Details.",
   },
   {
+    id: "plans",
     href: "/plans",
     Icon: ListChecks,
     title: "Plan-Board",
-    desc: "Von der Idee über geplant bis erlebt. Herzchen-Voting, damit wir priorisieren.",
+    desc: "Kanban plus Kalender-Spur: Idee, geplant, erlebt, mit .ics-Export.",
   },
   {
+    id: "trips",
     href: "/trips",
     Icon: Route,
     title: "Trips & Regionen",
-    desc: "Sechs große Routen: SoCal, PCH, Südwesten, Hawaii, Ostküste, Rockies.",
+    desc: "13 Routen mit Vibe, Saison, Schwierigkeit und grober Kilometer-Schätzung.",
   },
   {
+    id: "discover",
+    href: "/discover",
+    Icon: Sparkles,
+    title: "Entdecken",
+    desc: "Rotationsbogen, Wochenend-Komponist, Roulette, Packliste und Crew-Duett.",
+  },
+  {
+    id: "memories",
     href: "/memories",
     Icon: Clock,
     title: "Erinnerungen",
     desc: "Was wir erlebt haben, als Timeline. Wird mit jedem Spot voller.",
+  },
+  {
+    id: "weekend-mix",
+    href: "/discover",
+    Icon: Compass,
+    title: "Wochenend-Mix",
+    desc: "Automatisch 48 Stunden im 4-Stunden-Radius um Oxnard zusammenstellen.",
   },
 ] as const;
 
@@ -221,9 +240,9 @@ export default function Landing() {
 
       {/* Features */}
       <section className="grid gap-4 py-8 sm:grid-cols-2">
-        {FEATURES.map(({ href, Icon, title, desc }, i) => (
+        {FEATURES.map(({ id, href, Icon, title, desc }, i) => (
           <motion.div
-            key={href}
+            key={id}
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}

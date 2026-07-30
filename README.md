@@ -37,8 +37,9 @@ zwei Dateien, und feste Regeln für unsere KI-Agenten (Copilot &amp; Co).
 ### Features
 
 - **Interaktive Karte** &mdash; alle Spots als Pins über die ganzen USA + Hawaii
-- **Trips / Regionen** &mdash; SoCal, PCH, Südwesten, Hawaii, Ostküste, Rockies
-- **Plan-Board** &mdash; Idee &rarr; geplant &rarr; erlebt, mit Herzchen-Voting
+- **Trips / Regionen** &mdash; 13 Routen (SoCal, PCH, PNW, Ski, Texas, Desert, …)
+- **Plan-Board** &mdash; Idee &rarr; geplant &rarr; erlebt, Kalender-Spur, .ics
+- **Entdecken** &mdash; Rotationsbogen, Roulette, Wochenend-Mix, Packliste, Duett
 - **Erinnerungen** &mdash; Timeline von allem, was schon erlebt wurde
 - **Filter &amp; Suche** &mdash; nach Kategorie, Status, Person, Text
 - **Countdown** &mdash; Tage bis zum Abflug, Fortschritt der Rotation
@@ -94,7 +95,8 @@ Kopiere eine Zeile, ändere die Werte, speichern &mdash; fertig. Schritt-für-Sc
 app/                 Routes (Next.js App Router)
   page.tsx           Landing (/)
   map/ plans/        /map, /plans
-  trips/ memories/   /trips, /memories
+  trips/ discover/   /trips, /discover
+  memories/          /memories
   globals.css        Design-Tokens (Farben, Schatten)
 components/          UI-Bausteine (handgeschrieben)
 lib/

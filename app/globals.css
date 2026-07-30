@@ -166,6 +166,27 @@ body {
   }
 }
 
+/* Discover page: soft stagger fade for cards already handled by framer;
+   keep utility for future CSS-only moments */
+@keyframes shimmer-soft {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+.sky-shimmer {
+  background: linear-gradient(
+    110deg,
+    color-mix(in srgb, var(--sky) 12%, transparent) 0%,
+    color-mix(in srgb, var(--terra) 10%, transparent) 50%,
+    color-mix(in srgb, var(--sky) 12%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer-soft 6s var(--ease) infinite alternate;
+}
+
 /* ---------- Leaflet — clean, airy ---------- */
 .leaflet-container {
   background: #0b1a2b !important;

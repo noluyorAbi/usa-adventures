@@ -12,6 +12,8 @@ export type Category =
 
 export type Status = "wishlist" | "planned" | "visited";
 
+export type TripDifficulty = "easy" | "medium" | "epic";
+
 export interface Place {
   id: string;
   name: string;
@@ -37,6 +39,7 @@ export interface Place {
   address?: string; // Straße + Stadt, z.B. "1041 S Oxnard Blvd, Oxnard"
   website?: string; // volle URL, z.B. "https://…"
   priceLevel?: string; // "$" | "$$" | "$$$" oder "gratis" / "ab 45 $"
+  state?: string; // US-State code, z.B. "CA", "NY" (für Staaten-Sammlung)
 }
 
 export type NewPlace = Omit<Place, "id" | "loves" | "createdAt">;
@@ -49,4 +52,13 @@ export interface Trip {
   startDate?: string | null;
   endDate?: string | null;
   createdAt: string;
+  /** One-line mood line shown on trip cards */
+  tagline?: string;
+  /** Vibe label, e.g. "Coastal chill" */
+  vibe?: string;
+  /** Rough trip length in days */
+  estimatedDays?: number;
+  /** Best season window in German, e.g. "Herbst", "Winter" */
+  season?: string;
+  difficulty?: TripDifficulty;
 }
