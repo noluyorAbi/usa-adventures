@@ -178,7 +178,7 @@ app/(routen)   map / plans / trips / memories   +  components/*
 ```
 app/                 Routes (App Router)
   page.tsx           Landing (/)
-  map/ plans/ trips/ memories/   die vier App-Seiten
+  map/ plans/ trips/ calendar/ discover/ memories/   die App-Seiten
   globals.css        Design-Tokens + Basis-Styles
   robots.ts sitemap.ts  SEO
   icon.svg           Favicon (Marke)
@@ -190,8 +190,9 @@ lib/
   filter.ts          Filter-Logik (rein)
   geo.ts             Distanz/Wochenend-Radius
   ics.ts             Kalender-Export (.ics)
+  vacation.ts        Urlaubsbudget, Feiertage, Optimierer fuer die 8 Tage
   agentPrompts.ts    Fertige Prompts für "Copy für Agent"
-data/                >>> INHALTE: places.ts + trips.ts <<<
+data/                >>> INHALTE: places.ts + trips.ts + packing.ts + holidays.ts + drives.ts <<<
 remotion/            Compositions für OG-Image + Promo-Video
 docs/
   DATEN-BEARBEITEN.md  LOKAL-BEARBEITEN.md
@@ -268,21 +269,23 @@ Orte/Trips stehen **nicht** hier, sondern in `data/`.
 
 ## Datei-für-Datei (Komponenten)
 
-| Komponente           | Aufgabe                                                                                            |
-| -------------------- | -------------------------------------------------------------------------------------------------- |
-| `AppChrome.tsx`      | Header-Nav (Desktop) + Bottom-Nav (Mobile) + FAB, mountet Sheet + Celebration; Landing bleibt bare |
-| `MapCanvas.tsx`      | Leaflet-Karte (Esri-Satellit), Pins als lucide-SVG, `FlyTo`, Klick-zum-Pinnen                      |
-| `Dashboard.tsx`      | Countdown + Fortschritt + Stat-Zahlen                                                              |
-| `PlanBoard.tsx`      | Kanban Wishlist → Geplant → Erlebt                                                                 |
-| `PlaceCard.tsx`      | Spot-Karte (Loves, Status, Distanz-Chip, Aktionen)                                                 |
-| `Timeline.tsx`       | Erinnerungs-Timeline (visited)                                                                     |
-| `TripsTab.tsx`       | Trip-Übersichtskarten                                                                              |
-| `TripChips.tsx`      | Trip-Schnellfilter (horizontal)                                                                    |
-| `FilterBar.tsx`      | Suche + Kategorie/Status/Person/Wochenend-Filter                                                   |
-| `AddPlaceSheet.tsx`  | Tray zum Ort-Anlegen (Nominatim-Suche/Karten-Tap)                                                  |
-| `Celebration.tsx`    | Icon-Konfetti bei „Erlebt"                                                                         |
-| `AnimatedNumber.tsx` | Zählende Zahlen                                                                                    |
-| `CopyForAgent.tsx`   | Wiederverwendbarer „Copy für Agent"-Button                                                         |
+| Komponente             | Aufgabe                                                                                            |
+| ---------------------- | -------------------------------------------------------------------------------------------------- |
+| `AppChrome.tsx`        | Header-Nav (Desktop) + Bottom-Nav (Mobile) + FAB, mountet Sheet + Celebration; Landing bleibt bare |
+| `MapCanvas.tsx`        | Leaflet-Karte (Esri-Satellit), Pins als lucide-SVG, `FlyTo`, Klick-zum-Pinnen                      |
+| `Dashboard.tsx`        | Countdown + Fortschritt + Stat-Zahlen                                                              |
+| `PlanBoard.tsx`        | Kanban Wishlist → Geplant → Erlebt                                                                 |
+| `PlaceCard.tsx`        | Spot-Karte (Loves, Status, Distanz-Chip, Aktionen)                                                 |
+| `Timeline.tsx`         | Erinnerungs-Timeline (visited)                                                                     |
+| `VacationCalendar.tsx` | Urlaubsbudget, Optimierer-Vorschlag, Trip-Kosten, Monatsraster                                     |
+| `DriveTimes.tsx`       | Fahrzeiten ab Camarillo, frei und im Berufsverkehr                                                 |
+| `TripsTab.tsx`         | Trip-Übersichtskarten                                                                              |
+| `TripChips.tsx`        | Trip-Schnellfilter (horizontal)                                                                    |
+| `FilterBar.tsx`        | Suche + Kategorie/Status/Person/Wochenend-Filter                                                   |
+| `AddPlaceSheet.tsx`    | Tray zum Ort-Anlegen (Nominatim-Suche/Karten-Tap)                                                  |
+| `Celebration.tsx`      | Icon-Konfetti bei „Erlebt"                                                                         |
+| `AnimatedNumber.tsx`   | Zählende Zahlen                                                                                    |
+| `CopyForAgent.tsx`     | Wiederverwendbarer „Copy für Agent"-Button                                                         |
 
 ---
 

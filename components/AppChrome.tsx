@@ -3,7 +3,16 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Map, ListChecks, Route, Clock, Plus, Mountain, Compass } from "lucide-react";
+import {
+  Map,
+  ListChecks,
+  Route,
+  Clock,
+  Plus,
+  Mountain,
+  Compass,
+  CalendarDays,
+} from "lucide-react";
 import { useApp } from "@/lib/store";
 import AddPlaceSheet from "./AddPlaceSheet";
 import Celebration from "./Celebration";
@@ -13,6 +22,7 @@ const NAV = [
   { href: "/map", label: "Karte", Icon: Map },
   { href: "/plans", label: "Pläne", Icon: ListChecks },
   { href: "/trips", label: "Trips", Icon: Route },
+  { href: "/calendar", label: "Kalender", Icon: CalendarDays },
   { href: "/discover", label: "Entdecken", Icon: Compass },
   { href: "/memories", label: "Erinnerungen", Icon: Clock },
 ] as const;

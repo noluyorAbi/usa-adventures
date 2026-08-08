@@ -17,6 +17,7 @@ sofort verstehen, was es tut, welche Dateien dazugehören und wie man es erweite
 | Entdecken-Hub (Bogen, Roulette, …)    | [discover-hub.md](discover-hub.md)                                         |
 | Plan-Seite: Als Nächstes + Spur       | [plan-page-nextup.md](plan-page-nextup.md)                                 |
 | CA-Trips + Packliste mit Auto-Notizen | [california-trips-and-car-packing.md](california-trips-and-car-packing.md) |
+| Urlaubsplaner, Kalender, Fahrzeiten   | [vacation-calendar.md](vacation-calendar.md)                               |
 
 ## Neues Feature hinzufügen (Pflicht-Ablauf für Agenten)
 
