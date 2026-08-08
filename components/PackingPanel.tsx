@@ -115,7 +115,7 @@ export default function PackingPanel({
                   style={{
                     borderColor: on ? "var(--teal)" : "var(--border-strong)",
                     background: on ? "var(--teal)" : "transparent",
-                    color: "#fff",
+                    color: "var(--surface-solid)",
                   }}
                 >
                   {on && <Check size={12} strokeWidth={3} />}

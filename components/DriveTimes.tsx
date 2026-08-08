@@ -56,7 +56,7 @@ export default function DriveTimes() {
               className="rounded-full px-3 py-1.5 text-xs transition"
               style={{
                 background: sicht === k ? "var(--sky)" : "transparent",
-                color: sicht === k ? "#fff" : "var(--text-muted)",
+                color: sicht === k ? "var(--surface-solid)" : "var(--text-muted)",
               }}
             >
               {label}

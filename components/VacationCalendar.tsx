@@ -107,10 +107,11 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
           label: `${MONATE[d.getUTCMonth()]} ${d.getUTCFullYear()}`,
           zellen: [],
         };
-        // Montag = 0 im Raster
-        const offset =
-          (new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).getUTCDay() + 6) %
-          7;
+        // Montag = 0 im Raster. Der Versatz zählt ab dem ersten Tag, den der
+        // Monat hier tatsächlich hat, nicht ab dem Monatsersten: September
+        // beginnt am 21., und ab dem 1. gerechnet stünde die ganze Zeile eine
+        // Spalte zu weit rechts.
+        const offset = (d.getUTCDay() + 6) % 7;
         m.zellen = Array(offset).fill(null);
         out.push(m);
       }
@@ -205,7 +206,7 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
                 className="rounded-full px-3 py-1.5 text-xs transition"
                 style={{
                   background: strategie === k ? "var(--sky)" : "transparent",
-                  color: strategie === k ? "#fff" : "var(--text-muted)",
+                  color: strategie === k ? "var(--surface-solid)" : "var(--text-muted)",
                 }}
               >
                 {label}
