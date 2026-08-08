@@ -44,6 +44,30 @@ export interface Place {
 
 export type NewPlace = Omit<Place, "id" | "loves" | "createdAt">;
 
+/** Ein Ausruestungsposten, wie ihn data/packing.ts pro Trip vorgibt. */
+export interface TripPackItem {
+  label: string;
+  why: string;
+  priority: "must" | "nice";
+}
+
+/**
+ * Auto-Hinweis fuer einen Trip. Wir fahren einen BMW 330i: Heckantrieb,
+ * wenig Bodenfreiheit, Premium-Sprit, oft kein Reserverad. Das entscheidet
+ * bei manchen Zielen darueber, ob man ueberhaupt hinkommt.
+ */
+export type CarNoteKind = "road" | "fuel" | "winter" | "space" | "heat" | "law";
+
+export interface CarNote {
+  kind: CarNoteKind;
+  text: string;
+}
+
+export interface TripPacking {
+  extras: TripPackItem[];
+  car: CarNote[];
+}
+
 export interface Trip {
   id: string;
   name: string;

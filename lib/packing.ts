@@ -1,8 +1,13 @@
-import type { Category, Place, Trip } from "./types";
+import { TRIP_PACKING } from "@/data/packing";
+import type { CarNote, Category, Place, Trip } from "./types";
 
 /**
  * Generiert eine lokale Packliste aus den Kategorien der Spots eines Trips.
  * Keine API, rein regelbasiert.
+ *
+ * Reihenfolge: Basis, dann was die Kategorien der Spots verlangen, dann die
+ * Saison, zuletzt die trip-eigenen Posten aus data/packing.ts. Die stehen
+ * hinten, weil sie am speziellsten sind und man sie zuletzt abhakt.
  */
 
 export type PackItem = {
@@ -164,5 +169,20 @@ export function packingForTrip(trip: Trip | null, places: Place[]): PackItem[] {
     }
   }
 
+  // Trip-eigene Posten: das, was nur hier gilt und keine Kategorie herleitet.
+  for (const raw of TRIP_PACKING[trip?.id ?? ""]?.extras ?? []) {
+    if (seen.has(raw.label)) continue;
+    seen.add(raw.label);
+    out.push({ id: `trip-${raw.label}`, ...raw });
+  }
+
   return out;
+}
+
+/**
+ * Was das Auto fuer diesen Trip vorgibt. Leer, wenn fuer den Trip nichts
+ * hinterlegt ist: dann zeigt das Panel den Block gar nicht erst an.
+ */
+export function carNotesForTrip(trip: Trip | null): CarNote[] {
+  return TRIP_PACKING[trip?.id ?? ""]?.car ?? [];
 }
