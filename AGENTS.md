@@ -28,26 +28,26 @@ lückenlose Doku.
 
 ## Projekt-Metadaten (für schnelle Orientierung)
 
-| Feld               | Wert                                                             |
-| ------------------ | ---------------------------------------------------------------- |
-| Name               | USA Adventures                                                   |
-| Repo               | https://github.com/noluyorAbi/usa-adventures                     |
-| Live               | https://usa-adventures.vercel.app                                |
-| Status             | aktiv, privat/Hobby, produktiv deployed                          |
-| Crew               | Alperen (Informatik) & Justus (Vibe-Coding-Einstieg)             |
-| Zweck              | 6-Monate-USA-Praktikum planen: Karte, Trips, Pläne, Erinnerungen |
-| Reisezeitraum      | 21.09.2026 – 19.03.2027 (`lib/config.ts`: `ARRIVAL`/`DEPARTURE`) |
-| Basis              | Oxnard, Kalifornien (`BASECAMP`)                                 |
-| Persistenz         | `data/*.ts` (Repo) + `localStorage` (Browser). **Kein Backend.** |
-| Env-Variablen      | keine                                                            |
-| Auth/Login         | keiner                                                           |
-| Sprache            | UI **deutsch**, Code **englisch**                                |
-| Node               | >= 20 (Next 16)                                                  |
-| Paketmanager       | npm                                                              |
-| CI / Guardrails    | Husky pre-commit (prettier + eslint --fix + tsc)                 |
-| Hosting/Deploy     | Vercel, Git-Integration (Push auf `main` = Deploy)               |
-| Analytics/Tracking | keins                                                            |
-| Barrierefreiheit   | `aria-label` an Icon-Buttons, Fokus-Ringe via `:focus-visible`   |
+| Feld               | Wert                                                                                                              |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Name               | USA Adventures                                                                                                    |
+| Repo               | https://github.com/noluyorAbi/usa-adventures                                                                      |
+| Live               | https://usa-adventures.vercel.app                                                                                 |
+| Status             | aktiv, privat/Hobby, produktiv deployed                                                                           |
+| Crew               | Alperen (Informatik) & Justus (Vibe-Coding-Einstieg)                                                              |
+| Zweck              | 6-Monate-USA-Praktikum planen: Karte, Trips, Pläne, Erinnerungen                                                  |
+| Reisezeitraum      | Ankunft 10.09.2026, Programm 21.09.2026 – 19.03.2027 (`lib/config.ts`: `ARRIVAL` / `PROGRAM_START` / `DEPARTURE`) |
+| Basis              | Oxnard, Kalifornien (`BASECAMP`)                                                                                  |
+| Persistenz         | `data/*.ts` (Repo) + `localStorage` (Browser). **Kein Backend.**                                                  |
+| Env-Variablen      | keine                                                                                                             |
+| Auth/Login         | keiner                                                                                                            |
+| Sprache            | UI **deutsch**, Code **englisch**                                                                                 |
+| Node               | >= 20 (Next 16)                                                                                                   |
+| Paketmanager       | npm                                                                                                               |
+| CI / Guardrails    | Husky pre-commit (prettier + eslint --fix + tsc)                                                                  |
+| Hosting/Deploy     | Vercel, Git-Integration (Push auf `main` = Deploy)                                                                |
+| Analytics/Tracking | keins                                                                                                             |
+| Barrierefreiheit   | `aria-label` an Icon-Buttons, Fokus-Ringe via `:focus-visible`                                                    |
 
 ## Maschinenlesbar: llms.txt
 
@@ -253,15 +253,16 @@ Rückgabe (Auszug, alles typisiert):
 
 ## Config-Stellschrauben (`lib/config.ts`)
 
-| Export       | Bedeutung                                   |
-| ------------ | ------------------------------------------- |
-| `ARRIVAL`    | Startdatum (Countdown)                      |
-| `DEPARTURE`  | Enddatum (Countdown/Fortschritt)            |
-| `BASECAMP`   | Oxnard-Koordinaten (Referenz für Distanzen) |
-| `US_VIEW`    | Karten-Startzentrum + Zoom                  |
-| `CREW`       | Namen (Alperen, Justus)                     |
-| `CATEGORIES` | Kategorie → `{ label, color, Icon }`        |
-| `STATUSES`   | Status → `{ label, short, color }`          |
+| Export          | Bedeutung                                      |
+| --------------- | ---------------------------------------------- |
+| `ARRIVAL`       | Ankunft in Kalifornien, Start des Countdowns   |
+| `PROGRAM_START` | Erster Arbeitstag. Urlaub gibt es erst ab hier |
+| `DEPARTURE`     | Enddatum (Countdown/Fortschritt)               |
+| `BASECAMP`      | Oxnard-Koordinaten (Referenz für Distanzen)    |
+| `US_VIEW`       | Karten-Startzentrum + Zoom                     |
+| `CREW`          | Namen (Alperen, Justus)                        |
+| `CATEGORIES`    | Kategorie → `{ label, color, Icon }`           |
+| `STATUSES`      | Status → `{ label, short, color }`             |
 
 Orte/Trips stehen **nicht** hier, sondern in `data/`.
 

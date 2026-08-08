@@ -1,5 +1,5 @@
 import { HOLIDAYS, URLAUBSBUDGET } from "@/data/holidays";
-import { ARRIVAL, DEPARTURE } from "@/lib/config";
+import { ARRIVAL, DEPARTURE, PROGRAM_START } from "@/lib/config";
 import type { Trip } from "@/lib/types";
 
 /**
@@ -29,7 +29,10 @@ export function isoVonDate(d: Date): string {
   return `${d.getFullYear()}-${m}-${t}`;
 }
 
+/** Erster Tag im Kalender: die Ankunft. */
 export const START_ISO = isoVonDate(ARRIVAL);
+/** Erster Tag, an dem ein Urlaubstag ueberhaupt entstehen kann. */
+export const ARBEIT_START_ISO = isoVonDate(PROGRAM_START);
 export const ENDE_ISO = isoVonDate(DEPARTURE);
 
 export function parseIso(s: string): Date {
@@ -145,7 +148,7 @@ export function besterUrlaubsplan(
   budget = URLAUBSBUDGET,
   maxBlockKosten = budget,
 ): Urlaubsplan {
-  const tage = tageZwischen(START_ISO, ENDE_ISO);
+  const tage = tageZwischen(ARBEIT_START_ISO, ENDE_ISO);
   const n = tage.length;
   const frei = tage.map(istFrei);
 
@@ -196,7 +199,7 @@ export function besterUrlaubsplan(
  * hier zählt eine lange Reise am Stück mehr als die Summe vieler kurzer.
  */
 export function laengsterBlock(budget = URLAUBSBUDGET): Block | null {
-  const tage = tageZwischen(START_ISO, ENDE_ISO);
+  const tage = tageZwischen(ARBEIT_START_ISO, ENDE_ISO);
   const n = tage.length;
   const frei = tage.map(istFrei);
   let best: Block | null = null;

@@ -8,7 +8,7 @@
 - Live: https://usa-adventures.vercel.app
 - Status: aktiv, privat/Hobby, produktiv deployed
 - Crew: Alperen (Informatik-Background) & Justus (Vibe-Coding-Einstieg)
-- Reisezeitraum: 21.09.2026 – 19.03.2027 (Basis: Oxnard, Kalifornien)
+- Ankunft: 10.09.2026 · Programm: 21.09.2026 – 19.03.2027 (Basis: Oxnard, Kalifornien)
 - Persistenz: data/*.ts (im Repo) + localStorage (Browser). Kein Backend, keine Env-Variablen, kein Login.
 - Sprache: UI deutsch, Code englisch.
 - Deploy: Vercel, Git-Integration (Push auf main = automatischer Deploy).

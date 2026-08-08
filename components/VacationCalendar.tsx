@@ -14,6 +14,7 @@ import { motion } from "framer-motion";
 import { CalendarDays, Info, Plane, TriangleAlert } from "lucide-react";
 import { HOLIDAYS, URLAUBSBUDGET } from "@/data/holidays";
 import {
+  ARBEIT_START_ISO,
   ENDE_ISO,
   START_ISO,
   besterUrlaubsplan,
@@ -109,8 +110,8 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
         };
         // Montag = 0 im Raster. Der Versatz zählt ab dem ersten Tag, den der
         // Monat hier tatsächlich hat, nicht ab dem Monatsersten: September
-        // beginnt am 21., und ab dem 1. gerechnet stünde die ganze Zeile eine
-        // Spalte zu weit rechts.
+        // beginnt erst mit der Landung, und ab dem 1. gerechnet stünde die
+        // ganze Zeile eine Spalte zu weit rechts.
         const offset = (d.getUTCDay() + 6) % 7;
         m.zellen = Array(offset).fill(null);
         out.push(m);
@@ -119,6 +120,14 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
     }
     return out;
   }, [alleTage]);
+
+  // Die Tage zwischen Landung und erstem Arbeitstag. Sie kosten nichts, weil
+  // noch kein Arbeitsverhältnis läuft, aus dem man Urlaub nehmen müsste.
+  const vorlauf = useMemo(
+    () => tageZwischen(START_ISO, ARBEIT_START_ISO).slice(0, -1),
+    [],
+  );
+  const vorlaufSet = useMemo(() => new Set(vorlauf.map(iso)), [vorlauf]);
 
   const gezeigteFreieTage =
     strategie === "summe" ? planSumme.freieTage : (blockBest?.laenge ?? 0);
@@ -175,6 +184,32 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
             </p>
           </div>
         )}
+      </section>
+
+      {/* ── Der Vorlauf vor dem ersten Arbeitstag ───────────────────── */}
+      <section className="card flex flex-col gap-3 rounded-3xl p-5 sm:p-6">
+        <div className="flex items-center gap-2">
+          <Plane size={16} className="text-[var(--text-dim)]" />
+          <div>
+            <p className="text-xs tracking-[0.2em] text-[var(--text-dim)] uppercase">
+              Vor dem ersten Arbeitstag
+            </p>
+            <h2 className="font-display text-2xl">
+              {vorlauf.length} Tage, die nichts kosten
+            </h2>
+          </div>
+        </div>
+        <p className="text-sm text-[var(--text-muted)]">
+          Wir landen am {kurz(START_ISO)} und fangen erst am {kurz(ARBEIT_START_ISO)}{" "}
+          an. Dazwischen liegen {vorlauf.length} Tage ohne Arbeitsverhältnis, aus dem
+          man Urlaub nehmen müsste. Das ist das längste freie Fenster des ganzen
+          Aufenthalts und es geht nicht vom Budget ab.
+        </p>
+        <p className="text-sm text-[var(--text-muted)]">
+          Realistisch braucht ein Teil davon Wohnung, Bank, SSN und der kalifornische
+          Führerschein. Was übrig bleibt, ist trotzdem mehr zusammenhängende Zeit als
+          jeder Urlaubsblock danach.
+        </p>
       </section>
 
       {/* ── Der Vorschlag ───────────────────────────────────────────── */}
@@ -329,6 +364,7 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
             ["Urlaubstag", "var(--terra)"],
             ["Feiertag", "var(--teal)"],
             ["Wochenende", "var(--sky)"],
+            ["vor Arbeitsbeginn", "var(--sage)"],
           ].map(([label, color]) => (
             <span key={label} className="flex items-center gap-1.5">
               <span
@@ -366,13 +402,16 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
                   const tagTrips = tripsByIso.get(k) ?? [];
                   const wochenende = d.getUTCDay() === 0 || d.getUTCDay() === 6;
 
-                  const bg = istUrlaub
-                    ? "color-mix(in srgb, var(--terra) 22%, transparent)"
-                    : feiertag
-                      ? "color-mix(in srgb, var(--teal) 20%, transparent)"
-                      : wochenende
-                        ? "color-mix(in srgb, var(--sky) 10%, transparent)"
-                        : "transparent";
+                  const vorArbeit = vorlaufSet.has(k);
+                  const bg = vorArbeit
+                    ? "color-mix(in srgb, var(--sage) 18%, transparent)"
+                    : istUrlaub
+                      ? "color-mix(in srgb, var(--terra) 22%, transparent)"
+                      : feiertag
+                        ? "color-mix(in srgb, var(--teal) 20%, transparent)"
+                        : wochenende
+                          ? "color-mix(in srgb, var(--sky) 10%, transparent)"
+                          : "transparent";
 
                   return (
                     <span

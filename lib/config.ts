@@ -13,8 +13,20 @@ import {
 } from "lucide-react";
 import type { Category, Status } from "./types";
 
-/** Internship window — edit these two if the dates shift. */
-export const ARRIVAL = new Date("2026-09-21T00:00:00");
+/**
+ * Internship window — edit these if the dates shift.
+ *
+ * Zwei verschiedene Daten, die man leicht verwechselt:
+ *   ARRIVAL       wann wir landen (LH452, MUC nach LAX). Ab hier sind wir da,
+ *                 haben das Auto und können am Wochenende los.
+ *   PROGRAM_START erster Arbeitstag bei BMW. Erst ab hier gibt es überhaupt
+ *                 Urlaubstage, deshalb rechnet der Urlaubsplaner ab diesem
+ *                 Datum und nicht ab der Ankunft.
+ *
+ * Die elf Tage dazwischen sind Eingewöhnung: Wohnung, SSN, Bank, Führerschein.
+ */
+export const ARRIVAL = new Date("2026-09-10T00:00:00");
+export const PROGRAM_START = new Date("2026-09-21T00:00:00");
 export const DEPARTURE = new Date("2027-03-19T00:00:00");
 
 /** Home base — Oxnard, CA. */
