@@ -273,6 +273,34 @@ body {
   transform: rotate(45deg) scale(1.28);
 }
 
+/* Feste Termine sehen bewusst anders aus als Orte: Kreis statt Tropfen.
+   Ein Konzert ist kein Ort, den man sich vornimmt, sondern ein Datum. */
+.event-pin {
+  --c: #e0567a;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #fffdf8;
+  background: var(--c);
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 18px -5px rgba(30, 70, 130, 0.55);
+  transition: transform 0.25s var(--ease);
+}
+.event-pin::after {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  border-radius: inherit;
+  border: 2px solid var(--c);
+  animation: pulse-ring 2.6s var(--ease) infinite;
+}
+.event-pin:hover {
+  transform: scale(1.16);
+}
+
 .map-cursor-add .leaflet-container {
   cursor: crosshair;
 }

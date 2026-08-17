@@ -105,6 +105,10 @@ export default function MapPage() {
               <span className="text-[var(--text-muted)]">{CATEGORIES[c].label}</span>
             </span>
           ))}
+          <span className="col-span-2 mt-1 flex items-center gap-1.5 border-t border-[var(--border)] pt-1.5">
+            <span className="h-2.5 w-2.5 rounded-full ring-2 ring-[#e0567a] ring-offset-1" />
+            <span className="text-[var(--text-muted)]">Runde Pins = feste Termine</span>
+          </span>
         </div>
 
         {/* Surprise me */}
@@ -133,7 +137,8 @@ export default function MapPage() {
       </div>
 
       <p className="text-center text-xs text-[var(--text-dim)]">
-        {filtered.length} von {places.length} Spots · Tipp auf einen Pin für Details
+        {filtered.length} von {places.length} Spots · Tipp auf einen Pin für Details ·
+        Konzert und Rennen liegen als runde Pins darüber, sie werden nicht gefiltert
       </p>
     </div>
   );

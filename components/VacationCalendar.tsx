@@ -11,8 +11,9 @@
 
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { CalendarDays, Info, Plane, TriangleAlert } from "lucide-react";
+import { CalendarDays, Info, Plane, Star, TriangleAlert } from "lucide-react";
 import { HOLIDAYS, URLAUBSBUDGET } from "@/data/holidays";
+import { eventsByIso } from "@/lib/events";
 import {
   ARBEIT_START_ISO,
   ENDE_ISO,
@@ -93,6 +94,10 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
     }
     return m;
   }, [trips]);
+
+  // Feste Termine je Tag. Sie stehen im selben Raster wie die Trips, aber
+  // mit Ring statt Balken: ein Rennwochenende ist kein Reisevorschlag.
+  const eventByIso = useMemo(() => eventsByIso(), []);
 
   const alleTage = useMemo(() => tageZwischen(START_ISO, ENDE_ISO), []);
 
@@ -378,6 +383,10 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
             <Plane size={11} />
             Balken unten = Trip
           </span>
+          <span className="flex items-center gap-1.5">
+            <Star size={11} />
+            Rahmen und Stern = fester Termin
+          </span>
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -400,6 +409,7 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
                   const istUrlaub = urlaubsTage.has(k);
                   const imBlock = blockTage.has(k);
                   const tagTrips = tripsByIso.get(k) ?? [];
+                  const tagEvents = eventByIso.get(k) ?? [];
                   const wochenende = d.getUTCDay() === 0 || d.getUTCDay() === 6;
 
                   const vorArbeit = vorlaufSet.has(k);
@@ -417,6 +427,10 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
                     <span
                       key={k}
                       title={`${k}${feiertag ? " · " + feiertag.name : ""}${
+                        tagEvents.length
+                          ? " · " + tagEvents.map((e) => e.title).join(", ")
+                          : ""
+                      }${
                         tagTrips.length
                           ? " · " + tagTrips.map((t) => t.name).join(", ")
                           : ""
@@ -424,11 +438,23 @@ export default function VacationCalendar({ trips }: { trips: Trip[] }) {
                       className="relative grid aspect-square place-items-center rounded-md text-[11px]"
                       style={{
                         background: bg,
-                        outline: imBlock ? "1px solid var(--terra)" : undefined,
+                        outline: tagEvents.length
+                          ? `2px solid ${tagEvents[0].color}`
+                          : imBlock
+                            ? "1px solid var(--terra)"
+                            : undefined,
                         color: istFrei(d) ? "var(--text)" : "var(--text-muted)",
                       }}
                     >
                       {d.getUTCDate()}
+                      {tagEvents.length > 0 && (
+                        <Star
+                          size={7}
+                          className="absolute top-0.5 right-0.5"
+                          style={{ color: tagEvents[0].color }}
+                          fill={tagEvents[0].color}
+                        />
+                      )}
                       {tagTrips.length > 0 && (
                         <span className="absolute right-0.5 bottom-0.5 left-0.5 flex gap-px">
                           {tagTrips.slice(0, 3).map((t) => (

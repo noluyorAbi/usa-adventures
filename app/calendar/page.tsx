@@ -2,6 +2,7 @@
 
 import { useApp } from "@/lib/store";
 import VacationCalendar from "@/components/VacationCalendar";
+import EventPlanner from "@/components/EventPlanner";
 import DriveTimes from "@/components/DriveTimes";
 
 export default function CalendarPage() {
@@ -14,10 +15,11 @@ export default function CalendarPage() {
         <p className="mt-1 max-w-2xl text-sm text-[var(--text-muted)]">
           Acht Urlaubstage, zehn Feiertage und sechs Monate. Hier steht, wohin die acht
           Tage gehören, was die geplanten Trips wirklich kosten und wie lange man ab
-          Camarillo wohin fährt.
+          Camarillo wohin fährt. Zuerst die zwei Termine, deren Datum feststeht.
         </p>
       </header>
 
+      <EventPlanner trips={trips} />
       <VacationCalendar trips={trips} />
       <DriveTimes />
     </main>

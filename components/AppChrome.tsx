@@ -12,6 +12,7 @@ import {
   Mountain,
   Compass,
   CalendarDays,
+  Camera,
 } from "lucide-react";
 import { useApp } from "@/lib/store";
 import AddPlaceSheet from "./AddPlaceSheet";
@@ -23,6 +24,7 @@ const NAV = [
   { href: "/plans", label: "Pläne", Icon: ListChecks },
   { href: "/trips", label: "Trips", Icon: Route },
   { href: "/calendar", label: "Kalender", Icon: CalendarDays },
+  { href: "/gear", label: "Kamera", Icon: Camera },
   { href: "/discover", label: "Entdecken", Icon: Compass },
   { href: "/memories", label: "Erinnerungen", Icon: Clock },
 ] as const;

@@ -68,6 +68,107 @@ export interface TripPacking {
   car: CarNote[];
 }
 
+/**
+ * Ein Termin mit fremdbestimmtem Datum: Konzert, Rennen, Festival.
+ *
+ * Der Unterschied zum Trip ist nicht die Groesse, sondern wer das Datum
+ * setzt. Einen Trip verschiebt man, ein Rennwochenende nicht. Deshalb
+ * rechnet die App Events zuerst und legt die Trips drumherum.
+ */
+export type EventKind = "konzert" | "motorsport" | "sport" | "festival";
+
+/**
+ * Wie sicher der Preis ist. Geschaetzte Preise nie wie Fakten zeigen.
+ *   bestaetigt  selbst beim Anbieter nachgelesen
+ *   schaetzung  gerechnet oder aus Erfahrungswerten
+ *   uebernommen aus einer fremden Recherche uebernommen, nicht nachgeprueft
+ */
+export type PreisQuelle = "bestaetigt" | "schaetzung" | "uebernommen";
+
+export interface KostenPosten {
+  label: string;
+  /** USD pro Person */
+  usd: number;
+  quelle: PreisQuelle;
+  note?: string;
+}
+
+export interface FixedEvent {
+  id: string;
+  title: string;
+  artistOrSeries: string;
+  kind: EventKind;
+  /** ISO-Datum, erster Tag */
+  startDate: string;
+  /** ISO-Datum, letzter Tag. Bei eintaegigen Events gleich startDate. */
+  endDate: string;
+  city: string;
+  state: string;
+  venue: string;
+  lat: number;
+  lng: number;
+  color: string;
+  /** "gesetzt" = Ticket-Entscheidung gefallen, "option" = Alternative */
+  status: "gesetzt" | "option";
+  /** Kostenaufstellung pro Person */
+  kosten: KostenPosten[];
+  /**
+   * Abendtermin: findet nach Feierabend statt und kostet deshalb keinen
+   * Urlaubstag, auch wenn er auf einen Werktag faellt. Ein Konzert am
+   * Mittwochabend ist kein freier Tag, nur ein kurzer Donnerstag.
+   */
+  abendtermin?: boolean;
+  /** Anreise ab Camarillo: "Auto, 1 h 15" oder "Flug LAX nach AUS" */
+  anreise: string;
+  /** Warum dieses Datum und nicht ein anderes */
+  begruendung: string;
+  /** Worauf zu achten ist, ein bis drei Saetze */
+  hinweis?: string;
+  ticketUrl?: string;
+}
+
+/* ── Kamera und Ausruestung ──────────────────────────────────────── */
+
+/**
+ * Ob das Geraet in den USA ueberhaupt legal verkauft wird. Seit dem
+ * 22.12.2025 steht DJI auf der FCC Covered List: bereits zugelassene
+ * Geraete bleiben verkaeuflich, neue bekommen keine Zulassung mehr.
+ * Das entscheidet, ob man in Deutschland oder drueben kauft.
+ */
+export type UsStatus = "offiziell" | "gesperrt" | "zu-pruefen";
+
+export interface KameraOption {
+  id: string;
+  name: string;
+  /** Kurzform fuer die Tabelle, z.B. "Gimbal-Kamera" */
+  typ: string;
+  preisDe?: number;
+  preisUs?: number;
+  quelleDe?: PreisQuelle;
+  quelleUs?: PreisQuelle;
+  usStatus: UsStatus;
+  /** Was sie besonders gut kann */
+  staerke: string;
+  /** Wo sie versagt */
+  schwaeche: string;
+  /** "empfehlung" hebt genau eine Zeile hervor */
+  urteil: "empfehlung" | "moeglich" | "verworfen";
+  begruendung: string;
+}
+
+export type GearAktion = "mitnehmen" | "kaufen-de" | "kaufen-us" | "spaeter";
+
+export interface GearItem {
+  id: string;
+  name: string;
+  aktion: GearAktion;
+  /** EUR bei kaufen-de, USD bei kaufen-us, sonst leer */
+  preis?: number;
+  quelle?: PreisQuelle;
+  wofuer: string;
+  hinweis?: string;
+}
+
 export interface Trip {
   id: string;
   name: string;
