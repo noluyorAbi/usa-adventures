@@ -272,6 +272,31 @@ export interface GebrauchtHaendler {
   url: string;
 }
 
+/**
+ * Eine Kombination aus Vlog-Kamera und Fotokamera, bewertet nach SWOT.
+ * Stärken und Schwächen sind Eigenschaften der Kombination selbst,
+ * Chancen und Risiken das, was von außen dazukommt: Preisverfall,
+ * Wiederverkauf, Zoll, Service in den USA.
+ */
+export interface Kombo {
+  id: string;
+  name: string;
+  /** id aus KAUF, Kategorie kamera */
+  vlog: string;
+  /** id aus FOTOKAMERAS, null wenn bewusst keine zweite Kamera */
+  foto: string | null;
+  /** Ein Satz, warum es diese Paarung gibt */
+  these: string;
+  staerken: string[];
+  schwaechen: string[];
+  chancen: string[];
+  risiken: string[];
+  urteil: "empfehlung" | "moeglich" | "verworfen";
+  fazit: string;
+  /** Wie die Kombination finanziert würde */
+  zahlweg: string;
+}
+
 /** Ein Fund auf Kleinanzeigen im Umkreis München. */
 export interface LokalAngebot {
   id: string;

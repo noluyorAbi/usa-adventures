@@ -1,4 +1,5 @@
 import { FINANZIERUNGEN, FOTOKAMERAS, KAUF } from "@/data/shop";
+import type { Kombo } from "./types";
 import type { Angebot, Finanzierung, KaufProdukt, RatenArt } from "./types";
 
 /**
@@ -142,5 +143,52 @@ export function summe(a: ShopAuswahl): ShopSumme {
     kameraShop,
     fotoPreis,
     fotoMonatlich,
+  };
+}
+
+export interface KomboSumme {
+  vlogPreis: number;
+  vlogShop?: Angebot;
+  /** true, wenn der Vlog-Teil zinsfrei über 18 Monate läuft */
+  nullProzent: boolean;
+  fotoPreis: number;
+  gesamt: number;
+  /** Belastung pro Monat im ersten Jahr */
+  monatlich: number;
+}
+
+/**
+ * Rechnung für eine Kombination.
+ *
+ * Der Vlog-Teil läuft über die 0-Prozent-Finanzierung, wo der Shop sie
+ * anbietet, sonst über Klarna. Der Fototeil ist gebraucht und wird über
+ * zwölf PayPal-Raten gestreckt, deren Zinssatz erst im Checkout steht.
+ */
+export function komboSumme(k: Kombo): KomboSumme {
+  const vlog = KAUF.find((x) => x.id === k.vlog);
+  const mitNull = vlog ? bestesAngebot(vlog, "mm0") : undefined;
+  const nullProzent = !!mitNull && mitNull.raten.includes("mm0");
+  const vlogShop = nullProzent ? mitNull : vlog ? bestesAngebot(vlog, null) : undefined;
+  const vlogPreis = vlogShop?.preis ?? 0;
+
+  const foto = k.foto ? FOTOKAMERAS.find((f) => f.id === k.foto) : undefined;
+  const fotoPreis = foto?.gebrauchtVon ?? 0;
+
+  const vlogRate = nullProzent
+    ? vlogPreis / 18
+    : monatsrate(
+        vlogPreis,
+        12,
+        FINANZIERUNGEN.find((f) => f.id === "klarna-12")?.zins ?? 0,
+      );
+  const fotoRate = fotoPreis / FOTO_RATEN_MONATE;
+
+  return {
+    vlogPreis,
+    vlogShop,
+    nullProzent,
+    fotoPreis,
+    gesamt: vlogPreis + fotoPreis,
+    monatlich: vlogRate + fotoRate,
   };
 }

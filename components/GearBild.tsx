@@ -64,6 +64,7 @@ export default function GearBild({
           />
           {quelle && (
             <figcaption
+              aria-hidden="true"
               className="absolute right-1 bottom-1 rounded-full bg-white/75 px-1.5 text-[9px] text-[var(--text-dim)] opacity-0 transition-opacity duration-150 group-hover/bild:opacity-100"
               title={`${quelle.quelle} · ${quelle.lizenz}`}
             >

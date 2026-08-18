@@ -57,6 +57,22 @@ korrigiert, beide mit `enthaelt: ["k-tasche"]`, weil eine Tasche im Set liegt. N
 gebraucht wird. Bei gewählter 4P erscheint ein Warnblock mit den drei Punkten oben, und der
 3D-Druck-Abschnitt weist darauf hin, dass Pocket-3-Halter nicht auf die 4P passen.
 
+### Nachtrag 18.08.2026 nachts: Kombinationen mit SWOT
+
+Die Seite verglich Videokameras und Fotokameras getrennt, obwohl die Entscheidung gekoppelt ist:
+kommt eine echte Fotokamera dazu, übernimmt sie Tele, Porträt und Standbild, und genau dafür
+kostet die 4P ihren Aufpreis. Neuer Abschnitt `#kombi` mit sechs Paarungen, je einer SWOT aus
+Stärken, Schwächen, Chancen und Risiken, Gesamtpreis und Monatsrate.
+
+Typ `Kombo` in `lib/types.ts`, Daten in `KOMBOS` (`data/shop.ts`), Rechnung `komboSumme()` in
+`lib/shop.ts`: der Videoteil läuft über die 0-Prozent-Finanzierung, wo der Shop sie anbietet,
+sonst über Klarna mit 13,27 Prozent, der Fototeil über zwölf PayPal-Raten. Damit nutzt der
+Abschnitt dieselbe Rechnung wie der Konfigurator und kann ihm nicht widersprechen.
+
+Empfehlung ist Pocket 3 Creator plus Fujifilm X-T30 II gebraucht, rund 1.099 EUR und etwa 81 EUR
+im Monat. Die 4P-Kombination ist bewusst als „möglich“ geführt, mit der Doppelabdeckung als
+Schwäche und der fehlenden US-Zulassung als Risiko.
+
 ## 3. Wie es umgesetzt ist
 
 - `data/shop.ts`: `FINANZIERUNGEN`, `KAUF` (Produkte mit `angebote[]`), `FOTOKAMERAS`,

@@ -1,12 +1,14 @@
 import { BildNachweis } from "@/components/GearBild";
 import GearDruck from "@/components/GearDruck";
 import GearFoto from "@/components/GearFoto";
+import GearKombo from "@/components/GearKombo";
 import GearLokal from "@/components/GearLokal";
 import GearPlanner from "@/components/GearPlanner";
 import GearShop from "@/components/GearShop";
 
 const NAV = [
   { href: "#kaufen", label: "Kaufen" },
+  { href: "#kombi", label: "Kombis + SWOT" },
   { href: "#foto", label: "Fotokamera" },
   { href: "#gebraucht", label: "Gebraucht MUC" },
   { href: "#druck", label: "3D-Druck" },
@@ -41,6 +43,10 @@ export default function GearPage() {
 
       <section id="kaufen" className="scroll-mt-4">
         <GearShop />
+      </section>
+
+      <section id="kombi" className="scroll-mt-4 pt-6">
+        <GearKombo />
       </section>
 
       <section id="foto" className="scroll-mt-4 pt-6">

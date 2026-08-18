@@ -1,5 +1,6 @@
 import type {
   DruckModell,
+  Kombo,
   LokalAngebot,
   Finanzierung,
   FotoKamera,
@@ -1039,5 +1040,204 @@ export const LOKAL: LokalAngebot[] = [
     begruendung:
       "56 EUR unter dem Neupreis der Standard-Version und mit Restgarantie. Trotzdem nein: die Pocket 4 wird in den USA nicht offiziell verkauft, es gibt drüben keinen Service, und der interne Speicher deckt nur drei bis sechs Prozent deines Materials.",
     suche: KA_SUCHE("dji-osmo-pocket-4"),
+  },
+];
+
+/**
+ * ═══════════════════════════════════════════════════════════════════
+ *  KOMBINATIONEN: EINE VLOG-KAMERA PLUS EINE FOTOKAMERA
+ * ═══════════════════════════════════════════════════════════════════
+ *
+ * Sobald eine echte Fotokamera dazukommt, ändert sich die Rechnung für
+ * die Vlog-Kamera. Tele, Porträt und Standbild übernimmt dann die
+ * Fotokamera, und genau dafür kostet die 4P ihren Aufpreis. Deshalb
+ * sind das hier Paarungen und keine zwei getrennten Listen.
+ */
+export const KOMBOS: Kombo[] = [
+  {
+    id: "ko-p3-fuji",
+    name: "Pocket 3 Creator und Fujifilm X-T30 II",
+    vlog: "k-combo",
+    foto: "f-xt30",
+    these:
+      "Die Arbeitsteilung, die zum Ziel passt: der Gimbal filmt, die Fuji fotografiert, und der Instagram-Look kommt aus der Kamera statt aus der Nachbearbeitung.",
+    staerken: [
+      "Filmsimulationen liefern fertige JPEG, die man abends direkt postet, ohne Lightroom auf dem Laptop.",
+      "Sucher und Wechselobjektiv decken genau das ab, was der Pocket fehlt: Porträt, Tele, Available Light.",
+      "Der Vlog-Teil läuft zinsfrei über 18 Monate, die Reisekasse sieht davon 22,17 EUR im Monat.",
+      "Beide Geräte sind in den USA regulär erhältlich, Ersatz und Zubehör also kein Problem.",
+    ],
+    schwaechen: [
+      "Zwei Akkusysteme, zwei Ladewege, zwei Speicherkarten. Das ist jeden Abend Arbeit.",
+      "Das Kit 15-45 ist lichtschwach, für Innenräume fehlt später eine Festbrennweite.",
+      "Rund 900 g zusätzlich im Rucksack, wenn beide mitkommen.",
+    ],
+    chancen: [
+      "Fuji hält den Wiederverkaufswert gut, im März 2027 ist der Verlust überschaubar.",
+      "Eine gebrauchte 35 mm f/1.4 für rund 250 EUR macht daraus später eine Porträtkamera.",
+      "Kleinanzeigen München hat regelmäßig X-T30-Angebote, Abholung spart Versand und Risiko.",
+    ],
+    risiken: [
+      "Gebrauchtpreise für die X-T30 II schwanken zwischen 600 und 800 EUR, der Preis ist nicht bestätigt.",
+      "Privatkauf heißt keine Gewährleistung, und Reparatur in den USA wäre teuer.",
+      "Zwei Ratenverträge parallel binden das deutsche Konto, während das Stipendium pausiert.",
+    ],
+    urteil: "empfehlung",
+    fazit:
+      "Beste Deckung pro Euro. Zusammen rund 1.100 EUR und etwa 80 EUR im Monat, dafür ist jede Aufgabe von einem Gerät abgedeckt, das sie wirklich kann.",
+    zahlweg:
+      "Pocket 3 bei MediaMarkt 0 % über 18 Monate, Fuji gebraucht über PayPal Raten.",
+  },
+  {
+    id: "ko-p3-sony",
+    name: "Pocket 3 Creator und Sony a6400",
+    vlog: "k-combo",
+    foto: "f-a6400",
+    these:
+      "Dieselbe Arbeitsteilung, aber mit dem besseren Autofokus und dem größeren Objektivmarkt statt mit dem besseren Look ab Werk.",
+    staerken: [
+      "Der Autofokus trifft auch bewegte Motive, das rettet Aufnahmen, die die Fuji verpasst.",
+      "Riesiger Gebrauchtmarkt für E-Mount, eine Sigma 30 mm f/1.4 kostet gebraucht rund 200 EUR.",
+      "Bei rebuy mit drei Jahren Garantie und PayPal Raten sofort verfügbar.",
+      "Mit 640 EUR die günstigste ernsthafte Systemkamera in der Auswahl.",
+    ],
+    schwaechen: [
+      "Die JPEG-Farben sind blass, der Look muss über Presets kommen, das kostet Zeit am Laptop.",
+      "Menüführung und Bedienung sind sperriger als bei Fuji.",
+      "Kit 16-50 ist optisch das schwächste Objektiv im Vergleich.",
+    ],
+    chancen: [
+      "Händlergarantie statt Privatkauf, damit ist ein Defekt im Ausland kein Totalverlust.",
+      "Objektive lassen sich in den USA gebraucht günstig nachkaufen.",
+    ],
+    risiken: [
+      "Ohne Preset-Disziplin sehen die Bilder aus wie Handybilder mit mehr Aufwand.",
+      "Das Modell ist von 2019, ein Nachfolger drückt den Wiederverkaufswert.",
+    ],
+    urteil: "moeglich",
+    fazit:
+      "Die vernünftige Variante, wenn dir Technik wichtiger ist als der Look ab Werk. Rund 1.040 EUR, etwa 75 EUR im Monat.",
+    zahlweg: "Pocket 3 bei MediaMarkt 0 %, a6400 bei rebuy über PayPal Raten.",
+  },
+  {
+    id: "ko-p3-ricoh",
+    name: "Pocket 3 Creator und Ricoh GR III",
+    vlog: "k-combo",
+    foto: "f-gr3",
+    these:
+      "Beide Geräte passen in eine Jackentasche. Die Kamera, die man dabei hat, schlägt die bessere im Schrank.",
+    staerken: [
+      "257 g, damit ist die GR wirklich immer dabei, auch abends in der Stadt.",
+      "APS-C-Sensor in Kompaktgröße, Street- und Reportagequalität ohne Kameratasche.",
+      "Snap-Fokus liefert Bilder, für die eine Systemkamera zu langsam aus der Tasche kommt.",
+    ],
+    schwaechen: [
+      "28 mm ist für Porträts und Essen zu weit, Gesichter verzeichnen aus der Nähe.",
+      "Kein Sucher, bei kalifornischer Mittagssonne sieht man das Display kaum.",
+      "Das bekannte Staubproblem im Sensor betrifft ausgerechnet gebrauchte Exemplare.",
+    ],
+    chancen: [
+      "Die GR hält ihren Wert außergewöhnlich gut, teilweise über Neupreis.",
+      "Kein Objektivkauf nötig, das Budget bleibt geschlossen.",
+    ],
+    risiken: [
+      "Ab 719 EUR die teuerste Fotoseite hier, ohne dass sie mehr abdeckt.",
+      "Staub im Sensor ist ein Reparaturfall, den man in den USA nicht eben erledigt.",
+    ],
+    urteil: "moeglich",
+    fazit:
+      "Die Kombination mit dem geringsten Gewicht und dem höchsten Preis. Sinnvoll, wenn Street und Reise wichtiger sind als Porträt und Essen.",
+    zahlweg:
+      "Pocket 3 bei MediaMarkt 0 %, GR III bei MPB per Überweisung, dort keine Raten.",
+  },
+  {
+    id: "ko-4p-rx100",
+    name: "Pocket 4P Standard und Sony RX100 VA",
+    vlog: "k-p4p-standard",
+    foto: "f-rx100va",
+    these:
+      "Die Variante für alle, die die 4P wirklich wollen: Tele und Licht in der Videokamera, die Fotoseite bewusst klein und billig.",
+    staerken: [
+      "Zwei echte Brennweiten im Video, dazu das mitgelieferte Licht am Gimbalkopf.",
+      "Die RX100 ist mit 299 g klein genug, um neben der 4P nicht zur Last zu werden.",
+      "Der Vlog-Teil läuft zinsfrei über 18 Monate, sofern MediaMarkt die Finanzierung für das Set bestätigt.",
+    ],
+    schwaechen: [
+      "Doppelte Abdeckung: die 60 mm der 4P und der Zoom der RX100 lösen dieselbe Aufgabe zweimal.",
+      "Der 1-Zoll-Sensor der RX100 liegt deutlich unter APS-C, Porträts trennen kaum vom Hintergrund.",
+      "230 g für die 4P, spürbar größer als eine Pocket 3, und kein Käfig in Deutschland lieferbar.",
+    ],
+    chancen: [
+      "Wenn Tele wirklich genutzt wird, ist es das flexibelste Videosetup der Liste.",
+      "Eine Woche Mietgerät für 79 EUR beantwortet vorher, ob die 60 mm im Alltag ankommen.",
+    ],
+    risiken: [
+      "Die 4P wird in den USA nicht verkauft, ein Defekt bedeutet Rückversand nach Europa.",
+      "DJI Care Refresh gilt nur im Kaufland, muss also vor dem 10.09. mitgekauft werden.",
+      "Rund 1.150 EUR für eine Aufteilung, bei der beide Geräte dasselbe können.",
+    ],
+    urteil: "moeglich",
+    fazit:
+      "Teuerste Kombination mit der größten Überschneidung. Nur sinnvoll, wenn die 4P das Herzstück ist und die Fotokamera bewusst Beiwerk bleibt.",
+    zahlweg: "4P Standard bei MediaMarkt 0 % prüfen, RX100 privat gegen Vollzahlung.",
+  },
+  {
+    id: "ko-sparsam",
+    name: "Pocket 3 Standard und Nikon Z30",
+    vlog: "k-standard",
+    foto: "f-z30",
+    these:
+      "Die Variante, wenn die Reisekasse das Thema ist und nicht die Bildqualität.",
+    staerken: [
+      "Zusammen unter 800 EUR, das ist rund 300 EUR unter der Empfehlung.",
+      "Die Z30 ist eine vollwertige APS-C-Kamera mit Kit, gebraucht ab etwa 500 EUR.",
+      "Monatliche Last unter 60 EUR, das trägt das Konto auch ohne Stipendium.",
+    ],
+    schwaechen: [
+      "Der Pocket 3 Standard fehlt das Funkmikro, und genau daran scheitern Solo-Vlogs.",
+      "Die Z30 hat keinen Sucher und einen dünnen Objektivmarkt.",
+      "Beide Geräte sind Kompromisse, keine Freude.",
+    ],
+    chancen: [
+      "Das gesparte Geld deckt SSD, Cloud-Backup und die erste Tankfüllung in Kalifornien.",
+      "Ein Mikro lässt sich in den USA jederzeit nachkaufen, dort sind DJI-Geräte regulär erhältlich.",
+    ],
+    risiken: [
+      "Ohne Mikro klingt jedes Sprechvideo nach Wind, und das merkt man erst im Schnitt.",
+      "Zwei Kompromissgeräte führen erfahrungsgemäß dazu, dass am Ende nur das Handy mitkommt.",
+    ],
+    urteil: "moeglich",
+    fazit:
+      "Ehrliche Sparvariante. Wenn gespart werden muss, dann besser hier als beim Zeitpunkt: eine Kamera, die erst im November ankommt, verpasst die ersten Wochen.",
+    zahlweg: "Pocket 3 Standard bei MediaMarkt 0 %, Z30 privat gegen Vollzahlung.",
+  },
+  {
+    id: "ko-nur-4p",
+    name: "Nur Pocket 4P Vlog, keine Fotokamera",
+    vlog: "k-p4p-vlog",
+    foto: null,
+    these: "Die Gegenprobe: ein Gerät für alles, dafür das beste, das DJI baut.",
+    staerken: [
+      "Nur ein Akku, ein Ladegerät, eine Karte, ein Gerät im Rucksack.",
+      "37 Megapixel Foto und zwei Brennweiten decken deutlich mehr ab als eine Pocket 3.",
+      "Mit Mikro, Stativ, Licht und Tasche im Set sofort einsatzbereit.",
+    ],
+    schwaechen: [
+      "Feste Brennweiten, kein Sucher, video-first: für bewusste Fotos bleibt es ein Kompromiss.",
+      "Der Telesensor ist kleiner als der Hauptsensor, bei wenig Licht sieht man das.",
+      "689 EUR für ein Gerät, dessen Fototeil eine 500-EUR-Gebrauchtkamera schlägt.",
+    ],
+    chancen: [
+      "Nach vier bis sechs Wochen weißt du, ob wirklich eine Fotokamera fehlt, und kaufst dann gezielt in den USA.",
+      "Weniger Technik heißt mehr Aufnahmen, das ist der Punkt, an dem Reisefilme meistens scheitern.",
+    ],
+    risiken: [
+      "In den USA weder verkäuflich noch reparierbar, sechs Monate ohne Ersatzweg.",
+      "Wenn die Fotos doch fehlen, kaufst du die zweite Kamera trotzdem und liegst insgesamt höher.",
+    ],
+    urteil: "moeglich",
+    fazit:
+      "Legitim, aber es beantwortet die Frage nicht, sondern verschiebt sie. Als Test taugt die Wochenmiete für 79 EUR besser.",
+    zahlweg: "Klarna über 12 oder 24 Monate, MediaMarkt führt das Vlog Combo nicht.",
   },
 ];
