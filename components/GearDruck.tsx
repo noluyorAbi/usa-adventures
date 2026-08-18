@@ -134,6 +134,16 @@ export default function GearDruck() {
         </motion.ul>
 
         <div className="flex items-start gap-2 rounded-2xl border border-[var(--border)] bg-white/60 p-4 text-sm">
+          <Printer size={16} className="mt-0.5 shrink-0 text-[var(--text-dim)]" />
+          <p className="text-[var(--text-muted)]">
+            <strong>Passform:</strong> die Pocket-Modelle unterscheiden sich im Gehäuse.
+            Alles unter „Pocket 3“ ist für die Pocket 3 gezeichnet und passt nicht auf
+            die 4P, die deutlich größer ist. Für die 4P gibt es bisher kaum Modelle und
+            in Deutschland auch kaum gekaufte Käfige. Ihr Licht sitzt magnetisch am
+            Gimbalkopf und braucht ohnehin keinen Halter.
+          </p>
+        </div>
+        <div className="flex items-start gap-2 rounded-2xl border border-[var(--border)] bg-white/60 p-4 text-sm">
           <Flame
             size={16}
             className="mt-0.5 shrink-0"

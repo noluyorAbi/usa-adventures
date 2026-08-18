@@ -24,6 +24,7 @@ import {
   Package,
   PartyPopper,
   Printer,
+  ShieldAlert,
   Wallet,
 } from "lucide-react";
 import AnimatedNumber from "@/components/AnimatedNumber";
@@ -475,7 +476,7 @@ export default function GearShop() {
         unterzeile="Eine Entscheidung, alles andere folgt"
         Icon={Camera}
       >
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
           {KAUF.filter((k) => k.kategorie === "kamera" && k.wertung !== undefined).map(
             (k) => {
               const best = bestesAngebot(k, null);
@@ -650,6 +651,41 @@ export default function GearShop() {
                     >
                       Analyse als PDF <ExternalLink size={12} />
                     </a>
+                  </div>
+                </div>
+              )}
+              {kam.id.startsWith("k-p4p") && (
+                <div
+                  className="flex items-start gap-3 rounded-xl border p-3 text-sm"
+                  style={{
+                    borderColor: "var(--terra)",
+                    background: "color-mix(in srgb, var(--terra) 7%, transparent)",
+                  }}
+                >
+                  <ShieldAlert
+                    size={16}
+                    className="mt-0.5 shrink-0"
+                    style={{ color: "var(--terra)" }}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium">Drei Punkte, bevor du sie bestellst</p>
+                    <ul className="mt-1 flex list-disc flex-col gap-0.5 pl-4 text-[var(--text-muted)]">
+                      <li>
+                        Die 4P wird in den USA nicht verkauft, die FCC-Freigabe fehlt.
+                        Geht sie drüben kaputt, muss sie nach Europa zurück.
+                      </li>
+                      <li>
+                        DJI Care Refresh gilt nur im Kaufland, also{" "}
+                        <strong>vor dem 10.09. in Deutschland mitkaufen</strong>, nicht
+                        später drüben.
+                      </li>
+                      <li>
+                        Käfige und Blitzschuh-Adapter für die 4P sind in Deutschland
+                        noch nicht lieferbar, und die gedruckten Pocket-3-Halter passen
+                        nicht. Das mitgelieferte Licht braucht davon nichts, alles
+                        andere schon.
+                      </li>
+                    </ul>
                   </div>
                 </div>
               )}
@@ -897,7 +933,10 @@ export default function GearShop() {
           <Info size={14} className="mt-0.5 shrink-0" />
           <p>
             Kein microSD-Leser nötig: das MacBook Pro 14 hat einen SD-Slot, der
-            microSD-auf-SD-Adapter reicht.
+            microSD-auf-SD-Adapter reicht.{" "}
+            {kam?.id.startsWith("k-p4p")
+              ? "Das Licht ist bei den 4P-Sets dabei, es sitzt magnetisch am Gimbalkopf und dreht mit."
+              : "Die Pocket 3 hat kein Systemlicht, deshalb steht die LED hier als eigener Posten."}
           </p>
         </div>
       </Schritt>

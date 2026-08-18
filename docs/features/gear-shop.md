@@ -41,6 +41,22 @@ der beste seriöse Preis unter der Kaufgrenze liegt (P3 Standard 310, P3 Creator
 4P Vlog sind als Kaufoptionen mit Angeboten ergänzt. Da das Creator Combo die Tragetasche
 enthält (`enthaelt: ["k-tasche"]`), zählt die Tasche bei Combo-Wahl nicht mehr mit.
 
+### Nachtrag 18.08.2026 abends: 4P-Sets, Licht und die USA-Frage
+
+Recherche zu den offiziellen 4P-Sets ergab drei Dinge, die die Seite vorher falsch oder gar nicht
+zeigte. Erstens enthalten **beide** 4P-Combos die magnetische DJI Fill Light, die am Gimbalkopf
+sitzt, mitdreht und aus der Kamera gesteuert wird; das Licht ist also kein Argument fürs teure
+Vlog Combo. Zweitens stehen beide Sets bei allen Händlern auf UVP (599 und 689), der zuvor
+notierte Geizhals-Wert von 658,59 war eine Momentaufnahme. Drittens ist die 4P in den USA nicht
+zugelassen, DJI Care Refresh gilt nur im Kaufland, und Käfige für die 4P sind in Deutschland noch
+nicht lieferbar.
+
+Umgesetzt: `k-p4p-standard` als vierte Kameraoption (599, Wertung 7,4), `k-p4p-vlog` auf 689
+korrigiert, beide mit `enthaelt: ["k-tasche"]`, weil eine Tasche im Set liegt. Neuer Zubehörposten
+`k-licht` (Ulanzi VL49 ab 20,76, VL66, DJI Fill Light einzeln 23,99), der nur bei der Pocket 3
+gebraucht wird. Bei gewählter 4P erscheint ein Warnblock mit den drei Punkten oben, und der
+3D-Druck-Abschnitt weist darauf hin, dass Pocket-3-Halter nicht auf die 4P passen.
+
 ## 3. Wie es umgesetzt ist
 
 - `data/shop.ts`: `FINANZIERUNGEN`, `KAUF` (Produkte mit `angebote[]`), `FOTOKAMERAS`,
