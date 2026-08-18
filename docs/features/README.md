@@ -5,19 +5,20 @@ sofort verstehen, was es tut, welche Dateien dazugehören und wie man es erweite
 
 ## Umgesetzt
 
-| Feature                               | Doc                                                                        |
-| ------------------------------------- | -------------------------------------------------------------------------- |
-| Distanz ab Oxnard + Wochenend-Radius  | [distance-and-weekend.md](distance-and-weekend.md)                         |
-| Überrasch uns (Zufalls-Spot)          | [surprise-me.md](surprise-me.md)                                           |
-| Spot teilen (Deep-Link `?spot=`)      | [share-deeplink.md](share-deeplink.md)                                     |
-| Kalender-Export (.ics)                | [calendar-export.md](calendar-export.md)                                   |
-| Copy-für-Agent-Prompts                | [agent-copy-prompts.md](agent-copy-prompts.md)                             |
-| Home-Marker (Zuhause-Kategorie)       | [home-markers.md](home-markers.md)                                         |
-| Spot-Detail-Modal (Bilder + Infos)    | [spot-modal.md](spot-modal.md)                                             |
-| Entdecken-Hub (Bogen, Roulette, …)    | [discover-hub.md](discover-hub.md)                                         |
-| Plan-Seite: Als Nächstes + Spur       | [plan-page-nextup.md](plan-page-nextup.md)                                 |
-| CA-Trips + Packliste mit Auto-Notizen | [california-trips-and-car-packing.md](california-trips-and-car-packing.md) |
-| Urlaubsplaner, Kalender, Fahrzeiten   | [vacation-calendar.md](vacation-calendar.md)                               |
+| Feature                                    | Doc                                                                        |
+| ------------------------------------------ | -------------------------------------------------------------------------- |
+| Distanz ab Oxnard + Wochenend-Radius       | [distance-and-weekend.md](distance-and-weekend.md)                         |
+| Überrasch uns (Zufalls-Spot)               | [surprise-me.md](surprise-me.md)                                           |
+| Spot teilen (Deep-Link `?spot=`)           | [share-deeplink.md](share-deeplink.md)                                     |
+| Kalender-Export (.ics)                     | [calendar-export.md](calendar-export.md)                                   |
+| Copy-für-Agent-Prompts                     | [agent-copy-prompts.md](agent-copy-prompts.md)                             |
+| Home-Marker (Zuhause-Kategorie)            | [home-markers.md](home-markers.md)                                         |
+| Spot-Detail-Modal (Bilder + Infos)         | [spot-modal.md](spot-modal.md)                                             |
+| Entdecken-Hub (Bogen, Roulette, …)         | [discover-hub.md](discover-hub.md)                                         |
+| Plan-Seite: Als Nächstes + Spur            | [plan-page-nextup.md](plan-page-nextup.md)                                 |
+| CA-Trips + Packliste mit Auto-Notizen      | [california-trips-and-car-packing.md](california-trips-and-car-packing.md) |
+| Urlaubsplaner, Kalender, Fahrzeiten        | [vacation-calendar.md](vacation-calendar.md)                               |
+| Kamera kaufen: Raten, Fotokamera, 3D-Druck | [gear-shop.md](gear-shop.md)                                               |
 
 ## Neues Feature hinzufügen (Pflicht-Ablauf für Agenten)
 

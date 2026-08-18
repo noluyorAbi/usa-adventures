@@ -213,13 +213,13 @@ export const GEAR: GearItem[] = [
   },
   {
     id: "g-leser",
-    name: "microSD-Kartenleser",
+    name: "microSD-auf-SD-Adapter",
     aktion: "kaufen-de",
-    preis: 15,
-    quelle: "schaetzung",
+    preis: 0,
+    quelle: "bestaetigt",
     wofuer: "Karte in den Laptop bekommen",
     hinweis:
-      "Klingt banal und ist der häufigste Grund, warum das wöchentliche Sichern ausfällt. Ein SD-Slot im Laptop hilft nicht, die Pocket schreibt auf microSD.",
+      "Kein Leser nötig: das MacBook Pro 14 hat einen SD-Slot. Der Adapter liegt der Samsung PRO Plus bei, bei SanDisk das Listing prüfen, sonst rund 5 EUR.",
   },
   {
     id: "g-etui",

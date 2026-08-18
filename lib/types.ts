@@ -187,3 +187,91 @@ export interface Trip {
   season?: string;
   difficulty?: TripDifficulty;
 }
+
+/* ── Einkauf, Raten, Fotokamera, 3D-Druck ─────────────────────────── */
+
+/** Wie ein Shop die Rate anbietet. Klarna ist eine Zahlart im Checkout, kein eigener Link. */
+export type RatenArt = "mm0" | "klarna" | "paypal" | "otto" | "keine";
+
+export interface Angebot {
+  shop: string;
+  preis: number;
+  url: string;
+  raten: RatenArt[];
+  quelle: PreisQuelle;
+  hinweis?: string;
+}
+
+export type KaufKategorie = "kamera" | "speicher" | "schutz";
+
+export interface KaufProdukt {
+  id: string;
+  name: string;
+  kurz: string;
+  kategorie: KaufKategorie;
+  /** Steht in der Standardauswahl */
+  standard: boolean;
+  /** Menge, z.B. zwei Karten */
+  menge?: number;
+  idealoMin?: number;
+  idealoUrl?: string;
+  angebote: Angebot[];
+  warum: string;
+  /** Wenn ein 3D-Druck den Kauf ersetzt: id des Modells */
+  druckErsatz?: string;
+}
+
+export interface Finanzierung {
+  id: string;
+  label: string;
+  anbieter: string;
+  monate: number;
+  /** effektiver Jahreszins in Prozent */
+  zins: number;
+  hinweis: string;
+  /** Welche RatenArt ein Angebot bieten muss */
+  braucht: RatenArt | null;
+}
+
+export interface FotoKamera {
+  id: string;
+  name: string;
+  neuMin?: number;
+  neuUrl?: string;
+  gebraucht?: string;
+  gebrauchtVon?: number;
+  gebrauchtUrl?: string;
+  sensor: string;
+  gewicht: string;
+  gut: string;
+  schlecht: string;
+  urteil: "pick" | "moeglich" | "nein";
+  unsicher?: boolean;
+  kaufen: { label: string; url: string; raten: RatenArt[]; preis?: number }[];
+}
+
+export interface GebrauchtHaendler {
+  name: string;
+  klarna: "ja" | "rechnung" | "nein";
+  sonst: string;
+  garantie: string;
+  url: string;
+}
+
+export type DruckKategorie =
+  "pocket" | "speicher" | "mac" | "action" | "foto" | "reise" | "auto";
+
+export interface DruckModell {
+  id: string;
+  name: string;
+  kategorie: DruckKategorie;
+  site: string;
+  url: string;
+  frei: "ja" | "nein" | "pruefen";
+  warum: string;
+  material: "PLA" | "PETG" | "ASA" | "TPU";
+  stuetzen?: boolean;
+  /** Ersetzt dieses Kaufprodukt */
+  ersetzt?: string;
+  top?: boolean;
+}

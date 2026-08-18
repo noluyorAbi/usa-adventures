@@ -17,14 +17,12 @@ import {
   ChevronDown,
   HardDrive,
   Info,
-  Luggage,
   ShieldAlert,
-  ShoppingCart,
   Wallet,
 } from "lucide-react";
 import { KAMERA_OPTIONEN } from "@/data/gear";
-import { REISETAGE, SPEICHER_SZENARIEN, nachAktion, summe } from "@/lib/gear";
-import type { GearAktion, KameraOption, PreisQuelle } from "@/lib/types";
+import { REISETAGE, SPEICHER_SZENARIEN, summe } from "@/lib/gear";
+import type { KameraOption, PreisQuelle } from "@/lib/types";
 
 const QUELLE_LABEL: Record<PreisQuelle, string> = {
   bestaetigt: "belegt",
@@ -37,43 +35,6 @@ const US_LABEL: Record<KameraOption["usStatus"], { text: string; ton: string }> 
   gesperrt: { text: "in den USA gesperrt", ton: "var(--terra)" },
   "zu-pruefen": { text: "US-Status offen", ton: "var(--text-dim)" },
 };
-
-const ABSCHNITTE: {
-  aktion: GearAktion;
-  titel: string;
-  unterzeile: string;
-  Icon: typeof Luggage;
-  waehrung: "EUR" | "USD" | null;
-}[] = [
-  {
-    aktion: "mitnehmen",
-    titel: "Mitnehmen",
-    unterzeile: "ist schon da, kostet nichts",
-    Icon: Luggage,
-    waehrung: null,
-  },
-  {
-    aktion: "kaufen-de",
-    titel: "In Deutschland kaufen, vor dem 10.09.",
-    unterzeile: "geht gegen die Reisekasse",
-    Icon: ShoppingCart,
-    waehrung: "EUR",
-  },
-  {
-    aktion: "kaufen-us",
-    titel: "Drüben kaufen, ab dem 16.10.",
-    unterzeile: "wartet auf das erste volle Gehalt",
-    Icon: ShoppingCart,
-    waehrung: "USD",
-  },
-  {
-    aktion: "spaeter",
-    titel: "Bewusst nicht jetzt",
-    unterzeile: "damit die Entscheidung nachvollziehbar bleibt",
-    Icon: Info,
-    waehrung: null,
-  },
-];
 
 function Preis({
   wert,
@@ -113,48 +74,9 @@ export default function GearPlanner() {
   const [offen, setOffen] = useState<string | null>("cam-pocket3-combo");
 
   const kostenDe = useMemo(() => summe("kaufen-de"), []);
-  const kostenUs = useMemo(() => summe("kaufen-us"), []);
-  const empfehlung = KAMERA_OPTIONEN.find((k) => k.urteil === "empfehlung");
 
   return (
     <div className="flex flex-col gap-5">
-      {/* ── Die Entscheidung ────────────────────────────────────────── */}
-      <section className="card flex flex-col gap-4 rounded-3xl p-5 sm:p-6">
-        <div>
-          <p className="text-xs tracking-[0.2em] text-[var(--text-dim)] uppercase">
-            Empfehlung
-          </p>
-          <h2 className="font-display text-2xl">{empfehlung?.name}</h2>
-          <p className="mt-1 max-w-2xl text-sm text-[var(--text-muted)]">
-            {empfehlung?.begruendung}
-          </p>
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-2xl border border-[var(--border)] bg-white/60 p-4">
-            <p className="text-xs text-[var(--text-dim)]">Vor dem Abflug</p>
-            <p className="font-display text-3xl">{kostenDe} EUR</p>
-            <p className="text-xs text-[var(--text-muted)]">
-              Kamera, zwei Karten, Etui
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[var(--border)] bg-white/60 p-4">
-            <p className="text-xs text-[var(--text-dim)]">Drüben, optional</p>
-            <p className="font-display text-3xl">{kostenUs} USD</p>
-            <p className="text-xs text-[var(--text-muted)]">
-              SSD, Zweitkamera, Halterung
-            </p>
-          </div>
-          <div className="rounded-2xl border border-[var(--border)] bg-white/60 p-4">
-            <p className="text-xs text-[var(--text-dim)]">Dokumentiert werden</p>
-            <p className="font-display text-3xl">{REISETAGE}</p>
-            <p className="text-xs text-[var(--text-muted)]">
-              Tage, Landung bis Programmende
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* ── Der FCC-Punkt ───────────────────────────────────────────── */}
       <section className="card flex flex-col gap-3 rounded-3xl p-5 sm:p-6">
         <div className="flex items-center gap-2">
@@ -319,55 +241,6 @@ export default function GearPlanner() {
           </p>
         </div>
       </section>
-
-      {/* ── Mitnehmen, kaufen, lassen ───────────────────────────────── */}
-      {ABSCHNITTE.map(({ aktion, titel, unterzeile, Icon, waehrung }) => {
-        const items = nachAktion(aktion);
-        if (!items.length) return null;
-        const s = summe(aktion);
-        return (
-          <section
-            key={aktion}
-            className="card flex flex-col gap-3 rounded-3xl p-5 sm:p-6"
-          >
-            <div className="flex items-center gap-2">
-              <Icon size={16} className="text-[var(--text-dim)]" />
-              <div className="min-w-0 flex-1">
-                <p className="text-xs tracking-[0.2em] text-[var(--text-dim)] uppercase">
-                  {unterzeile}
-                </p>
-                <h2 className="font-display text-2xl">{titel}</h2>
-              </div>
-              {waehrung && (
-                <span className="font-display shrink-0 text-2xl">
-                  {s} {waehrung}
-                </span>
-              )}
-            </div>
-            <ul className="flex flex-col gap-2">
-              {items.map((g) => (
-                <li
-                  key={g.id}
-                  className="rounded-2xl border border-[var(--border)] bg-white/60 px-4 py-3"
-                >
-                  <div className="flex items-baseline gap-3">
-                    <span className="min-w-0 flex-1 text-sm font-medium">{g.name}</span>
-                    {g.preis !== undefined && waehrung && (
-                      <span className="shrink-0 text-sm tabular-nums">
-                        {g.preis} {waehrung}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-0.5 text-xs text-[var(--text-muted)]">{g.wofuer}</p>
-                  {g.hinweis && (
-                    <p className="mt-1 text-xs text-[var(--text-dim)]">{g.hinweis}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        );
-      })}
 
       {/* ── Speicher ────────────────────────────────────────────────── */}
       <section className="card flex flex-col gap-3 rounded-3xl p-5 sm:p-6">
