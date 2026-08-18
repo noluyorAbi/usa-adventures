@@ -229,6 +229,8 @@ export interface KaufProdukt {
   enthaelt?: string[];
   /** Kurzname für den Auswahl-Chip */
   chip: string;
+  /** Produktbild unter /images/gear/, ohne Pfad */
+  bild?: string;
 }
 
 export interface Finanzierung {
@@ -246,6 +248,8 @@ export interface Finanzierung {
 export interface FotoKamera {
   id: string;
   name: string;
+  /** Produktbild unter /images/gear/, ohne Pfad */
+  bild?: string;
   neuMin?: number;
   neuUrl?: string;
   gebraucht?: string;
@@ -268,12 +272,34 @@ export interface GebrauchtHaendler {
   url: string;
 }
 
+/** Ein Fund auf Kleinanzeigen im Umkreis München. */
+export interface LokalAngebot {
+  id: string;
+  titel: string;
+  /** Modellfoto unter /images/gear/, zeigt nicht das konkrete Angebot */
+  bild?: string;
+  preis: number;
+  /** Vorheriger Preis in der Anzeige */
+  vorher?: number;
+  ort: string;
+  km: number;
+  datum: string;
+  was: string;
+  /** Gegen welchen Neupreis es sich messen muss */
+  neuPreis?: number;
+  urteil: "lohnt" | "grenzwertig" | "nein";
+  begruendung: string;
+  suche: string;
+}
+
 export type DruckKategorie =
   "pocket" | "speicher" | "mac" | "action" | "foto" | "reise" | "auto";
 
 export interface DruckModell {
   id: string;
   name: string;
+  /** Vorschaubild unter /images/gear/, ohne Pfad */
+  bild?: string;
   kategorie: DruckKategorie;
   site: string;
   url: string;

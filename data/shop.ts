@@ -1,5 +1,6 @@
 import type {
   DruckModell,
+  LokalAngebot,
   Finanzierung,
   FotoKamera,
   GebrauchtHaendler,
@@ -74,6 +75,7 @@ export const FINANZIERUNGEN: Finanzierung[] = [
 export const KAUF: KaufProdukt[] = [
   {
     id: "k-combo",
+    bild: "k-combo.jpg",
     name: "DJI Osmo Pocket 3, Creator Combo",
     chip: "Pocket 3 Creator",
     enthaelt: ["k-tasche"],
@@ -131,6 +133,7 @@ export const KAUF: KaufProdukt[] = [
   },
   {
     id: "k-standard",
+    bild: "k-standard.jpg",
     name: "DJI Osmo Pocket 3, Standard",
     chip: "Pocket 3 Standard",
     kurz: "Dieselbe Kamera ohne Mikro und Akkugriff",
@@ -209,6 +212,7 @@ export const KAUF: KaufProdukt[] = [
   },
   {
     id: "k-p4p-vlog",
+    bild: "k-p4p-vlog.jpg",
     name: "DJI Osmo Pocket 4P, Vlog Combo",
     chip: "Pocket 4P Vlog",
     kurz: "Zwei Kameras: 20 mm plus echte 60 mm",
@@ -242,6 +246,7 @@ export const KAUF: KaufProdukt[] = [
   },
   {
     id: "k-sd",
+    bild: "k-sd.jpg",
     name: "SanDisk Extreme microSD 256 GB, A2 V30",
     chip: "microSD",
     kurz: "Zwei Stück im Wechsel, V30 ist Minimum für 4K",
@@ -306,6 +311,7 @@ const MPB = (q: string) => `https://www.mpb.com/de-de/suche?q=${encodeURICompone
 export const FOTOKAMERAS: FotoKamera[] = [
   {
     id: "f-a6400",
+    bild: "f-a6400.jpg",
     name: "Sony a6400 + 16-50",
     neuMin: 685,
     gebraucht: "639 bis 649",
@@ -337,6 +343,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-xt30",
+    bild: "f-xt30.jpg",
     name: "Fujifilm X-T30 II + 15-45",
     neuMin: 1049.9,
     neuUrl: "https://geizhals.de/fujifilm-x-t30-ii-v84627.html",
@@ -356,6 +363,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-gr3",
+    bild: "f-gr3.jpg",
     name: "Ricoh GR III",
     gebraucht: "719 bis 1.119",
     gebrauchtVon: 719,
@@ -374,6 +382,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-xm5",
+    bild: "f-xm5.jpg",
     name: "Fujifilm X-M5 + 15-45",
     neuMin: 899,
     neuUrl:
@@ -393,6 +402,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-z30",
+    bild: "f-z30.jpg",
     name: "Nikon Z30 + 16-50",
     neuMin: 599.99,
     neuUrl:
@@ -412,6 +422,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-r50",
+    bild: "f-r50.jpg",
     name: "Canon R50 + 18-45",
     neuMin: 749,
     gebraucht: "550 bis 650",
@@ -426,6 +437,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-rx100va",
+    bild: "f-rx100va.jpg",
     name: "Sony RX100 VA",
     gebraucht: "500 bis 650",
     gebrauchtVon: 550,
@@ -439,6 +451,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-g7x",
+    bild: "f-g7x.jpg",
     name: "Canon G7X Mark III",
     neuMin: 949,
     neuUrl: "https://geizhals.de/canon-powershot-g7-x-mark-iii-v12310.html",
@@ -453,6 +466,7 @@ export const FOTOKAMERAS: FotoKamera[] = [
   },
   {
     id: "f-x100",
+    bild: "f-x100.jpg",
     name: "Fujifilm X100V / VI",
     neuMin: 1799,
     gebraucht: "1.429 bis 1.909",
@@ -821,5 +835,122 @@ export const NICHT_DRUCKEN = [
   {
     name: "Objektivdeckel für die Fotokamera",
     grund: "Toleranzen zu eng, Kratzgefahr. Original kaufen.",
+  },
+];
+
+/**
+ * Kleinanzeigen München und Umkreis 50 km, abgerufen am 18.08.2026.
+ * Anzeigen verschwinden, deshalb steht überall der Suchbegriff dabei
+ * statt einer Anzeigen-URL, die morgen ins Leere führt.
+ */
+export const KLEINANZEIGEN_STAND = "18.08.2026, 16:40";
+
+const KA_SUCHE = (q: string) =>
+  `https://www.kleinanzeigen.de/s-muenchen/${q}/k0l6411r50`;
+
+export const LOKAL: LokalAngebot[] = [
+  {
+    id: "l-nd",
+    titel: "NEEWER ND2 bis ND32, variabler Graufilter",
+    preis: 12,
+    ort: "Bad Aibling",
+    km: 43,
+    datum: "17.08.2026",
+    was: "Wie neu, passt auf Pocket 3 und 4",
+    neuPreis: 55,
+    urteil: "lohnt",
+    begruendung:
+      "Im Creator Combo nicht enthalten und in Kalifornien im Herbst wirklich nötig: ohne ND filmst du in der Sonne mit 1/1000 und das Video wirkt stroboskopisch. DJI-ND-Set neu 55 bis 79 EUR.",
+    suche: KA_SUCHE("dji-osmo-pocket-3-nd-filter"),
+  },
+  {
+    id: "l-miete",
+    bild: "k-p4p-vlog.jpg",
+    titel: "Pocket 4P Vlog Combo mieten",
+    preis: 79,
+    ort: "Neuhausen",
+    km: 3,
+    datum: "11.08.2026",
+    was: "79 EUR pro Woche, 99 EUR pro Monat",
+    urteil: "lohnt",
+    begruendung:
+      "Der klügste Posten der Liste: eine Woche mieten und herausfinden, ob dir 60 mm überhaupt fehlen, statt 290 EUR Aufpreis auf Verdacht auszugeben. Vor dem 10.09. machbar, drei Kilometer entfernt.",
+    suche: KA_SUCHE("dji-osmo-pocket-4p-mieten"),
+  },
+  {
+    id: "l-combo-349",
+    bild: "k-combo.jpg",
+    titel: "Pocket 3 Creator Combo mit Zubehör und Tasche",
+    preis: 349,
+    vorher: 400,
+    ort: "Kolbermoor",
+    km: 48,
+    datum: "31.07.2026",
+    was: "Komplettes Set",
+    neuPreis: 399,
+    urteil: "grenzwertig",
+    begruendung:
+      "Bestes Combo-Angebot der Region, spart 50 EUR gegenüber MediaMarkt. Dafür 48 km fahren, Vollzahlung bar aus der Reisekasse statt 18 zinsfreier Raten, und Privatkauf heißt keine Gewährleistung für ein Gerät, das sechs Monate ohne DJI-Service in den USA läuft.",
+    suche: KA_SUCHE("dji-osmo-pocket-3-creator-combo"),
+  },
+  {
+    id: "l-combo-390",
+    bild: "k-combo.jpg",
+    titel: "Pocket 3 Creator Combo, neuwertig komplett",
+    preis: 390,
+    vorher: 469,
+    ort: "Rechtmehring",
+    km: 44,
+    datum: "07.07.2026",
+    was: "Verhandelbar",
+    neuPreis: 399,
+    urteil: "nein",
+    begruendung:
+      "Neun Euro unter dem Neupreis. Für die Ersparnis 44 km fahren und auf Garantie und Ratenzahlung verzichten, ergibt keinen Sinn.",
+    suche: KA_SUCHE("dji-osmo-pocket-3-creator-combo"),
+  },
+  {
+    id: "l-p3-260",
+    bild: "k-standard.jpg",
+    titel: "Pocket 3 Standard, acht Monate alt",
+    preis: 260,
+    ort: "Berg am Laim",
+    km: 4,
+    datum: "18.08.2026",
+    was: "Nur Kamera",
+    neuPreis: 299,
+    urteil: "grenzwertig",
+    begruendung:
+      "Das einzige echte Schnäppchen bei den Kameras, vier Kilometer entfernt. Aber ohne Mikro und Akkugriff: mit Mic 2 einzeln (46 bis 69 EUR) landest du bei 306 bis 329 und hast trotzdem kein Combo-Zubehör und keine Garantie.",
+    suche: KA_SUCHE("dji-osmo-pocket-3"),
+  },
+  {
+    id: "l-griff",
+    titel: "Akkugriff, unbenutzt",
+    preis: 55,
+    ort: "Schwabing-West",
+    km: 3,
+    datum: "13.08.2026",
+    was: "Original DJI Battery Handle",
+    neuPreis: 75,
+    urteil: "nein",
+    begruendung:
+      "20 EUR unter Neupreis, aber im Creator Combo ist der Griff schon drin. Nur interessant, wenn du doch die Standard-Variante nimmst.",
+    suche: KA_SUCHE("dji-osmo-pocket-3-battery-handle"),
+  },
+  {
+    id: "l-p4-420",
+    titel: "Pocket 4 Creator Combo ohne Mikro, mit Rechnung",
+    preis: 420,
+    vorher: 460,
+    ort: "Ried",
+    km: 41,
+    datum: "17.08.2026",
+    was: "Restgarantie über die Rechnung",
+    neuPreis: 475.99,
+    urteil: "nein",
+    begruendung:
+      "56 EUR unter dem Neupreis der Standard-Version und mit Restgarantie. Trotzdem nein: die Pocket 4 wird in den USA nicht offiziell verkauft, es gibt drüben keinen Service, und der interne Speicher deckt nur drei bis sechs Prozent deines Materials.",
+    suche: KA_SUCHE("dji-osmo-pocket-4"),
   },
 ];

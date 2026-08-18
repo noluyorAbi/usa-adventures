@@ -8,6 +8,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Aperture, ChevronDown, ExternalLink, ShieldCheck } from "lucide-react";
+import GearBild from "@/components/GearBild";
 import { FOTOKAMERAS, GEBRAUCHT_HAENDLER } from "@/data/shop";
 import type { FotoKamera } from "@/lib/types";
 
@@ -96,6 +97,7 @@ export default function GearFoto() {
                     >
                       {u.text}
                     </span>
+                    <GearBild bild={f.bild} alt={f.name} art="foto" hoehe="h-14" />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate text-sm font-medium">
                         {f.name}

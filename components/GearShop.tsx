@@ -27,6 +27,7 @@ import {
   Wallet,
 } from "lucide-react";
 import AnimatedNumber from "@/components/AnimatedNumber";
+import GearBild from "@/components/GearBild";
 import { FINANZIERUNGEN, FOTOKAMERAS, KAUF } from "@/data/shop";
 import {
   AUSWAHL_STANDARD,
@@ -495,6 +496,14 @@ export default function GearShop() {
                       : "rgba(255,255,255,0.6)",
                   }}
                 >
+                  <GearBild
+                    bild={k.bild}
+                    alt={k.name}
+                    art="kamera"
+                    hoehe="h-28"
+                    breit
+                    passform="contain"
+                  />
                   <span className="flex items-baseline justify-between gap-2">
                     <span className="text-sm font-medium">{k.chip}</span>
                     <span className="font-display text-xl tabular-nums">
@@ -560,6 +569,7 @@ export default function GearShop() {
               className="flex flex-col gap-3 rounded-2xl border border-[var(--border)] bg-white/60 p-4"
             >
               <div className="flex flex-wrap items-start gap-3">
+                <GearBild bild={kam.bild} alt={kam.name} art="kamera" hoehe="h-28" />
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{kam.name}</p>
                   <p className="text-xs text-[var(--text-muted)]">{kam.kurz}</p>
@@ -790,6 +800,13 @@ export default function GearShop() {
                   >
                     {drin && <Check size={13} />}
                   </button>
+                  <GearBild
+                    bild={p.bild}
+                    alt={p.name}
+                    art="zubehoer"
+                    hoehe="h-16"
+                    passform={p.id === "k-sd" ? "contain" : "cover"}
+                  />
                   <div className="min-w-0 flex-1">
                     <p className="font-medium" style={{ opacity: drin ? 1 : 0.55 }}>
                       {p.menge ? `${p.menge} × ` : ""}
@@ -921,6 +938,7 @@ export default function GearShop() {
               className="flex flex-col gap-3 rounded-2xl border border-[var(--border)] bg-white/60 p-4"
             >
               <div className="flex flex-wrap items-start gap-3">
+                <GearBild bild={foto.bild} alt={foto.name} art="foto" hoehe="h-28" />
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{foto.name}</p>
                   <p className="text-xs text-[var(--text-muted)]">

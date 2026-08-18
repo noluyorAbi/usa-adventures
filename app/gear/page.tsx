@@ -1,11 +1,14 @@
+import { BildNachweis } from "@/components/GearBild";
 import GearDruck from "@/components/GearDruck";
 import GearFoto from "@/components/GearFoto";
+import GearLokal from "@/components/GearLokal";
 import GearPlanner from "@/components/GearPlanner";
 import GearShop from "@/components/GearShop";
 
 const NAV = [
   { href: "#kaufen", label: "Kaufen" },
   { href: "#foto", label: "Fotokamera" },
+  { href: "#gebraucht", label: "Gebraucht MUC" },
   { href: "#druck", label: "3D-Druck" },
   { href: "#hintergrund", label: "Warum so" },
 ];
@@ -44,6 +47,10 @@ export default function GearPage() {
         <GearFoto />
       </section>
 
+      <section id="gebraucht" className="scroll-mt-4 pt-6">
+        <GearLokal />
+      </section>
+
       <section id="druck" className="scroll-mt-4 pt-6">
         <GearDruck />
       </section>
@@ -51,6 +58,8 @@ export default function GearPage() {
       <section id="hintergrund" className="scroll-mt-4 pt-6">
         <GearPlanner />
       </section>
+
+      <BildNachweis />
     </main>
   );
 }
