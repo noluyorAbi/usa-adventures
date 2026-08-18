@@ -75,9 +75,15 @@ export const KAUF: KaufProdukt[] = [
   {
     id: "k-combo",
     name: "DJI Osmo Pocket 3, Creator Combo",
-    kurz: "Hauptkamera mit Mikro, Akkugriff, Stativ",
+    chip: "Pocket 3 Creator",
+    enthaelt: ["k-tasche"],
+    kurz: "Hauptkamera mit Mikro, Akkugriff, Stativ, Tasche",
     kategorie: "kamera",
     standard: true,
+    kaufgrenze: 410,
+    wertung: 9.2,
+    analyse:
+      "Passt zu Budget, USA und Vlog. Der mechanische Gimbal ist der größte sichtbare Sprung gegenüber dem Handy, und den hat die Pocket 3 schon komplett.",
     idealoMin: 327.48,
     idealoUrl:
       "https://www.idealo.de/preisvergleich/OffersOfProduct/203412198_-osmo-pocket-3-kreativ-combo-dji.html",
@@ -126,9 +132,13 @@ export const KAUF: KaufProdukt[] = [
   {
     id: "k-standard",
     name: "DJI Osmo Pocket 3, Standard",
+    chip: "Pocket 3 Standard",
     kurz: "Dieselbe Kamera ohne Mikro und Akkugriff",
     kategorie: "kamera",
     standard: false,
+    kaufgrenze: 310,
+    analyse:
+      "Maximales Sparangebot. Bei Solo-Vlogs wird das Funkmikro aber schnell wichtiger als jede Spezifikation.",
     idealoMin: 298.8,
     idealoUrl:
       "https://www.idealo.de/preisvergleich/OffersOfProduct/203412143_-osmo-pocket-3-standard-dji.html",
@@ -160,8 +170,80 @@ export const KAUF: KaufProdukt[] = [
     ],
   },
   {
+    id: "k-p4-creator",
+    name: "DJI Osmo Pocket 4, Creator Combo",
+    chip: "Pocket 4 Creator",
+    kurz: "Technik-Upgrade: 240 Min. Akku, 107 GB intern, 4K/240p",
+    kategorie: "kamera",
+    standard: false,
+    kaufgrenze: 550,
+    wertung: 8.4,
+    analyse:
+      "Besser, aber teurer. Der Aufpreis kauft Komfort und Reserve, keine neue Perspektive. Nur wenn mindestens zwei Punkte stimmen: viel Nacht, lange ohne Laden, interner Speicher als Netz, Zeitlupe. In den USA nicht offiziell erhältlich, kein Service.",
+    warum:
+      "Mehr Dynamikumfang, helleres Display, besseres Tracking und Speicher an Bord. Dieselbe 20-mm-Grundperspektive wie die Pocket 3. Marktpreis rund 543 EUR, also 144 EUR über der Pocket 3 Creator.",
+    angebote: [
+      {
+        shop: "MediaMarkt",
+        preis: 559.99,
+        url: "https://www.mediamarkt.de/de/product/_dji-osmo-pocket-4-creator-combo-action-kamera-wlan-3044381.html",
+        raten: ["mm0", "klarna"],
+        quelle: "bestaetigt",
+        hinweis: "UVP 619, refurbished 549",
+      },
+      {
+        shop: "billiger.de, günstigster",
+        preis: 543.27,
+        url: "https://www.billiger.de/baseproducts/118099-dji-osmo-pocket-4",
+        raten: ["keine"],
+        quelle: "bestaetigt",
+      },
+      {
+        shop: "DJI Store",
+        preis: 619,
+        url: "https://store.dji.com/de/product/osmo-pocket-4",
+        raten: ["klarna"],
+        quelle: "bestaetigt",
+      },
+    ],
+  },
+  {
+    id: "k-p4p-vlog",
+    name: "DJI Osmo Pocket 4P, Vlog Combo",
+    chip: "Pocket 4P Vlog",
+    kurz: "Zwei Kameras: 20 mm plus echte 60 mm",
+    kategorie: "kamera",
+    standard: false,
+    wertung: 6.9,
+    analyse:
+      "Nur bei Tele-Priorität. Kaufen nur, wenn du konkrete 60-mm-Motive nennen kannst: Porträts, Bühne, Details, Tiere. „Vielleicht brauche ich Zoom“ reicht für 290 EUR Mehrpreis und 230 g nicht. In den USA gesperrt, kein Service.",
+    warum:
+      "60 mm verändert Bilder wirklich, aber der Telesensor ist kleiner, der Modulsprung ist kein Zoom, und 6x bis 12x bleiben digital. Vlog Combo rund 689 EUR, Standard 599 EUR.",
+    idealoMin: 598.99,
+    idealoUrl:
+      "https://www.idealo.de/preisvergleich/OffersOfProduct/212592561_-osmo-pocket-4p-dji.html",
+    angebote: [
+      {
+        shop: "Geizhals EU, günstigster Vlog Combo",
+        preis: 658.59,
+        url: "https://geizhals.eu/dji-osmo-pocket-4p-v244406.html",
+        raten: ["keine"],
+        quelle: "bestaetigt",
+      },
+      {
+        shop: "DJI Store, Standard Combo",
+        preis: 599,
+        url: "https://store.dji.com/de/product/osmo-pocket-4p",
+        raten: ["klarna"],
+        quelle: "bestaetigt",
+        hinweis: "ohne Mikro und Zusatzakku",
+      },
+    ],
+  },
+  {
     id: "k-sd",
     name: "SanDisk Extreme microSD 256 GB, A2 V30",
+    chip: "microSD",
     kurz: "Zwei Stück im Wechsel, V30 ist Minimum für 4K",
     kategorie: "speicher",
     standard: true,
@@ -192,6 +274,7 @@ export const KAUF: KaufProdukt[] = [
   {
     id: "k-tasche",
     name: "DJI Osmo Pocket 3 Tragetasche",
+    chip: "Tasche",
     kurz: "Der Gimbal ist das empfindliche Teil",
     kategorie: "schutz",
     standard: true,

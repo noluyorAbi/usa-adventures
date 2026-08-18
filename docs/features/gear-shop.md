@@ -31,6 +31,16 @@ welche Fotokamera für Instagram dazukommt und was der vorhandene 3D-Drucker ers
   Liste „nicht drucken“.
 - **Warum so:** der bisherige GearPlanner (FCC, Kandidaten, Speicher, Zeitpunkt, Rituale).
 
+### Nachtrag 18.08.2026: Technikanalyse Pocket 3 / 4 / 4P
+
+Die PDF-Analyse `public/docs/DJI_Osmo_Pocket_3_4_4P_Technikvergleich.pdf` ist eingearbeitet:
+`KaufProdukt` hat `kaufgrenze`, `wertung`, `analyse`, `enthaelt`, `chip`. Schritt 1 zeigt die
+drei Endwertungen (P3 Creator 9,2, P4 Creator 8,4, 4P Vlog 6,9) als klickbare Karten, grün wenn
+der beste seriöse Preis unter der Kaufgrenze liegt (P3 Standard 310, P3 Creator 410, P4 Creator
+550, 4P nur mit Tele-Plan). Angebote unter der Grenze tragen ein Badge. Pocket 4 Creator und
+4P Vlog sind als Kaufoptionen mit Angeboten ergänzt. Da das Creator Combo die Tragetasche
+enthält (`enthaelt: ["k-tasche"]`), zählt die Tasche bei Combo-Wahl nicht mehr mit.
+
 ## 3. Wie es umgesetzt ist
 
 - `data/shop.ts`: `FINANZIERUNGEN`, `KAUF` (Produkte mit `angebote[]`), `FOTOKAMERAS`,

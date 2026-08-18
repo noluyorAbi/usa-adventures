@@ -19,6 +19,7 @@ import {
   ChevronDown,
   CreditCard,
   ExternalLink,
+  FileText,
   Info,
   Package,
   PartyPopper,
@@ -197,6 +198,17 @@ function Angebote({ p, markiert }: { p: KaufProdukt; markiert?: Angebot }) {
                   }}
                 >
                   <span className="min-w-0 flex-1 truncate font-medium">{o.shop}</span>
+                  {p.kaufgrenze !== undefined && o.preis <= p.kaufgrenze && (
+                    <span
+                      className="rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase"
+                      style={{
+                        background: "color-mix(in srgb, var(--sage) 14%, transparent)",
+                        color: "var(--sage)",
+                      }}
+                    >
+                      unter Kaufgrenze
+                    </span>
+                  )}
                   <span className="tabular-nums">
                     {o.preis.toLocaleString("de-DE", { minimumFractionDigits: 2 })} EUR
                   </span>
@@ -342,6 +354,12 @@ export default function GearShop() {
       [key]: v[key].includes(id) ? v[key].filter((x) => x !== id) : [...v[key], id],
     }));
 
+  const unterGrenze =
+    !!kam &&
+    kam.kaufgrenze !== undefined &&
+    !!s.kameraShop &&
+    s.kameraShop.preis <= kam.kaufgrenze;
+
   const foto = a.foto ? FOTOKAMERAS.find((f) => f.id === a.foto) : undefined;
   const picks = FOTOKAMERAS.filter((f) => f.urteil === "pick");
 
@@ -456,15 +474,70 @@ export default function GearShop() {
         unterzeile="Eine Entscheidung, alles andere folgt"
         Icon={Camera}
       >
+        <div className="grid gap-2 sm:grid-cols-3">
+          {KAUF.filter((k) => k.kategorie === "kamera" && k.wertung !== undefined).map(
+            (k) => {
+              const best = bestesAngebot(k, null);
+              const ok =
+                k.kaufgrenze !== undefined && !!best && best.preis <= k.kaufgrenze;
+              const aktiv = a.kamera === k.id;
+              return (
+                <button
+                  key={k.id}
+                  type="button"
+                  onClick={() => set({ kamera: k.id })}
+                  aria-pressed={aktiv}
+                  className="flex flex-col gap-1 rounded-2xl border p-3 text-left transition-[border-color,transform] duration-150 hover:-translate-y-px active:scale-[0.99]"
+                  style={{
+                    borderColor: aktiv ? "var(--sky)" : "var(--border)",
+                    background: aktiv
+                      ? "color-mix(in srgb, var(--sky) 6%, transparent)"
+                      : "rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <span className="flex items-baseline justify-between gap-2">
+                    <span className="text-sm font-medium">{k.chip}</span>
+                    <span className="font-display text-xl tabular-nums">
+                      {k.wertung?.toLocaleString("de-DE")}
+                      <span className="text-xs text-[var(--text-dim)]"> / 10</span>
+                    </span>
+                  </span>
+                  <span className="text-xs text-[var(--text-muted)] tabular-nums">
+                    ab {best?.preis.toLocaleString("de-DE")} EUR
+                    {k.kaufgrenze !== undefined
+                      ? ` · Grenze ${k.kaufgrenze}`
+                      : " · nur mit Tele-Plan"}
+                  </span>
+                  <span
+                    className="mt-1 w-fit rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wide uppercase"
+                    style={{
+                      background: `color-mix(in srgb, ${ok ? "var(--sage)" : "var(--terra)"} 14%, transparent)`,
+                      color: ok ? "var(--sage)" : "var(--terra)",
+                    }}
+                  >
+                    {ok
+                      ? "Analyse: kaufen"
+                      : k.kaufgrenze !== undefined
+                        ? "über Kaufgrenze"
+                        : "nur bei 60-mm-Bedarf"}
+                  </span>
+                </button>
+              );
+            },
+          )}
+        </div>
+        <p className="text-xs text-[var(--text-dim)]">
+          Endwertung aus der Technikanalyse Pocket 3 / 4 / 4P vom 18.08.2026. Grün
+          heißt: der beste seriöse Preis liegt unter der dort gesetzten Kaufgrenze.
+        </p>
         <div className="flex flex-wrap gap-2">
           {KAUF.filter((k) => k.kategorie === "kamera").map((k) => (
             <Chip
               key={k.id}
               aktiv={a.kamera === k.id}
-              onClick={() => set({ kamera: k.id as ShopAuswahl["kamera"] })}
+              onClick={() => set({ kamera: k.id })}
             >
-              {k.id === "k-combo" ? "Creator Combo" : "Standard"} ·{" "}
-              {bestesAngebot(k, null)?.preis.toLocaleString("de-DE")} EUR
+              {k.chip} · {bestesAngebot(k, null)?.preis.toLocaleString("de-DE")} EUR
             </Chip>
           ))}
           <Chip
@@ -521,6 +594,55 @@ export default function GearShop() {
                 )}
               </div>
               <p className="text-sm text-[var(--text-muted)]">{kam.warum}</p>
+              {(kam.kaufgrenze !== undefined || kam.analyse) && (
+                <div
+                  className="flex flex-wrap items-start gap-3 rounded-xl border p-3"
+                  style={{
+                    borderColor: unterGrenze ? "var(--sage)" : "var(--terra)",
+                    background: `color-mix(in srgb, ${unterGrenze ? "var(--sage)" : "var(--terra)"} 7%, transparent)`,
+                  }}
+                >
+                  <FileText
+                    size={16}
+                    className="mt-0.5 shrink-0"
+                    style={{ color: unterGrenze ? "var(--sage)" : "var(--terra)" }}
+                  />
+                  <div className="min-w-0 flex-1 text-sm">
+                    <p className="font-medium">
+                      Technikanalyse 18.08.:{" "}
+                      {kam.kaufgrenze !== undefined && (
+                        <>
+                          kaufen bis {kam.kaufgrenze} EUR
+                          {s.kameraShop && (
+                            <>
+                              {" "}
+                              · {s.kameraShop.shop} liegt{" "}
+                              {unterGrenze ? "darunter" : "darüber"}
+                            </>
+                          )}
+                        </>
+                      )}
+                      {kam.wertung !== undefined && (
+                        <span className="text-[var(--text-muted)]">
+                          {" "}
+                          · Wertung {kam.wertung.toLocaleString("de-DE")} / 10
+                        </span>
+                      )}
+                    </p>
+                    {kam.analyse && (
+                      <p className="mt-0.5 text-[var(--text-muted)]">{kam.analyse}</p>
+                    )}
+                    <a
+                      href="/docs/DJI_Osmo_Pocket_3_4_4P_Technikvergleich.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-1 inline-flex items-center gap-1 text-xs text-[var(--sky)] underline-offset-2 hover:underline"
+                    >
+                      Analyse als PDF <ExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
+              )}
               <div className="flex flex-wrap items-center gap-3">
                 {s.kameraShop && (
                   <KaufenKnopf
@@ -641,6 +763,7 @@ export default function GearShop() {
         <ul className="flex flex-col gap-2">
           {KAUF.filter((k) => k.kategorie !== "kamera").map((p) => {
             const drin = a.zubehoer.includes(p.id);
+            const imSet = !!kam?.enthaelt?.includes(p.id);
             const gedruckt = a.drucken && !!p.druckErsatz;
             const best = bestesAngebot(p, null);
             return (
@@ -678,7 +801,9 @@ export default function GearShop() {
                     className="font-display text-xl tabular-nums"
                     style={{ opacity: drin ? 1 : 0.55 }}
                   >
-                    {gedruckt ? (
+                    {imSet ? (
+                      <span className="text-[var(--sage)]">im Set</span>
+                    ) : gedruckt ? (
                       <span className="text-[var(--sage)]">0 EUR</span>
                     ) : (
                       `${((best?.preis ?? 0) * (p.menge ?? 1)).toLocaleString("de-DE", { minimumFractionDigits: 2 })} EUR`

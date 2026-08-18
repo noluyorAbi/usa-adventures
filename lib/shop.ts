@@ -20,7 +20,7 @@ export const RATEN_LABEL: Record<RatenArt, string> = {
 /** Auswahl, die die Seite im localStorage hält. */
 export interface ShopAuswahl {
   /** Welche Pocket-Variante, oder keine */
-  kamera: "k-combo" | "k-standard" | null;
+  kamera: string | null;
   finanzierung: string;
   /** Zubehör-Produkt-IDs, die im Korb liegen */
   zubehoer: string[];
@@ -110,6 +110,7 @@ export function summe(a: ShopAuswahl): ShopSumme {
     const p = produkt(id);
     if (!p) continue;
     if (a.drucken && p.druckErsatz) continue;
+    if (kam?.enthaelt?.includes(id)) continue;
     const best = bestesAngebot(p, null);
     sofort += (best?.preis ?? 0) * (p.menge ?? 1);
   }

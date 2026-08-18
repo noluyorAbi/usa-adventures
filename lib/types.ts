@@ -219,6 +219,16 @@ export interface KaufProdukt {
   warum: string;
   /** Wenn ein 3D-Druck den Kauf ersetzt: id des Modells */
   druckErsatz?: string;
+  /** Aus der Technikanalyse vom 18.08.2026: bis zu diesem Preis kaufen */
+  kaufgrenze?: number;
+  /** Endwertung der Analyse, 0 bis 10 */
+  wertung?: number;
+  /** Ein Satz aus der Analyse */
+  analyse?: string;
+  /** Zubehör-IDs, die im Set schon drin sind (Combo enthält die Tasche) */
+  enthaelt?: string[];
+  /** Kurzname für den Auswahl-Chip */
+  chip: string;
 }
 
 export interface Finanzierung {
