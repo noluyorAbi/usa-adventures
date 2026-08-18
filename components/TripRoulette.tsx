@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Dices, MapPin, Heart, ArrowRight, Sparkles } from "lucide-react";
 import { CATEGORIES, STATUSES } from "@/lib/config";
-import { distanceFromBase, fmtKm, driveHours } from "@/lib/geo";
+import { distanceFromBase, fmtFahrzeit, fmtKm } from "@/lib/geo";
 import type { Place, Trip } from "@/lib/types";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -137,7 +137,7 @@ export default function TripRoulette({
                     </span>
                   )}
                   <span className="inline-flex items-center gap-1">
-                    <MapPin size={11} /> {fmtKm(km)} · ~{driveHours(km).toFixed(1)} h
+                    <MapPin size={11} /> {fmtKm(km)} · ~{fmtFahrzeit(km)}
                   </span>
                 </div>
                 {!spinning && result && (

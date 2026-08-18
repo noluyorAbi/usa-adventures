@@ -23,7 +23,7 @@ import {
 import { useState } from "react";
 import { useApp } from "@/lib/store";
 import { CATEGORIES, STATUSES } from "@/lib/config";
-import { distanceFromBase, isWeekendReachable, driveHours, fmtKm } from "@/lib/geo";
+import { distanceFromBase, isWeekendReachable, fmtFahrzeit, fmtKm } from "@/lib/geo";
 import type { Status } from "@/lib/types";
 import CopyForAgent from "@/components/CopyForAgent";
 import { PROMPT_MAINTAIN_SPOT } from "@/lib/agentPrompts";
@@ -100,7 +100,6 @@ export default function SpotModal() {
                 const CatIcon = cat.Icon;
                 const km = distanceFromBase(place.lat, place.lng);
                 const weekend = isWeekendReachable(km);
-                const hours = Math.round(driveHours(km));
                 const trip = trips.find((t) => t.id === place.tripId);
                 const next = NEXT[place.status];
                 const images = place.images ?? [];
@@ -207,7 +206,7 @@ export default function SpotModal() {
                         </span>
                         <span className="inline-flex items-center gap-1 rounded-full bg-black/[0.05] px-2.5 py-1 text-[var(--text-muted)]">
                           <Navigation size={12} /> {fmtKm(km)} ab Oxnard
-                          {weekend ? " · Wochenende" : ` · ~${hours} h`}
+                          {weekend ? " · Wochenende" : ` · ~${fmtFahrzeit(km)}`}
                         </span>
                         {place.bestTime && (
                           <span className="inline-flex items-center gap-1 rounded-full bg-[color-mix(in_srgb,var(--amber)_16%,transparent)] px-2.5 py-1 text-[var(--amber)]">

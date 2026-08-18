@@ -87,6 +87,9 @@ Plan-Board, Erinnerungen. Sie soll sich **selbst weiterpflegen können** — jed
 6. **Animationen:** `framer-motion`, Standard-Easing `cubic-bezier(0.16,1,0.3,1)`.
 7. **Sprache:** UI-Texte **deutsch**, Code (Bezeichner/Dateinamen) **englisch**.
    Kommentare dürfen deutsch sein.
+   **Zeitangaben** im UI immer als `mm` oder `hh:mm` (`45 min`, `3:15 h`), nie als
+   Dezimalstunden (`0.8 h`). Formatierung über `fmtDauer` / `fmtFahrzeit` aus
+   `lib/geo.ts`, `driveHours()` nie direkt anzeigen.
 8. **Client vs Server:** `"use client"` nur, wenn Hooks/State/Interaktivität nötig.
    Sonst Server Component.
 9. **Keine Component-Library** (kein shadcn/MUI). Bausteine sind handgeschrieben in

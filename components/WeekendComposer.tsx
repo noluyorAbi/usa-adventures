@@ -12,7 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { CATEGORIES } from "@/lib/config";
-import { distanceFromBase, driveHours, fmtKm, isWeekendReachable } from "@/lib/geo";
+import { distanceFromBase, fmtFahrzeit, fmtKm, isWeekendReachable } from "@/lib/geo";
 import type { Place } from "@/lib/types";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -173,7 +173,7 @@ export default function WeekendComposer({
                           <p className="leading-tight font-medium">{slot.place.name}</p>
                           <p className="mt-0.5 flex items-center gap-1 text-xs text-[var(--text-muted)]">
                             <MapPin size={11} />
-                            {fmtKm(km)} · ~{driveHours(km).toFixed(1)} h
+                            {fmtKm(km)} · ~{fmtFahrzeit(km)}
                           </p>
                         </div>
                         <ArrowRight

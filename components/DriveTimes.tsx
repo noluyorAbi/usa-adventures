@@ -11,13 +11,7 @@
 import { useState } from "react";
 import { Car, Clock } from "lucide-react";
 import { DRIVES, FEIERABEND_MINUTEN } from "@/data/drives";
-
-function dauer(min: number): string {
-  if (min < 60) return `${min} min`;
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  return m === 0 ? `${h} h` : `${h} h ${m}`;
-}
+import { fmtDauer } from "@/lib/geo";
 
 type Sicht = "alle" | "feierabend" | "wochenende";
 
@@ -74,7 +68,7 @@ export default function DriveTimes() {
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="flex-1 text-sm font-medium">{d.ziel}</span>
               <span className="text-sm" style={{ color: "var(--teal)" }}>
-                {dauer(d.normal)}
+                {fmtDauer(d.normal)}
               </span>
               {d.rush !== null && (
                 <span
@@ -82,7 +76,7 @@ export default function DriveTimes() {
                   style={{ color: "var(--terra)" }}
                 >
                   <Clock size={11} />
-                  bis {dauer(d.rush)}
+                  bis {fmtDauer(d.rush)}
                 </span>
               )}
               <span className="text-xs text-[var(--text-dim)]">{d.km} km</span>

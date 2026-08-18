@@ -57,3 +57,17 @@ darum wird dort nur "großer Trip" impliziert, keine Fahrzeit versprochen.
 - [x] Nur lucide-Icons, keine Emojis
 - [x] Kein Backend/keine Secrets (reine Mathe)
 - [x] `npm run check` grün
+
+## Nachtrag 18.08.2026: Zeitangaben als mm oder hh:mm
+
+Fahrzeiten standen als Dezimalstunden in der Oberfläche ("~0.8 h"), und niemand rechnet im Kopf
+zuverlässig von 0,8 auf 48 Minuten. Seitdem formatiert `fmtDauer(minuten)` in `lib/geo.ts` jede
+Dauer einheitlich: unter einer Stunde nur Minuten ("45 min"), darüber Stunden mit zweistelligen
+Minuten ("3:15 h"). `driveMinutes(km)` liefert die Schätzung in Minuten, `fmtFahrzeit(km)` rundet
+sie auf fünf Minuten, weil die Grundlage Luftlinie mal Straßenfaktor ist und "3:14 h" eine
+Genauigkeit vorspiegeln würde, die es nicht gibt; unter fünf Minuten steht "unter 5 min".
+
+Betroffene Stellen: `TripRoulette`, `WeekendComposer`, `SpotModal` (dort war die Fahrzeit zuvor
+auf ganze Stunden gerundet, ein naher Spot zeigte "~0 h") und `DriveTimes`, dessen eigene
+`dauer()`-Funktion ersatzlos zugunsten von `fmtDauer` entfiel. Neue Zeitausgaben immer über
+`fmtDauer` oder `fmtFahrzeit` führen, nie `driveHours()` direkt anzeigen.
